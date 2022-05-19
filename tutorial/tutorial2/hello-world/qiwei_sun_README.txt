@@ -1,4 +1,4 @@
-# Tutorial Two
+## Tutorial Two
 
 ## Authors
 Qiwei Sun (B00780054) - Developer
