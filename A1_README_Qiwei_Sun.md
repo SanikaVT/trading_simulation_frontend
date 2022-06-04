@@ -11,12 +11,12 @@ gitlab link : https://git.cs.dal.ca/qsun/csci5709/-/tree/main/tutorial/tutorial2
 
 
 ### Prerequisites
-Node js
-React
+Node js<br/>
+React<br/>
 React-redux
 
 ### Installing
-npm install
+npm install<br/>
 npm start
 
 ## Deployment
@@ -24,9 +24,9 @@ npm start
 The application deploy on heroku.
 
 ## Built With
-[React](https://reactjs.org/) - java script library
-[Node](https://nodejs.org/en/) - java script running envirment
-[Redux](https://redux.js.org/) - java script library work with React
+[React](https://reactjs.org/) - java script library<br/>
+[Node](https://nodejs.org/en/) - java script running envirment<br/>
+[Redux](https://redux.js.org/) - java script library work with React<br/>
 
 ## Sources Used
 \### AppBar.js
@@ -632,7 +632,7 @@ export default function SearchBar() {
 
 ```
 
-The code above was created by adapting the code in [NAME](link) as shown below: 
+The code above was created by adapting the code in [material Ui](https://mui.com/material-ui/react-app-bar/#app-bar-with-search-field) as shown below: 
 
 ```
 import * as React from 'react';
@@ -872,7 +872,7 @@ export default function PrimarySearchAppBar() {
 
 ```
 
-- <!---How---> The code in [material Ui](https://mui.com/material-ui/react-app-bar/#app-bar-with-search-field) was implemented by...
+- <!---How---> The code in [material Ui](https://mui.com/material-ui/react-app-bar/#app-bar-with-search-field) was implemented by material Ui
 - <!---Why---> [material Ui](https://mui.com/material-ui/react-app-bar/#app-bar-with-search-field)'s Code was used because it provided various of reusable UI components.
 - <!---How---> [material Ui](https://mui.com/material-ui/react-app-bar/#app-bar-with-search-field)'s Code was modified by changing position, content of the components and reorgnize and put them in my pages. And deleting unnecessary code.
 
