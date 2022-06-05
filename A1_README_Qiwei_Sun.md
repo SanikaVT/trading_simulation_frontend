@@ -7,7 +7,7 @@ Qiwei Sun (B00780054) - Developer
 
 Deploy link : https://csci5709-a1-qiwei0sun.herokuapp.com/
 
-gitlab link : https://git.cs.dal.ca/qsun/csci5709/-/tree/main/tutorial/tutorial2
+gitlab link : https://git.cs.dal.ca/qsun/csci5709/-/tree/assignment1/A1
 
 
 ### Prerequisites
