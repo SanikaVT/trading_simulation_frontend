@@ -80,7 +80,7 @@ function Header() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search Here......"
+              placeholder="Search eg: infy bse, nifty fut weekly, gold mcx"
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
