@@ -20,6 +20,7 @@ function Header() {
         <a href="#">Positions</a>
         <a href="#">Funds</a>
         <a href="#">KX4221</a>
+        <Link to="/stockLeague">Stock League</Link>
       </MenuItems>
     </Wrapper>
   );

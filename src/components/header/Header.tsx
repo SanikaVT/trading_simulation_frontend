@@ -8,6 +8,7 @@ import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -62,6 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Header() {
+   let navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#2E8BC0" }}>
@@ -119,6 +121,21 @@ function Header() {
               }}
             >
               LOGOUT
+            </Button>
+          </BootstrapTooltip>
+          <BootstrapTooltip title="Go to stock league">
+            <Button
+              onClick = {() => navigate('/stockLeague')}
+              style={{
+                color: "black",
+                background: "white",
+                fontWeight: "bolder",
+                border: "1px solid #2E8BC0"
+              }
+            }
+            >
+              stock league
+              
             </Button>
           </BootstrapTooltip>
         </Toolbar>
