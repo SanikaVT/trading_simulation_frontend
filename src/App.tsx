@@ -4,6 +4,10 @@ import styled from "styled-components";
 import Header from "./components/header/Header";
 import Home from "./components/dashboard/Home";
 import OrderStatus from "./components/orders/OrderStatus";
+import SignIn from "./components/signup/SignIn";
+import SignUp from "./components/signup/SignUp";
+import ForgotPassword from "./components/signup/ForgotPassword";
+import RiskAppetite from "./components/signup/RiskAppetite";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -36,6 +40,11 @@ function App() {
             </Wrapper>
           }
         />
+
+          <Route path="/signin" element={<SignIn />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+          <Route path="/riskappetite" element={<RiskAppetite />}></Route>
       </Routes>
     </Router>
   );
