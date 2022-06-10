@@ -7,8 +7,8 @@ import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
+import Tooltip from '@mui/material/Tooltip';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -27,16 +27,7 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-const BootstrapTooltip = styled(({ className, ...props }) => (
-  <Tooltip {...props} arrow classes={{ popper: className }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.arrow}`]: {
-    color: theme.palette.common.black,
-  },
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.common.black,
-  },
-}));
+
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -86,58 +77,43 @@ function Header() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-
-          <BootstrapTooltip title="Go to Profile Page">
-            <Button
-              style={{
-                color: "white",
-                fontWeight: "bolder",
-                border: "1px solid white",
-              }}
-              href={"/profile"}>
-              Profile
-            </Button>
-          </BootstrapTooltip>
-
-          <BootstrapTooltip title="Technical Support">
-            <Button
-              style={{
-                color: "white",
-                marginRight: "1rem",
-                fontWeight: "bolder",
-              }}
-            >
-              Support
-            </Button>
-          </BootstrapTooltip>
-
-          <BootstrapTooltip title="Go to Login">
-            <Button
-              style={{
-                color: "black",
-                background: "white",
-                fontWeight: "bolder",
-                border: "1px solid #2E8BC0",
-              }}
-            >
-              LOGOUT
-            </Button>
-          </BootstrapTooltip>
-          <BootstrapTooltip title="Go to stock league">
-            <Button
-              onClick = {() => navigate('/stockLeague')}
-              style={{
-                color: "black",
-                background: "white",
-                fontWeight: "bolder",
-                border: "1px solid #2E8BC0"
-              }
-            }
-            >
-              stock league
-              
-            </Button>
-          </BootstrapTooltip>
+        <Tooltip title="Go to Profile Page" arrow >
+        <Button
+            style={{
+              color: "white",
+              fontWeight: "bolder",
+              border: "1px solid white",
+            }}
+          >
+            Profile
+          </Button>
+        </Tooltip>
+          
+        <Tooltip title="Technical Support" arrow>
+        <Button
+            style={{
+              color: "white",
+              marginRight: "1rem",
+              fontWeight: "bolder",
+            }}
+          >
+            Support
+          </Button>
+        </Tooltip>
+          
+          <Tooltip title="Go to Login Page" arrow>
+          <Button
+            style={{
+              color: "black",
+              background: "white",
+              fontWeight: "bolder",
+              border: "1px solid #2E8BC0",
+            }}
+          >
+            LOGOUT
+          </Button>
+          </Tooltip>
+          
         </Toolbar>
       </AppBar>
     </Box>
