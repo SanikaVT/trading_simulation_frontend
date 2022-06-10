@@ -47,8 +47,8 @@ function StockCard() {
             </p>
           </Typography>
         </CardContent>
-        <CardActions disableSpacing >
-          <div >
+        <CardActions disableSpacing>
+          <div>
             <Button
               size="small"
               style={{

@@ -86,30 +86,28 @@ function Header() {
           </Search>
 
           <BootstrapTooltip title="Go to Profile Page">
-          <Button
-            style={{
-              color: "white",
-              fontWeight: "bolder",
-              border: "1px solid white",
-            }}
-          >
-            Profile
-          </Button>
+            <Button
+              style={{
+                color: "white",
+                fontWeight: "bolder",
+                border: "1px solid white",
+              }}
+            >
+              Profile
+            </Button>
           </BootstrapTooltip>
-          
 
           <BootstrapTooltip title="Technical Support">
-          <Button
-            style={{
-              color: "white",
-              marginRight: "1rem",
-              fontWeight: "bolder",
-            }}
-          >
-            Support
-          </Button>
+            <Button
+              style={{
+                color: "white",
+                marginRight: "1rem",
+                fontWeight: "bolder",
+              }}
+            >
+              Support
+            </Button>
           </BootstrapTooltip>
-         
 
           <BootstrapTooltip title="Go to Login">
             <Button
