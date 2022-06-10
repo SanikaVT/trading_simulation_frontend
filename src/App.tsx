@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import styled from "styled-components";
-import Header from "./components/Header";
-import Dashboard from "./components/dashboard/Dashboard";
-import OrderStatus from "./components/dashboard/orders/OrderStatus";
+import Header from "./components/header/Header";
+import Home from "./components/dashboard/Home";
+import OrderStatus from "./components/orders/OrderStatus";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
                 <Header />
               </AppHeader>
               <AppBody>
-                <Dashboard />
+                <Home />
               </AppBody>
             </Wrapper>
           }
