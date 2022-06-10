@@ -1,18 +1,17 @@
 import React from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
-import StockCard from "./StockCard";
+import StockCard from "../components/StockCard";
 
-
-function Favorites() {
+function Recommendation() {
   return (
     <div style={{ padding: "2rem" }}>
-      <h3 style={{ color: "black" }}>Favorite Stocks</h3>
+      <h3 style={{ color: "black" }}>Recommeded Stocks</h3>
       <Splide
         options={{
-          perPage: 5,
-          arrowa: "false",
-          pagination: false,
+          perPage: "5",
+          arrow: "true",
+          pagination: "false",
           drag: "free",
           gap: "3rem",
         }}
@@ -55,4 +54,4 @@ function Favorites() {
   );
 }
 
-export default Favorites;
+export default Recommendation;

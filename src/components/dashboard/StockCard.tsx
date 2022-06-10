@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, Snackbar } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { CardActions } from "@mui/material";
@@ -10,6 +10,7 @@ import StarIcon from "@mui/icons-material/Star";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
+import Tooltip from "@mui/material/Tooltip";
 
 interface StockSymbol {
   symbol: String;
@@ -34,6 +35,7 @@ const stockData: StockSymbol = {
 function StockCard() {
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   const openBuyTradeModal = (event: any) => {
     setOpenBuyModal(true);
@@ -41,6 +43,10 @@ function StockCard() {
 
   const openSellTradeModal = (event: any) => {
     setOpenSellModal(true);
+  };
+
+  const handleStarClick = () => {
+    setIsActive((current) => !current);
   };
 
   return (
@@ -92,7 +98,7 @@ function StockCard() {
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <div>
+            <div style={{ display: "flex"}}>
               <Button
                 size="small"
                 onClick={openBuyTradeModal}
@@ -105,6 +111,7 @@ function StockCard() {
               >
                 Buy
               </Button>
+
               <Button
                 size="small"
                 onClick={openSellTradeModal}
@@ -116,28 +123,34 @@ function StockCard() {
               >
                 Sell
               </Button>
-              <IconButton aria-label="favorite" style={{ margin: "3px" }}>
-                <StarIcon
-                  style={{
-                    padding: "2px",
-                    marginRight: "3px",
-                    border: "1px solid solid",
-                    background: "white",
-                    borderRadius: "50%",
-                    color: "orange",
-                  }}
-                />
-                <AutoGraphIcon
-                  style={{
-                    padding: "2px",
-                    marginRight: "3px",
-                    border: "1px solid solid",
-                    background: "white",
-                    borderRadius: "50%",
-                    color: "black",
-                  }}
-                />
-              </IconButton>
+
+              <Tooltip title="Click to add to/remove it from favorite" arrow>
+                <IconButton aria-label="favorite" onClick={handleStarClick}>
+                  <StarIcon
+                    style={{
+                      padding: "1px",
+                      border: "1px solid solid",
+                      background: isActive ? " orange " : "white",
+                      color: isActive ? "black" : "orange",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Go to Analytics" arrow>
+                <IconButton aria-label="graph">
+                  <AutoGraphIcon
+                    style={{
+                      padding: "1px",
+                      border: "1px solid #2E8BC0",
+                      background: "white",
+                      borderRadius: "50%",
+                      color: "#2E8BC0",
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
             </div>
           </CardActions>
         </CardActionArea>

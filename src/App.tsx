@@ -8,7 +8,10 @@ import SignIn from "./components/signup/SignIn";
 import SignUp from "./components/signup/SignUp";
 import ForgotPassword from "./components/signup/ForgotPassword";
 import RiskAppetite from "./components/signup/RiskAppetite";
+import StockLeague from "./components/stockLeague/StockLeaguePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserDetail from "./components/user_profile/UserDetalsContainer";
+import FooterComp from "./components/footer/FooterComp";
 
 function App() {
   return (
@@ -24,6 +27,7 @@ function App() {
               <AppBody>
                 <Home />
               </AppBody>
+                  <FooterComp/>
             </Wrapper>
           }
         />
@@ -37,6 +41,21 @@ function App() {
               <AppBody>
                 <OrderStatus />
               </AppBody>
+              <FooterComp/>
+            </Wrapper>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <UserDetail/>
+              </AppBody>
+              <FooterComp/>
             </Wrapper>
           }
         />
@@ -45,7 +64,21 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
           <Route path="/riskappetite" element={<RiskAppetite />}></Route>
+        <Route
+          path="/stockLeague"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <StockLeague />
+              </AppBody>
+            </Wrapper>
+          }
+        />
       </Routes>
+      
     </Router>
   );
 }
