@@ -9,6 +9,8 @@ import SignUp from "./components/signup/SignUp";
 import ForgotPassword from "./components/signup/ForgotPassword";
 import RiskAppetite from "./components/signup/RiskAppetite";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserDetail from "./components/user_profile/UserDetalsContainer";
+import FooterComp from "./components/footer/FooterComp";
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
               <AppBody>
                 <Home />
               </AppBody>
+                  <FooterComp/>
             </Wrapper>
           }
         />
@@ -37,6 +40,21 @@ function App() {
               <AppBody>
                 <OrderStatus />
               </AppBody>
+              <FooterComp/>
+            </Wrapper>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <UserDetail/>
+              </AppBody>
+              <FooterComp/>
             </Wrapper>
           }
         />
