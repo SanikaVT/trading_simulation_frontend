@@ -32,7 +32,7 @@ const stockData: StockSymbol = {
   low: 260.68,
 };
 
-function StockCard() {
+function StockCard(props: any) {
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -48,7 +48,7 @@ function StockCard() {
   const handleStarClick = () => {
     setIsActive((current) => !current);
   };
-
+  console.log(props.stock);
   return (
     <>
       <BuyTradeModal
@@ -77,12 +77,11 @@ function StockCard() {
               component="div"
               style={{ fontWeight: "bolder" }}
             >
-              Adani
+              {props.stock.symbol}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               <p>
-                {" "}
-                Price:{" "}
+                Price:
                 <span
                   style={{
                     backgroundColor: "black",
@@ -92,13 +91,13 @@ function StockCard() {
                     border: "1px solid",
                   }}
                 >
-                  75${" "}
+                  {props.stock.price} {props.stock.currency}
                 </span>
               </p>
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <div style={{ display: "flex"}}>
+            <div style={{ display: "flex" }}>
               <Button
                 size="small"
                 onClick={openBuyTradeModal}
