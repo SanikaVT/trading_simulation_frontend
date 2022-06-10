@@ -1,0 +1,62 @@
+[
+ {
+  "Date": "01-Mar-20",
+  "Percentage": 38,
+  "NPercentage": 60
+ },
+ {
+  "Date": "01-Apr-20",
+  "Percentage": 18,
+  "NPercentage": 70
+ },
+ {
+  "Date": "01-May-20",
+  "Percentage": 11,
+  "NPercentage": 80
+ },
+ {
+  "Date": "01-Jun-20",
+  "Percentage": 17,
+  "NPercentage": 78
+ },
+ {
+  "Date": "01-Jul-20",
+  "Percentage": 17.5,
+  "NPercentage": 76
+ },
+ {
+  "Date": "01-Aug-20",
+  "Percentage": 17.6,
+  "NPercentage": 74
+ },
+ {
+  "Date": "01-Sep-20",
+  "Percentage": 17.7,
+  "NPercentage": 72
+ },
+ {
+  "Date": "01-Oct-20",
+  "Percentage": 17.8,
+  "NPercentage": 70
+ },
+ {
+  "Date": "01-Nov-20",
+  "Percentage": 17.9,
+  "NPercentage": 68
+ },
+ {
+  "Date": "01-Dec-20",
+  "Percentage": 25,
+  "NPercentage":66
+ },
+ {
+  "Date": "01-Jan-21",
+  "Percentage": 35,
+  "NPercentage": 64
+ },
+ {
+  "Date": "01-Feb-21",
+  "Percentage": 20,
+  "NPercentage": 79
+ }
+]
