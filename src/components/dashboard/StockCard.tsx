@@ -35,6 +35,7 @@ const stockData: StockSymbol = {
 
 function StockCard(props: any) {
   const navigate = useNavigate();
+  document.body.style.overflow = "scroll";
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -140,7 +141,7 @@ function StockCard(props: any) {
               </Tooltip>
 
               <Tooltip title="Go to Analytics" arrow>
-                <IconButton aria-label="graph" >aria-label="favorite" style={{ margin: "3px" }} onClick= {()=> navigate("/analytics")}
+                <IconButton aria-label="favorite" style={{ margin: "3px" }} onClick= {()=> navigate("/analytics")}>
                   <AutoGraphIcon
                     style={{
                       padding: "1px",

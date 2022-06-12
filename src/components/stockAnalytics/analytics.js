@@ -10,11 +10,11 @@ import "./analytics.css";
       const { width, height } = props;
    
       useEffect(() => {
-         document.body.style.overflow = "hidden";
         drawChart();   
       });
       function drawChart() {
-      
+         window.scrollTo(0, 0);
+         document.body.style.overflow = "hidden";
         var svg = d3.select("#container")
                   .append("svg")
                   .attr("width", width)

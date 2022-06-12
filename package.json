@@ -16,6 +16,7 @@
     "@types/react-dom": "^18.0.5",
     "@types/styled-components": "^5.1.25",
     "chart.js": "^3.8.0",
+    "d3": "^7.4.4",
     "framer-motion": "^6.3.5",
     "npm": "^8.11.0",
     "react": "^18.1.0",

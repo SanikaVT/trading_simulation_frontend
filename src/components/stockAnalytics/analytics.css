@@ -10,4 +10,11 @@
     stroke-width: 0.2px;
     font: 8px sans-serif;
     }
-  
+
+.container::-webkit-scrollbar{
+  display: none;
+}
+
+.container {   
+  -ms-overflow-style: none;
+ }
