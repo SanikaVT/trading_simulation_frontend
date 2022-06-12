@@ -23,7 +23,7 @@ function UserDetail() {
       </Grid>      
     </Grid>
     <Grid container direction="column" alignItems="center">
-    <Grid item xs={12}
+    {/* <Grid item xs={12}
       component="img"
       sx={{
         borderRadius:2,
@@ -32,9 +32,8 @@ function UserDetail() {
       }}
       alt="Stock Market"
       src="https://img.freepik.com/free-vector/illustrated-stock-market-analysis_52683-42053.jpg?t=st=1654288090~exp=1654288690~hmac=a5cfe11d8fab2658d628875db200f05399933434b07c76b2fcaba731b89adefd&w=996"
-      ></Grid>
+      ></Grid> */}
     </Grid>
-    {/* <FooterComp/> */}
   </Box>
   )
 }

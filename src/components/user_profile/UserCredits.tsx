@@ -6,36 +6,23 @@ import { Grid } from "@mui/material";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import { Button } from "@mui/material";
 import { useState } from "react";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { TextField } from "@mui/material";
+import BuyCreditsModal from "./BuyCreditsModal";
 
 function UserCreditsComp() {
-  const [open, setOpen] = React.useState(false);
+  const [openCreditsModal, setOpenCreditsModal] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const openBuyCreditsModal = (event: any) => {
+    setOpenCreditsModal(true);
   };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const initialCredits = "450";
-
-  const [credits, setCredits] = useState(initialCredits);
-  const [credits2, setCredits2] = useState("0");
-  function addCredits() {
-    if (credits2.trim().length !== 0) {
-      setCredits(Number(credits) + Number(credits2)+"");
-    }
-    setOpen(false);
-  }
 
   return (
+
+    
     <Box sx={{ flexGrow: 1 }}>
+      <BuyCreditsModal
+        openModal={openCreditsModal}
+        setOpenModal={setOpenCreditsModal}
+      />
       <Grid
         container
         direction="column"
@@ -65,14 +52,14 @@ function UserCreditsComp() {
               default: 450,
             }}
           >
-            {credits}
+            450
           </Avatar>
         </Grid>
         <Grid item xs={12} sx={{ mt: 6 }}>
           <Button>
             <AddCircleRoundedIcon
               sx={{ fontSize: 60 }}
-              onClick={handleClickOpen}
+              onClick={openBuyCreditsModal}
             />
           </Button>
         </Grid>
@@ -89,7 +76,7 @@ function UserCreditsComp() {
       </Grid>
 
       {/* Code Reference: https://mui.com/material-ui/react-dialog/ */}
-      <Dialog
+      {/* <Dialog
         fullWidth={true}
         maxWidth={"lg"}
         open={open}
@@ -112,7 +99,7 @@ function UserCreditsComp() {
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={addCredits}>Confirm</Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </Box>
   );
 }

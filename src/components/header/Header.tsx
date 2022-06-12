@@ -84,6 +84,7 @@ function Header() {
               fontWeight: "bolder",
               border: "1px solid white",
             }}
+            href="/profile"
           >
             Profile
           </Button>

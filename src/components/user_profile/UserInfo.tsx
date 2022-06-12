@@ -26,7 +26,7 @@ function UserInfoComp(props: any) {
   };
   const [address, setAddress]=useState(props.address);
   const [address2, setAddress2] = useState(props.address);
-    function changeText()
+    function changeAddress()
     {
       if (address2.trim().length !== 0)
       {
@@ -34,6 +34,28 @@ function UserInfoComp(props: any) {
       }
       setOpen(false)
     }
+
+  const [account, setAccount]=useState(props.account);
+  const [account2, setAccount2] = useState(props.account);
+    function changeAccount()
+    {
+      if (account2.trim().length !== 0)
+      {
+        setAddress(account2);
+      }
+      setOpen(false)
+    }
+
+    const [risk_app, setRiskAppetite]=useState(props.risk_appetite);
+    const [risk_app2, setRiskAppetite2] = useState(props.risk_appetite);
+      function changeRiskApp()
+      {
+        if (risk_app2.trim().length !== 0)
+        {
+          setAddress(risk_app2);
+        }
+        setOpen(false)
+      }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -143,7 +165,7 @@ function UserInfoComp(props: any) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={changeText}>Save</Button>
+          <Button onClick={changeAddress}>Save</Button>
         </DialogActions>
       </Dialog>
     </Box>

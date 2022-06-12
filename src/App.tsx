@@ -12,6 +12,7 @@ import StockLeague from "./components/stockLeague/StockLeaguePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserDetail from "./components/user_profile/UserDetalsContainer";
 import FooterComp from "./components/footer/FooterComp";
+import ForumComp from "./components/forum/Forum";
 
 function App() {
   return (
