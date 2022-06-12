@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserDetail from "./components/user_profile/UserDetalsContainer";
 import FooterComp from "./components/footer/FooterComp";
 import ForumComp from "./components/forum/Forum";
+import LineChart from "./components/stockAnalytics/analytics";
 
 function App() {
   return (
@@ -74,6 +75,19 @@ function App() {
               </AppHeader>
               <AppBody>
                 <StockLeague />
+              </AppBody>
+            </Wrapper>
+          }
+        />
+        <Route
+          path="/analytics"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+              <LineChart  width={150} height={450}/>
               </AppBody>
             </Wrapper>
           }

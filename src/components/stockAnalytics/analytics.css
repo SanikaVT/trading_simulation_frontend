@@ -1,0 +1,13 @@
+.area {							
+    fill: url(#area-gradient);
+    stroke: rgb(9, 141, 77);					
+    stroke-width: 0.5px;			
+  }
+  
+.axisc { 
+    fill: none;
+    stroke:rgb(0, 0, 0);
+    stroke-width: 0.2px;
+    font: 8px sans-serif;
+    }
+  

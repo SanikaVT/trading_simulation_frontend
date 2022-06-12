@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -33,6 +34,7 @@ const stockData: StockSymbol = {
 };
 
 function StockCard(props: any) {
+  const navigate = useNavigate();
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -138,7 +140,7 @@ function StockCard(props: any) {
               </Tooltip>
 
               <Tooltip title="Go to Analytics" arrow>
-                <IconButton aria-label="graph">
+                <IconButton aria-label="graph" >aria-label="favorite" style={{ margin: "3px" }} onClick= {()=> navigate("/analytics")}
                   <AutoGraphIcon
                     style={{
                       padding: "1px",
