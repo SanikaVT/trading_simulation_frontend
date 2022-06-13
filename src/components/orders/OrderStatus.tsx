@@ -5,19 +5,25 @@ import { TextField, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { CSVLink } from "react-csv";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 interface Orders {
   ordersStatus: IOrderStatus[];
 }
 interface IOrderStatus {
   id: Number;
-  symbol: String;
-  tradetime: String;
-  orderid: String;
-  type: String;
+  symbol: string;
+  tradetime: string;
+  orderid: string;
+  type: string;
   qty: Number;
   price: Number;
-  status: String;
+  status: string;
 }
 
 const columns: GridColDef[] = [
@@ -55,6 +61,8 @@ const columns: GridColDef[] = [
 ];
 
 function OrderStatus() {
+  const [startDate, setStartDate] = React.useState<Date | null>(new Date());
+  const [endDate, setEndDate] = React.useState<Date | null>(new Date());
   const [searchItem, setSearchItem] = useState("");
   const intialOrders: Orders = {
     ordersStatus: [
@@ -105,12 +113,57 @@ function OrderStatus() {
   const [constOrdersData, setConstOrdersData] = useState(
     intialOrders.ordersStatus
   );
+
   let rows = ordersData;
+
   useEffect(() => {
     setOrdersData(ordersData);
     setConstOrdersData(ordersData);
-  }, [ordersData]);
+  }, []);
 
+  const updateOrdersHandler = async (
+    searchText: string | null,
+    startDate: Date | null,
+    endDate: Date | null
+  ) => {
+    rows = constOrdersData;
+    setOrdersData(constOrdersData);
+
+    startDate = startDate == null ? new Date(Date.now()) : startDate;
+    endDate = endDate == null ? new Date(Date.now()) : endDate;
+
+    rows.forEach((row) => {
+      console.log(new Date(row.tradetime), new Date(row.tradetime));
+    });
+    console.log(startDate.getDate(), endDate.getDate());
+    let filterData = rows.filter((row) => {
+      if (
+        startDate != null &&
+        endDate != null &&
+        new Date(row.tradetime) >= startDate &&
+        new Date(row.tradetime) <= endDate
+      )
+        return row;
+    });
+
+    console.log(filterData.length);
+
+    setOrdersData(filterData);
+    rows = filterData;
+
+    if (searchText !== null && searchText !== "") {
+      if (searchText.length > 0) {
+        filterData = filterData.filter((row) =>
+          row.symbol.toLowerCase().includes(searchText.toLowerCase())
+        );
+        setOrdersData(filterData);
+        rows = filterData;
+      } else {
+        setOrdersData(constOrdersData);
+        rows = constOrdersData;
+      }
+    }
+  };
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -128,30 +181,19 @@ function OrderStatus() {
               Order Status
             </Typography>
           </Grid>
-          <Grid item xs={4}></Grid>
+          <Grid item xs={5}></Grid>
           <Grid item xs={2}></Grid>
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <TextField
               label="Search"
               variant="outlined"
               className="form-input"
               value={searchItem}
               defaultValue=""
-              onChange={(event) => {
-                setSearchItem(event.target.value);
-                rows = constOrdersData;
-                if (event.target.value.length > 0) {
-                  const filterData = rows.filter((row) =>
-                    row.symbol
-                      .toLowerCase()
-                      .includes(event.target.value.toLowerCase())
-                  );
-                  setOrdersData(filterData);
-                  rows = filterData;
-                } else {
-                  setOrdersData(constOrdersData);
-                  rows = constOrdersData;
-                }
+              onChange={async (event) => {
+                let searchText = event.target.value;
+                setSearchItem(searchText);
+                await updateOrdersHandler(searchText, startDate, endDate);
               }}
               style={{
                 width: "250px",
@@ -159,7 +201,45 @@ function OrderStatus() {
               }}
             />
           </Grid>
-          <Grid item xs={4}></Grid>
+          <Grid item xs={2}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                disableFuture
+                label="Start Date"
+                openTo="year"
+                views={["year", "month", "day"]}
+                value={startDate}
+                onChange={async (event) => {
+                  if (event !== null) {
+                    setStartDate(event);
+                    await updateOrdersHandler("", event, null);
+                  }
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={2}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                disableFuture
+                label="End Date"
+                openTo="year"
+                views={["year", "month", "day"]}
+                value={endDate}
+                onChange={async (event) => {
+                  if (event !== null) {
+                    setEndDate(event);
+                    await updateOrdersHandler("", null, event);
+                  }
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={3} style={{ marginTop: 35 }}>
+            <CSVLink data={ordersData}>Download data:</CSVLink>
+          </Grid>
           <Grid item xs={2}></Grid>
           <Grid item xs={8}>
             <Wrapper>
