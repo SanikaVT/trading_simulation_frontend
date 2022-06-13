@@ -17,14 +17,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function SignUp() {
 
     const [open, setOpen] = React.useState(false);
-    const initialValues = { password: "", confpassword:"", fname:"", lname:"",email:""};
+    const initialValues = { password: "", confpassword:"", fname:"", lname:"",email:"", phoneno: ""};
     const [formValue, setFormValue] = useState(initialValues);
     const [formError, setFormError] = useState({
         password: undefined,
         email: false,
         fname: undefined,
         lname: undefined,
-        confpassword: undefined
+        confpassword: undefined,
+        phoneno: undefined
     });
     let errori =0;
 
@@ -54,16 +55,18 @@ export default function SignUp() {
         window.location.href = "/riskappetite";
     }
 
-    const validate = (values: { password: any; confpassword: any; fname: any; lname: any; email: any; }) => {
+    const validate = (values: { password: any; confpassword: any; fname: any; lname: any; email: any; phoneno:any; }) => {
 
         const errors = {
             password: undefined,
             confpassword: undefined,
             lname: undefined,
-            email: undefined
+            email: undefined,
+            phoneno: undefined
         };
         const namereg = /[^A-Za-z]/;
         const emailreg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        const phonereg = /^[0-9]+$/;
         console.log("hello"+values.email);
 
         if (values.password.length < 8) {
@@ -92,6 +95,11 @@ export default function SignUp() {
         else if(!emailreg.test(values.email)){
             // @ts-ignore
             errors.email = "Email is not valid"
+            errori =1;
+        }
+        else if(!phonereg.test(values.phoneno) || values.phoneno.length < 10 ){
+            // @ts-ignore
+            errors.phoneno = "Phone no should only contain numbers and should be 10 digit"
             errori =1;
         }
 
@@ -205,14 +213,21 @@ export default function SignUp() {
 
                         <TextField
                             fullWidth
+                            required
                             label="Phone Number"
-                            sx={{ marginTop:1, marginBottom:2}}
-                        />
+                            name='phoneno'
+                            onChange={handleChange}
+                            onSubmit={handleSubmit}
+                            value={formValue.phoneno}
+                            error={formError.phoneno}
+                            sx={{ marginTop:1, marginBottom:1}}
+                        /><FormHelperText>{formError.phoneno}</FormHelperText>
                         <TextField
                             fullWidth
+                            required
                             label="Address"
                             multiline
-                            sx={{ marginBottom:2}}
+                            sx={{ marginTop:1, marginBottom:2}}
                         />
 
 
