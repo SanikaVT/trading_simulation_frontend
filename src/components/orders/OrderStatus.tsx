@@ -4,13 +4,12 @@ import styled from "styled-components";
 import { TextField, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 
 interface Orders {
-  ordersStatus: OrderStatus[];
+  ordersStatus: IOrderStatus[];
 }
-interface OrderStatus {
+interface IOrderStatus {
   id: Number;
   symbol: String;
   tradetime: String;
@@ -20,17 +19,6 @@ interface OrderStatus {
   price: Number;
   status: String;
 }
-const row = {
-  id: 1,
-  symbol: "AAPL",
-  tradetime: "2022-02-24 10:02:05",
-  orderid: "1000000006516250",
-  type: "Buy",
-  qty: 10,
-  price: 165,
-  status: "Cancelled",
-};
-//let rows =[row, row, row, row, row, row, row, row, row, row];
 
 const columns: GridColDef[] = [
   { field: "symbol", headerName: "Symbol", width: 200 },
@@ -121,7 +109,7 @@ function OrderStatus() {
   useEffect(() => {
     setOrdersData(ordersData);
     setConstOrdersData(ordersData);
-  }, []);
+  }, [ordersData]);
 
   return (
     <>
