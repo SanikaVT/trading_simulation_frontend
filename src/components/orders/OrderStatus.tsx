@@ -9,8 +9,6 @@ import { CSVLink } from "react-csv";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 interface Orders {
   ordersStatus: IOrderStatus[];
@@ -119,6 +117,8 @@ function OrderStatus() {
   useEffect(() => {
     setOrdersData(ordersData);
     setConstOrdersData(ordersData);
+    setSearchItem("");
+    updateOrdersHandler("", startDate, endDate);
   }, []);
 
   const updateOrdersHandler = async (
