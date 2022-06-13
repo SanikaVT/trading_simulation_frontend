@@ -14,7 +14,7 @@ import UserDetail from "./components/user_profile/UserDetalsContainer";
 import FooterComp from "./components/footer/FooterComp";
 import ForumComp from "./components/forum/Forum";
 import LineChart from "./components/stockAnalytics/analytics";
-
+import Blog from "./components/blog/Blog"
 function App() {
   return (
     <Router>
@@ -66,6 +66,15 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
           <Route path="/riskappetite" element={<RiskAppetite />}></Route>
+          <Route path="/blog" element={<Wrapper>
+            <AppHeader>
+              <Header />
+            </AppHeader>
+            <AppBody>
+              <Blog/>
+            </AppBody>
+            <FooterComp/>
+          </Wrapper>} />
         <Route
           path="/stockLeague"
           element={

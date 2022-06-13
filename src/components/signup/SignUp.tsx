@@ -7,12 +7,16 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import FormHelperText from '@mui/material/FormHelperText';
 import {useState} from "react";
-
-
+import Grid from '@mui/material/Grid';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function SignUp() {
 
-
+    const [open, setOpen] = React.useState(false);
     const initialValues = { password: "", confpassword:"", fname:"", lname:"",email:""};
     const [formValue, setFormValue] = useState(initialValues);
     const [formError, setFormError] = useState({
@@ -36,14 +40,19 @@ export default function SignUp() {
         setFormError(validate(formValue));
         if(errori===0)
         {
+            setOpen(true);
             console.log("done")
-            window.location.href = "/riskappetite";
+
         }
         else{
             console.log("error");
             console.log(formError);
         }
     };
+
+    const gotpage = () => {
+        window.location.href = "/riskappetite";
+    }
 
     const validate = (values: { password: any; confpassword: any; fname: any; lname: any; email: any; }) => {
 
@@ -100,6 +109,9 @@ export default function SignUp() {
         margin: "10px",
         padding: "10px"
     };
+    const handleClose = () => {
+        setOpen(false);
+    };
     return (
 
         <Container component="main" maxWidth="xs">
@@ -123,8 +135,11 @@ export default function SignUp() {
                     <Box >
 
                     <form onSubmit={handleSubmit}>
+                        <Grid container spacing={2}>
+
+                            <Grid item xs={12} sm={6}>
                         <TextField
-                            fullWidth
+
                             label="First Name"
                             name='fname'
                             required
@@ -132,10 +147,12 @@ export default function SignUp() {
                             onSubmit={handleSubmit}
                             value={formValue.fname}
                             error={formError.fname}
-                            sx={{ marginBottom:1, marginTop:1}}
+                            // sx={{ marginBottom:1, marginTop:1}}
                         /><FormHelperText>{formError.fname}</FormHelperText>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                         <TextField
-                            fullWidth
+
                             label="Last Name"
                             name='lname'
                             required
@@ -143,8 +160,11 @@ export default function SignUp() {
                             onSubmit={handleSubmit}
                             value={formValue.lname}
                             error={formError.lname}
-                            sx={{ marginBottom:1, marginTop:1}}
+                            // sx={{ marginBottom:1, marginTop:1}}
                         /><FormHelperText>{formError.lname}</FormHelperText>
+                            </Grid>
+                        </Grid>
+
                         <TextField
                             fullWidth
                             label="Email Address"
@@ -207,6 +227,28 @@ export default function SignUp() {
                     </Box>
                 </Box>
             </Card>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Do you confirm all details?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        By Clicking Submit you will be redirected to Risk Appetite questionnaire.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={gotpage} autoFocus>
+                        Submit
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
+
     );
 }

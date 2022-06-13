@@ -6,14 +6,27 @@ import Container from "@mui/material/Container";
 import {FormControl, FormControlLabel, FormLabel} from "@mui/material";
 import {RadioGroup, Radio} from "@mui/material";
 import Button from "@mui/material/Button";
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function RiskAppetite(){
 
-    const handleSubmit = () => {
-        window.location.href = "/signin";
+    const [open, setOpen] = React.useState(false);
 
+    const handleSubmit = () => {
+        // window.location.href = "/signin";
+        setOpen(true);
     }
+    const gotpage = () => {
+        window.location.href = "/signin";
+    }
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const card_1 = {
         backgroundColor: "white",
@@ -22,6 +35,7 @@ export default function RiskAppetite(){
         margin: "10px",
         padding: "10px"
     };
+
     return(
 
         <Container component="main" maxWidth="xs">
@@ -96,6 +110,27 @@ export default function RiskAppetite(){
                     </Box>
                 </Box>
             </Card>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Do you confirm all details?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        By Clicking Submit Your account will be created.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={gotpage} autoFocus>
+                        Submit
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 

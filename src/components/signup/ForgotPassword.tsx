@@ -9,8 +9,14 @@ import Card from '@mui/material/Card';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FormHelperText from '@mui/material/FormHelperText';
 import {useState} from "react";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function ForgotPassword() {
+    const [open, setOpen] = React.useState(false);
     const initialValues = { password: "", confpassword:""};
     const [formValue, setFormValue] = useState(initialValues);
     const [formError, setFormError] = useState({
@@ -28,8 +34,18 @@ export default function ForgotPassword() {
         e.preventDefault();
         // @ts-ignore
         setFormError(validate(formValue));
-    };
+        if(errori===0)
+        {
+            setOpen(true);
+            console.log("done")
 
+        }
+        else{
+            console.log("error");
+            console.log(formError);
+        }
+    };
+    let errori =0;
     const validate = (values: { password: any; confpassword: any; }) => {
 
         const errors = {
@@ -40,16 +56,27 @@ export default function ForgotPassword() {
       if (values.password.length < 8) {
             // @ts-ignore
           errors.password = "Password must be more than 8 characters";
+          errori = 1;
         }
        else if(values.password !== values.confpassword){
             // @ts-ignore
           errors.confpassword="Password does not match";
             // @ts-ignore
           errors.password="Password does not match";
-
+          errori = 1;
         }
+       else
+      {
+          errori = 0;
+      }
         return errors;
 
+    }
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const gotpage = () => {
+        window.location.href = "/signin";
     }
 
 
@@ -148,6 +175,28 @@ export default function ForgotPassword() {
                     </Box>
                 </Box>
             </Card>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are you sure?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        By Clicking Submit your password will be reset to new password.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={gotpage} autoFocus>
+                        Submit
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
+
     );
 }
