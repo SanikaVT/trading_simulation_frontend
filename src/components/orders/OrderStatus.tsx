@@ -9,6 +9,8 @@ import { CSVLink } from "react-csv";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 interface Orders {
   ordersStatus: IOrderStatus[];
@@ -25,40 +27,45 @@ interface IOrderStatus {
 }
 
 const columns: GridColDef[] = [
-  { field: "symbol", headerName: "Symbol", width: 200 },
+  { field: "symbol", headerName: "Symbol", flex: 1 },
   {
     field: "tradetime",
     headerName: "Trade time",
-    width: 180,
+    flex: 1,
   },
   {
     field: "orderid",
     headerName: "Order ID",
-    width: 180,
+    flex: 1,
   },
   {
     field: "type",
     headerName: "Type",
-    width: 150,
+    flex: 1,
   },
   {
     field: "qty",
     headerName: "Qty.",
-    width: 150,
+    flex: 1,
   },
   {
     field: "price",
     headerName: "Price",
-    width: 150,
+    flex: 1,
   },
   {
     field: "status",
     headerName: "Status",
-    width: 150,
+    flex: 1,
   },
 ];
 
 function OrderStatus() {
+  const theme = useTheme();
+  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+  const spacingStyles = {
+    ...(matchesMD && { marginTop: "20px" }),
+  };
   const [startDate, setStartDate] = React.useState<Date | null>(new Date());
   const [endDate, setEndDate] = React.useState<Date | null>(new Date());
   const [searchItem, setSearchItem] = useState("");
@@ -67,8 +74,8 @@ function OrderStatus() {
       {
         id: 1,
         symbol: "AAPL",
-        tradetime: "2022-02-24 10:02:05",
-        orderid: "1000000006516250",
+        tradetime: "2013-02-24 10:02:05",
+        orderid: "6516250",
         type: "Buy",
         qty: 10,
         price: 165,
@@ -76,29 +83,69 @@ function OrderStatus() {
       },
       {
         id: 2,
-        symbol: "INFY",
-        tradetime: "2022-02-24 10:02:05",
-        orderid: "1000000006516250",
+        symbol: "AAPL",
+        tradetime: "2014-02-24 10:02:05",
+        orderid: "6516251",
         type: "Buy",
-        qty: 10,
-        price: 165,
+        qty: 8,
+        price: 135,
         status: "Cancelled",
       },
       {
         id: 3,
+        symbol: "AAPL",
+        tradetime: "2019-02-24 10:02:05",
+        orderid: "6516252",
+        type: "Buy",
+        qty: 12,
+        price: 145,
+        status: "Cancelled",
+      },
+      {
+        id: 4,
+        symbol: "AAPL",
+        tradetime: "2022-06-24 10:02:05",
+        orderid: "6516253",
+        type: "Buy",
+        qty: 15,
+        price: 185,
+        status: "Cancelled",
+      },
+      {
+        id: 5,
+        symbol: "INFY",
+        tradetime: "2021-02-24 10:02:05",
+        orderid: "6516251",
+        type: "Buy",
+        qty: 10,
+        price: 215,
+        status: "Cancelled",
+      },
+      {
+        id: 6,
+        symbol: "INFY",
+        tradetime: "2019-02-24 10:02:05",
+        orderid: "6516251",
+        type: "Buy",
+        qty: 14,
+        price: 225,
+        status: "Cancelled",
+      },
+      {
+        id: 7,
         symbol: "TCS",
         tradetime: "2022-02-24 10:02:05",
-        orderid: "1000000006516250",
+        orderid: "6516250",
         type: "Buy",
         qty: 10,
         price: 165,
         status: "Cancelled",
       },
       {
-        id: 4,
+        id: 8,
         symbol: "CBDT",
         tradetime: "2022-02-24 10:02:05",
-        orderid: "1000000006516250",
+        orderid: "6516250",
         type: "Buy",
         qty: 10,
         price: 165,
@@ -168,8 +215,8 @@ function OrderStatus() {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
-          <Grid item xs={2}></Grid>
-          <Grid item xs={5}>
+          <Grid item lg={2}></Grid>
+          <Grid item lg={5} xs={12}>
             <Typography
               variant="h6"
               component="div"
@@ -181,9 +228,9 @@ function OrderStatus() {
               Order Status
             </Typography>
           </Grid>
-          <Grid item xs={5}></Grid>
-          <Grid item xs={2}></Grid>
-          <Grid item xs={3}>
+          <Grid item lg={5}></Grid>
+          <Grid item lg={2}></Grid>
+          <Grid item lg={3} md={4} xs={12}>
             <TextField
               label="Search"
               variant="outlined"
@@ -201,7 +248,7 @@ function OrderStatus() {
               }}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item lg={3} md={4} xs={12}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 disableFuture
@@ -219,7 +266,7 @@ function OrderStatus() {
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item lg={3} md={4} xs={12} sx={{ ...spacingStyles }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 disableFuture
@@ -237,11 +284,13 @@ function OrderStatus() {
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item xs={3} style={{ marginTop: 35 }}>
+          <Grid item lg={1}></Grid>
+          <Grid item md={8}></Grid>
+          <Grid item md={4} xs={12} sx={{ ...spacingStyles }}>
             <CSVLink data={ordersData}>Download data:</CSVLink>
           </Grid>
-          <Grid item xs={2}></Grid>
-          <Grid item xs={8}>
+          <Grid item lg={2}></Grid>
+          <Grid item lg={8} xs={12}>
             <Wrapper>
               <div style={{ display: "flex", height: 400, width: "100%" }}>
                 <DataGrid
@@ -254,7 +303,7 @@ function OrderStatus() {
               </div>
             </Wrapper>
           </Grid>
-          <Grid item xs={2}></Grid>
+          <Grid item lg={2}></Grid>
         </Grid>
       </Box>
 
