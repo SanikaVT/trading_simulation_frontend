@@ -128,7 +128,7 @@ import "./analytics.css";
             .attr("offset", function(d) { return d.offset; })	
             .attr("stop-color", function(d) { return d.color; });
     
-          var first = g.append('path')
+          g.append('path')
              .datum(data)
              .attr("class","area")
              .attr("id","graph1")
@@ -215,7 +215,7 @@ import "./analytics.css";
                .attr("offset", function(d) { return d.offset; })	
                .attr("stop-color", function(d) { return d.color; });
        
-             var second = g.append('path')
+             g.append('path')
                 .datum(data)
                 .attr("class","area")
                 .attr("id","line1")
@@ -264,9 +264,9 @@ import "./analytics.css";
                  // Add viewBox attribute to set the value to initial size
                  // add preserveAspectRatio attribute to specify how to scale
                  // and call resize so that svg resizes on page load
-                 svg.attr('viewBox', `0 0 ${width+100} ${height+200}`).
-                 attr('preserveAspectRatio', 'xMinYMid').
-                 call(resize);
+                 svg.attr('viewBox', `0 0 ${width+100} ${height+200}`)
+                 .attr('preserveAspectRatio', 'xMinYMid')
+                 .call(resize);
                   
                  d3.select(window).on('resize.' + container.attr('id'), resize);
        
@@ -306,7 +306,7 @@ import "./analytics.css";
     
              rect1.on("click", function(){
                 d3.selectAll("#graph2").remove()
-                if(d3.selectAll("#rect2").attr("fill") == "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                   window.addEventListener('resize', makegraph1());
@@ -315,13 +315,13 @@ import "./analytics.css";
                 d3.selectAll("#text1").attr("fill", "white")
              });
              rect1.on("mouseover", function(){
-                if(d3.selectAll("#rect1").attr('fill') != "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect1").attr('fill') !== "rgb(9, 141, 77)"){
                 d3.select(this).attr("fill", "grey");
                 d3.selectAll("#text1").attr("fill", "black")
                 }
              })
              rect1.on("mouseout", function(){
-                if(d3.selectAll("#rect1").attr('fill') != "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect1").attr('fill') !== "rgb(9, 141, 77)"){
                    d3.select("#text1").attr("fill", "white");
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
@@ -341,7 +341,7 @@ import "./analytics.css";
              
              text1.on("click", function(){
                 d3.selectAll("#graph2").remove()
-                if(d3.selectAll("#rect2").attr("fill") == "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                 window.addEventListener('resize', makegraph1());
@@ -355,7 +355,7 @@ import "./analytics.css";
              })
              text1.on("mouseout", function(){
                 console.log(d3.selectAll("#rect1").attr('fill'))
-                if(d3.selectAll("#rect1").attr('fill') != "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect1").attr('fill') !== "rgb(9, 141, 77)"){
                    d3.select(this).attr("fill", "white");
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
@@ -373,7 +373,7 @@ import "./analytics.css";
     
              rect2.on("click", function(){
                 d3.selectAll("#graph1").remove()
-                if(d3.selectAll("#rect1").attr("fill") == "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 makegraph2();
@@ -381,13 +381,13 @@ import "./analytics.css";
                 d3.selectAll("#text2").attr("fill", "white")
              });
              rect2.on("mouseover", function(){
-                if(d3.selectAll("#rect2").attr('fill') != "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect2").attr('fill') !== "rgb(9, 141, 77)"){
                 d3.select(this).attr("fill", "grey");
                 d3.selectAll("#text2").attr("fill", "black")
                 }
              })
              rect2.on("mouseout", function(){
-                if(d3.selectAll("#rect2").attr('fill') != "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect2").attr('fill') !== "rgb(9, 141, 77)"){
                    d3.select("#text2").attr("fill", "white");
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
@@ -407,7 +407,7 @@ import "./analytics.css";
              
              text2.on("click", function(){
                 d3.selectAll("#graph1").remove()
-                if(d3.selectAll("#rect1").attr("fill") == "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 makegraph2();
@@ -419,7 +419,7 @@ import "./analytics.css";
                 d3.select(this).attr("fill", "black");
              })
              text2.on("mouseout", function(){
-                if(d3.selectAll("#rect2").attr('fill') != "rgb(9, 141, 77)"){
+                if(d3.selectAll("#rect2").attr('fill') !== "rgb(9, 141, 77)"){
                    d3.select(this).attr("fill", "white");
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
