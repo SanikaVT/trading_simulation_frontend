@@ -115,11 +115,11 @@ function StockCard(props: any) {
             </Typography>
             <div style={{display:'flex',flexFlow:'row',padding:'0'}}>
               <ArrowDropUpIcon className="up"/>
-              <Typography>
+              <Typography style={{color:'white'}}>
                 {props.stock.high}
               </Typography>
               <ArrowDropDownIcon className="down"/>
-              <Typography>
+              <Typography style={{color:'white'}}>
                 {props.stock.low}
               </Typography>
             </div>
