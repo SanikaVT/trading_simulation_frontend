@@ -35,7 +35,6 @@ export default function RiskAppetite(){
         margin: "10px",
         padding: "10px"
     };
-
     return(
 
         <Container component="main" maxWidth="xs">

@@ -1,0 +1,106 @@
+.search {
+  position: relative;
+  display: flex;
+  z-index: 5;
+}
+
+.search > *:first-child {
+  align-self: center;
+}
+
+.toast {
+  position: absolute;
+  top: 8%;
+  right: 2%;
+}
+
+@media only screen and (max-width: 900px) {
+  .toast {
+    top: unset;
+    width: 20%;
+    bottom: 12% !important;
+  }
+}
+
+.profile {
+  color: white;
+  padding: 1px;
+  margin-right: 1rem;
+}
+
+.profile:hover {
+  color: black;
+}
+
+.header {
+  color: white !important;
+
+  font-weight: bolder !important ;
+  position: relative !important;
+  border-bottom: 1px solid transparent;
+}
+
+.header:hover {
+  border-bottom: 1px solid white;
+  border-radius: 0%;
+}
+
+.up {
+  border: none;
+  color: green;
+  cursor: pointer;
+
+  text-decoration: none;
+}
+
+@keyframes glowing {
+  0% {
+    color: #2ba805;
+  }
+  50% {
+    color: #49e819;
+  }
+  100% {
+    color: #2ba805;
+  }
+}
+
+.up {
+  animation: glowing 1300ms infinite;
+}
+.down {
+  border: none;
+  color: red;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+@keyframes glowingdown {
+  0% {
+    color: #f54f03;
+  }
+  50% {
+    color: #e86219;
+  }
+  100% {
+    color: #b13d04;
+  }
+}
+.down {
+  animation: glowingdown 1300ms infinite;
+}
+
+.search::after {
+  content: "";
+  background: url(https://assets.cmcmarkets.com/images/Forex-vs-stocks.jpg)
+    no-repeat fixed top;
+  background-size: cover;
+  filter: blur(8px);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: -1;
+  height: 104%;
+}
