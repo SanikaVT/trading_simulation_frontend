@@ -6,6 +6,7 @@ import Home from "./components/dashboard/Home";
 import OrderStatus from "./components/orders/OrderStatus";
 import SignIn from "./components/signup/SignIn";
 import SignUp from "./components/signup/SignUp";
+import WriteBlog from"./components/blog/WriteBlog"
 import ForgotPassword from "./components/signup/ForgotPassword";
 import RiskAppetite from "./components/signup/RiskAppetite";
 import StockLeague from "./components/stockLeague/StockLeaguePage";
@@ -15,6 +16,8 @@ import FooterComp from "./components/footer/FooterComp";
 import ForumComp from "./components/forum/Forum";
 import LineChart from "./components/stockAnalytics/analytics";
 import Blog from "./components/blog/Blog"
+import BlogDetails from "./components/blog/BlogDetails";
+
 function App() {
   return (
     <Router>
@@ -66,6 +69,25 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
           <Route path="/riskappetite" element={<RiskAppetite />}></Route>
+          <Route path="/blogdetails" element={<Wrapper>
+            <AppHeader>
+              <Header />
+            </AppHeader>
+            <AppBody>
+              <BlogDetails/>
+            </AppBody>
+            <FooterComp/>
+          </Wrapper>}></Route>
+
+          <Route path="/writeblog" element={<Wrapper>
+            <AppHeader>
+              <Header />
+            </AppHeader>
+            <AppBody>
+              <WriteBlog/>
+            </AppBody>
+            <FooterComp/>
+          </Wrapper>}></Route>
           <Route path="/blog" element={<Wrapper>
             <AppHeader>
               <Header />
