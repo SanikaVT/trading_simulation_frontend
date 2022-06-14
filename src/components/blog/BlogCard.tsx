@@ -9,8 +9,10 @@ import Grid from "@mui/material/Grid";
 export default function BlogCard (){
 
 
-    function  hello () {
+    function  openblog () {
+        window.location.href="/blogdetails";
         console.log("hello ji");
+
     }
 
     const card_border = {
@@ -22,7 +24,7 @@ export default function BlogCard (){
     return(
         <Grid item xs={6} md={3}>
         <Card sx={{ maxWidth: 345}} style={card_border}>
-            <ButtonBase onClick={hello}>
+            <ButtonBase onClick={openblog}>
                 <CardActionArea>
                     <CardMedia
                         component="img"
