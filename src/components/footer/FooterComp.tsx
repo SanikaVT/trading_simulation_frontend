@@ -17,10 +17,11 @@ function FooterComp() {
         </Grid>
         <Grid item xs={4}>
           <Box textAlign="center" fontWeight="bold" color="white" mb={1}>
-            Support
+            Portfolio
           </Box>
-          <FooterLinksComp name="FAQs" />
-          <FooterLinksComp name="Contact us" />
+          <FooterLinksComp name="Positions" />
+          <FooterLinksComp name="Holdings" />
+          <FooterLinksComp name="Order Status" link="orderstatus" />
         </Grid>
         <Grid item xs={4}>
           <Box textAlign="center" fontWeight="bold" color="white" mb={1}>

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Snackbar } from "@mui/material";
+import { CardActionArea } from "@mui/material";
+
+
+
+
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { CardActions } from "@mui/material";
@@ -11,6 +16,11 @@ import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
 import Tooltip from "@mui/material/Tooltip";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
+
+
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 interface StockSymbol {
   symbol: String;
@@ -33,6 +43,8 @@ const stockData: StockSymbol = {
 };
 
 function StockCard(props: any) {
+  const navigate = useNavigate();
+  document.body.style.overflow = "scroll";
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -47,8 +59,12 @@ function StockCard(props: any) {
 
   const handleStarClick = () => {
     setIsActive((current) => !current);
+
+    if (!isActive) {
+      props.fun();
+    }
   };
-  console.log(props.stock);
+
   return (
     <>
       <BuyTradeModal
@@ -64,9 +80,11 @@ function StockCard(props: any) {
       <Card
         sx={{ maxWidth: 300 }}
         style={{
-          backgroundColor: "#ededed",
+          backgroundColor: "#b9b4b45c",
+          border:'1px solid transparent',
           borderRadius: "1px",
           padding: "5spx",
+        
         }}
       >
         <CardActionArea>
@@ -75,13 +93,13 @@ function StockCard(props: any) {
               gutterBottom
               variant="h5"
               component="div"
-              style={{ fontWeight: "bolder" }}
+              style={{ fontWeight: "bolder",color:'#f07d11' }}
             >
               {props.stock.symbol}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               <p>
-                Price:
+              
                 <span
                   style={{
                     backgroundColor: "black",
@@ -95,6 +113,16 @@ function StockCard(props: any) {
                 </span>
               </p>
             </Typography>
+            <div style={{display:'flex',flexFlow:'row',padding:'0'}}>
+              <ArrowDropUpIcon className="up"/>
+              <Typography style={{color:'white'}}>
+                {props.stock.high}
+              </Typography>
+              <ArrowDropDownIcon className="down"/>
+              <Typography style={{color:'white'}}>
+                {props.stock.low}
+              </Typography>
+            </div>
           </CardContent>
           <CardActions disableSpacing>
             <div style={{ display: "flex" }}>
@@ -106,18 +134,21 @@ function StockCard(props: any) {
                   color: "white",
                   fontWeight: "bolder",
                   marginRight: "2px",
+                  boxShadow:'2'
                 }}
               >
                 Buy
               </Button>
 
               <Button
+                className="btn"
                 size="small"
                 onClick={openSellTradeModal}
                 style={{
                   backgroundColor: "#f55723",
                   color: "white",
                   fontWeight: "bolder",
+                  borderRadius:''
                 }}
               >
                 Sell
@@ -128,10 +159,8 @@ function StockCard(props: any) {
                   <StarIcon
                     style={{
                       padding: "1px",
-                      border: "1px solid solid",
-                      background: isActive ? " orange " : "white",
-                      color: isActive ? "black" : "orange",
-                      borderRadius: "50%",
+                      color: isActive ? "orange" : "black",
+                   
                     }}
                   />
                 </IconButton>
@@ -139,13 +168,10 @@ function StockCard(props: any) {
 
               <Tooltip title="Go to Analytics" arrow>
                 <IconButton aria-label="graph">
-                  <AutoGraphIcon
+                  <AnalyticsIcon
                     style={{
-                      padding: "1px",
-                      border: "1px solid #2E8BC0",
-                      background: "white",
-                      borderRadius: "50%",
-                      color: "#2E8BC0",
+                      
+                      color: "#e78215",
                     }}
                   />
                 </IconButton>

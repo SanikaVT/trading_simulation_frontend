@@ -7,20 +7,25 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import FormHelperText from '@mui/material/FormHelperText';
 import {useState} from "react";
-
-
+import Grid from '@mui/material/Grid';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function SignUp() {
 
-
-    const initialValues = { password: "", confpassword:"", fname:"", lname:"",email:""};
+    const [open, setOpen] = React.useState(false);
+    const initialValues = { password: "", confpassword:"", fname:"", lname:"",email:"", phoneno: ""};
     const [formValue, setFormValue] = useState(initialValues);
     const [formError, setFormError] = useState({
         password: undefined,
         email: false,
         fname: undefined,
         lname: undefined,
-        confpassword: undefined
+        confpassword: undefined,
+        phoneno: undefined
     });
     let errori =0;
 
@@ -36,8 +41,9 @@ export default function SignUp() {
         setFormError(validate(formValue));
         if(errori===0)
         {
+            setOpen(true);
             console.log("done")
-            window.location.href = "/riskappetite";
+
         }
         else{
             console.log("error");
@@ -45,16 +51,22 @@ export default function SignUp() {
         }
     };
 
-    const validate = (values: { password: any; confpassword: any; fname: any; lname: any; email: any; }) => {
+    const gotpage = () => {
+        window.location.href = "/riskappetite";
+    }
+
+    const validate = (values: { password: any; confpassword: any; fname: any; lname: any; email: any; phoneno:any; }) => {
 
         const errors = {
             password: undefined,
             confpassword: undefined,
             lname: undefined,
-            email: undefined
+            email: undefined,
+            phoneno: undefined
         };
         const namereg = /[^A-Za-z]/;
         const emailreg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        const phonereg = /^[0-9]+$/;
         console.log("hello"+values.email);
 
         if (values.password.length < 8) {
@@ -85,6 +97,11 @@ export default function SignUp() {
             errors.email = "Email is not valid"
             errori =1;
         }
+        else if(!phonereg.test(values.phoneno) || values.phoneno.length < 10 ){
+            // @ts-ignore
+            errors.phoneno = "Phone no should only contain numbers and should be 10 digit"
+            errori =1;
+        }
 
         else {
             errori=0;
@@ -99,6 +116,9 @@ export default function SignUp() {
         borderWidth: 1,
         margin: "10px",
         padding: "10px"
+    };
+    const handleClose = () => {
+        setOpen(false);
     };
     return (
 
@@ -123,8 +143,11 @@ export default function SignUp() {
                     <Box >
 
                     <form onSubmit={handleSubmit}>
+                        <Grid container spacing={2}>
+
+                            <Grid item xs={12} sm={6}>
                         <TextField
-                            fullWidth
+
                             label="First Name"
                             name='fname'
                             required
@@ -132,10 +155,12 @@ export default function SignUp() {
                             onSubmit={handleSubmit}
                             value={formValue.fname}
                             error={formError.fname}
-                            sx={{ marginBottom:1, marginTop:1}}
+                            // sx={{ marginBottom:1, marginTop:1}}
                         /><FormHelperText>{formError.fname}</FormHelperText>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                         <TextField
-                            fullWidth
+
                             label="Last Name"
                             name='lname'
                             required
@@ -143,8 +168,11 @@ export default function SignUp() {
                             onSubmit={handleSubmit}
                             value={formValue.lname}
                             error={formError.lname}
-                            sx={{ marginBottom:1, marginTop:1}}
+                            // sx={{ marginBottom:1, marginTop:1}}
                         /><FormHelperText>{formError.lname}</FormHelperText>
+                            </Grid>
+                        </Grid>
+
                         <TextField
                             fullWidth
                             label="Email Address"
@@ -185,14 +213,21 @@ export default function SignUp() {
 
                         <TextField
                             fullWidth
+                            required
                             label="Phone Number"
-                            sx={{ marginTop:1, marginBottom:2}}
-                        />
+                            name='phoneno'
+                            onChange={handleChange}
+                            onSubmit={handleSubmit}
+                            value={formValue.phoneno}
+                            error={formError.phoneno}
+                            sx={{ marginTop:1, marginBottom:1}}
+                        /><FormHelperText>{formError.phoneno}</FormHelperText>
                         <TextField
                             fullWidth
+                            required
                             label="Address"
                             multiline
-                            sx={{ marginBottom:2}}
+                            sx={{ marginTop:1, marginBottom:2}}
                         />
 
 
@@ -207,6 +242,28 @@ export default function SignUp() {
                     </Box>
                 </Box>
             </Card>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Do you confirm all details?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        By Clicking Submit you will be redirected to Risk Appetite questionnaire.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={gotpage} autoFocus>
+                        Submit
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
+
     );
 }

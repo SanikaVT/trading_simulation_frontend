@@ -1,58 +1,26 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import { styled, alpha } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
-import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
-import Tooltip from '@mui/material/Tooltip';
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 1),
-    color: "black",
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import Tooltip from "@mui/material/Tooltip";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import PersonIcon from "@mui/icons-material/Person";
 
 function Header() {
-   let navigate = useNavigate();
+  /** https://mui.com/material-ui/react-menu/ To be cited.*/
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  let navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#2E8BC0" }}>
@@ -66,53 +34,51 @@ function Header() {
           >
             DTrade
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search eg: infy bse, nifty fut weekly, gold mcx"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-        <Tooltip title="Go to Profile Page" arrow >
-        <Button
-            style={{
-              color: "white",
-              fontWeight: "bolder",
-              border: "1px solid white",
-            }}
-            href="/profile"
-          >
-            Profile
-          </Button>
-        </Tooltip>
-          
-        <Tooltip title="Technical Support" arrow>
-        <Button
-            style={{
-              color: "white",
-              marginRight: "1rem",
-              fontWeight: "bolder",
-            }}
-          >
-            Support
-          </Button>
-        </Tooltip>
-          
-          <Tooltip title="Go to Login Page" arrow>
-          <Button
-            style={{
-              color: "black",
-              background: "white",
-              fontWeight: "bolder",
-              border: "1px solid #2E8BC0",
-            }}
-          >
-            LOGOUT
-          </Button>
+
+          <Tooltip title="Go to Profile Page" arrow>
+            <PersonIcon className="profile"></PersonIcon>
           </Tooltip>
-          
+
+          <Tooltip title="Portfolio" arrow>
+            <>
+              <Button
+                className="header"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                Orders
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleClose}>Positions</MenuItem>
+                <MenuItem onClick={handleClose}>Holdings</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/orderstatus");
+                  }}
+                >
+                  Orders
+                </MenuItem>
+              </Menu>
+            </>
+          </Tooltip>
+
+          <Tooltip title="Technical Support" arrow>
+            <Button className="header">Support</Button>
+          </Tooltip>
+
+          <Tooltip title="Go to Login Page" arrow>
+            <Button className="header">LOGOUT</Button>
+          </Tooltip>
         </Toolbar>
       </AppBar>
     </Box>
