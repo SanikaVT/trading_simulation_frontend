@@ -35,7 +35,6 @@ function UserDetailComp() {
             color="inherit"
             component="div"
             textAlign="center"
-            fontWeight="bold"
           >
             Phone: +1 902 837 3748
           </Typography>
@@ -46,7 +45,6 @@ function UserDetailComp() {
             color="inherit"
             component="div"
             textAlign="center"
-            fontWeight="bold"
           >
             Email:emily@gmail.com
           </Typography>

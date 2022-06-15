@@ -74,32 +74,6 @@ function UserCreditsComp() {
           </Typography>
         </Grid>
       </Grid>
-
-      {/* Code Reference: https://mui.com/material-ui/react-dialog/ */}
-      {/* <Dialog
-        fullWidth={true}
-        maxWidth={"lg"}
-        open={open}
-        onClose={handleClose}
-      >
-        <DialogTitle>Add Credits</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="number"
-            type="number"
-            fullWidth
-            variant="standard"
-            value={credits2}
-            onChange={(event) => setCredits2(event.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={addCredits}>Confirm</Button>
-        </DialogActions>
-      </Dialog> */}
     </Box>
   );
 }

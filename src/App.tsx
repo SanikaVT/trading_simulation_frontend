@@ -60,6 +60,20 @@ function App() {
             </Wrapper>
           }
         />
+        <Route
+          path="/forum"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <ForumComp/>
+              </AppBody>
+              <FooterComp/>
+            </Wrapper>
+          }
+        />
 
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>

@@ -17,8 +17,7 @@ function UserInfoComp(props: any) {
 
 
   const handleClickOpen = () => {
-    
-    setOpen(true);
+        setOpen(true);
   };
 
   const handleClose = () => {
@@ -35,27 +34,27 @@ function UserInfoComp(props: any) {
       setOpen(false)
     }
 
-  const [account, setAccount]=useState(props.account);
-  const [account2, setAccount2] = useState(props.account);
-    function changeAccount()
-    {
-      if (account2.trim().length !== 0)
-      {
-        setAddress(account2);
-      }
-      setOpen(false)
-    }
+  // const [account, setAccount]=useState(props.account);
+  // const [account2, setAccount2] = useState(props.account);
+  //   function changeAccount()
+  //   {
+  //     if (account2.trim().length !== 0)
+  //     {
+  //       setAddress(account2);
+  //     }
+  //     setOpen(false)
+  //   }
 
-    const [risk_app, setRiskAppetite]=useState(props.risk_appetite);
-    const [risk_app2, setRiskAppetite2] = useState(props.risk_appetite);
-      function changeRiskApp()
-      {
-        if (risk_app2.trim().length !== 0)
-        {
-          setAddress(risk_app2);
-        }
-        setOpen(false)
-      }
+  //   const [risk_app, setRiskAppetite]=useState(props.risk_appetite);
+  //   const [risk_app2, setRiskAppetite2] = useState(props.risk_appetite);
+  //     function changeRiskApp()
+  //     {
+  //       if (risk_app2.trim().length !== 0)
+  //       {
+  //         setAddress(risk_app2);
+  //       }
+  //       setOpen(false)
+  //     }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -115,7 +114,7 @@ function UserInfoComp(props: any) {
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Button id="2">
+          <Button id="2" onClick={handleClickOpen}>
             <EditIcon />
           </Button>
         </Grid>
@@ -142,13 +141,14 @@ function UserInfoComp(props: any) {
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Button id="3">
+          <Button id="3" onClick={handleClickOpen}>
             <EditIcon />
           </Button>
         </Grid>
       </Grid>
 
       {/* Code Reference: https://mui.com/material-ui/react-dialog/ */}
+      
       <Dialog fullWidth={true}
   maxWidth={'lg'} open={open} onClose={handleClose}>
         <DialogTitle>Enter your {props.addr_ip}</DialogTitle>
@@ -167,8 +167,10 @@ function UserInfoComp(props: any) {
         <DialogActions>
           <Button onClick={changeAddress}>Save</Button>
         </DialogActions>
+
       </Dialog>
     </Box>
+    
   );
 }
 
