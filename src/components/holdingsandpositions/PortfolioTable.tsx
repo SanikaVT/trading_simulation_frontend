@@ -7,8 +7,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Card} from "@mui/material";
-import "../css/PortfolioTable.css";
-
+import "./PortfolioTable.css";
+import TableFooter from '@mui/material/TableFooter';
+import Typography from '@mui/material/Typography';
+import {Grid} from "@mui/material";
 
 function createData(
     stockname: string,
@@ -35,7 +37,7 @@ export default function BasicTable() {
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
-                    <TableRow>
+                    <TableRow bgcolor="#EEEEEE">
                         <TableCell>Stock Name</TableCell>
                         <TableCell align="right">B. Date</TableCell>
                         <TableCell align="right">Qty.</TableCell>
@@ -60,6 +62,23 @@ export default function BasicTable() {
                     ))}
                 </TableBody>
             </Table>
+            <TableFooter>
+                <TableRow>
+                    <TableCell>
+                        <Grid container direction="row" alignItems="right" spacing={4} >
+                            <Grid item>
+                                <Typography variant="h5">Total investment: $23,982.77</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="h6" color="#00FF00">Profit: $120.67</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="h6" color="#FF0000">Loss: $540.67</Typography>
+                            </Grid>
+                        </Grid>
+                    </TableCell>
+                </TableRow>
+            </TableFooter>
         </TableContainer>
         </Card>
     );

@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Stack from '@mui/material/Stack';
 import {Card} from "@mui/material";
-import "../css/Datepicker.css";
+import "./Datepicker.css";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 

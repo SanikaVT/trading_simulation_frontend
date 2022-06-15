@@ -1,20 +1,19 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Editor } from "react-draft-wysiwyg";
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
-const theme = createTheme();
 
 export default function AddNews() {
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -25,7 +24,26 @@ export default function AddNews() {
     };
 
     return (
-        <ThemeProvider theme={theme}>
+        <>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static" className="belowmargin">
+                    <Toolbar>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 0 }}>
+                            News Management
+                        </Typography>
+                        {/*<Button color="inherit">Login</Button>*/}
+                    </Toolbar>
+                </AppBar>
+            </Box>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -36,9 +54,6 @@ export default function AddNews() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
                     <Typography component="h1" variant="h5">
                         Add News
                     </Typography>
@@ -52,29 +67,35 @@ export default function AddNews() {
                             name="newstitle"
                             autoFocus
                         />
-                        <Editor
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="NewsDescription"
-                            label="News Description"
-                            id="newsdis"
+                        <TextareaAutosize
+                            aria-label="news description"
+                            placeholder="News Description"
+                            id="NewsDesc"
+                            style={{ width: 400, height: 300}}
                         />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
+
                         <Button
-                            type="submit"
+                            variant="contained"
+                            component="label"
+                            fullWidth
+                        >
+                            Upload Image
+                            <input
+                                type="file"
+                                hidden
+                            />
+                        </Button>
+
+                        <Button name="Submit" type="submit" onClick={() =>alert("News added to user news tab")}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign In
+                            > Add News
                         </Button>
                     </Box>
                 </Box>
             </Container>
-        </ThemeProvider>
+        </>
     );
 }
+

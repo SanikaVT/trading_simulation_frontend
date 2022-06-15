@@ -1,26 +1,32 @@
-import Navbar from ".//Navbar";
+    import PortfolioTable from './PortfolioTable.tsx'
+import Navbar from './Navbar.tsx'
 import Button from "@mui/material/Button";
-import Datepicker from "./Datepicker";
 import {useNavigate} from "react-router-dom";
 
 
-function Report() {
+function Home() {
     const navigate = useNavigate();
+    const routeChange = () =>{
+        let path = `/Report`;
+        navigate(path);
+    }
+
     const routeChangeHome = () =>{
         let path = `/`;
         navigate(path);
     }
     return (
-        <div>
 
+        <div>
             <Navbar/>
             <Button variant="outlined" onClick={routeChangeHome}>Holdings</Button>
             <Button variant="outlined">Positions</Button>
-            <Button variant="outlined">Report</Button>
-            <Datepicker/>
+            <Button variant="outlined" onClick={routeChange}>Report</Button>
+            <PortfolioTable/>
+
 
         </div>
     );
 }
 
-export default Report;
+export default Home;
