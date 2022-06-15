@@ -36,7 +36,9 @@ function Header() {
           </Typography>
 
           <Tooltip title="Go to Profile Page" arrow>
-            <PersonIcon className="profile"></PersonIcon>
+            <PersonIcon className="profile"  onClick={() => {
+                    navigate("/profile");
+                  }}></PersonIcon>
           </Tooltip>
 
           <Tooltip title="Portfolio" arrow>

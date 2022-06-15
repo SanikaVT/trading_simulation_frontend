@@ -119,7 +119,7 @@ function ForumComp() {
             type="text"
             fullWidth
             variant="standard"
-            value="I bought this stock a year ago!"
+            defaultValue="I bought this stock a year ago!"
           />
         </DialogContent>
         <DialogActions>
@@ -135,7 +135,7 @@ const table= {
     };
 const chatSection= {
       width: '100%',
-      height: '80vh'
+      height: '100%'
     };
 const headBG= {
         backgroundColor: '#e0e0e0'

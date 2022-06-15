@@ -17,13 +17,15 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 425,
-  height: 425,
+  height: 550,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 22,
   p: 4,
   m: 3
 };
+
+var isError=true;
 
 const acceptNumbers = (event: any) => {
   let charCode = event.keyCode;
@@ -80,8 +82,10 @@ function BuyCreditsModal(props: any) {
                     let credits = Number(event.target.value);
                     if (credits === 0) {
                       setCreditsError(true);
+                      isError=true;
                     } else {
                       setCreditsError(false);
+                      isError=false;
                     }
                     setCredits(credits);
                   }}
@@ -104,8 +108,10 @@ function BuyCreditsModal(props: any) {
                     let account = Number(event.target.value);
                     if ((account+"").length === 16) {
                       setAccountError(false);
+                      isError=false;
                     } else {
                       setAccountError(true);
+                      isError=true;
                     }
                     setAccount(account);
 
@@ -126,15 +132,17 @@ function BuyCreditsModal(props: any) {
                     let cvv = Number(event.target.value);
                     if ((cvv+"").length === 3) {
                       setCVVError(false);
+                      isError=false;
                     } else {
                       setCVVError(true);
+                      isError=true;
                     }
                     setCVV(cvv);
                   }}
                 />
               </Stack>
               {cvvError ? (
-                    <p style={{ color: "red" }}>Please enter a valid CVV</p>
+                    <p style={{ color: "red" }}>Please enter a valid CVV of 3 digits</p>
                   ) : (
                     <></>
                   )}
@@ -146,8 +154,9 @@ function BuyCreditsModal(props: any) {
                 disabled={creditsError && accountError && cvvError}
                 variant="contained"
                 color="success"
-                onClick={
-                  openConfirmationModal
+                onClick= {
+                  isError?
+                  undefined:(openConfirmationModal)
                 }
                 style={{ backgroundColor: "#2E8BC0", color: "white" }}
               >
