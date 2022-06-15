@@ -51,7 +51,14 @@ export default function WriteBlog () {
                     }}
                 >
 
-
+                    <Grid container  spacing={0}
+                          direction="column"
+                          alignItems="center"
+                          justifyContent="center">
+                        <Typography variant="h3"  sx={{texAlign:"center", flexGrow:1}}>
+                            Write Blog
+                        </Typography>
+                    </Grid>
 
                         <form onSubmit={handleSubmit}>
 
