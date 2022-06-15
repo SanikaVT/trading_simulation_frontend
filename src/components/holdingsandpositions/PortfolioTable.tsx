@@ -65,7 +65,7 @@ export default function BasicTable() {
             <TableFooter>
                 <TableRow>
                     <TableCell>
-                        <Grid container direction="row" alignItems="right" spacing={4} >
+                        <Grid container direction="row" alignItems="right" justifyContent="center" spacing={4} >
                             <Grid item>
                                 <Typography variant="h5">Total investment: $23,982.77</Typography>
                             </Grid>

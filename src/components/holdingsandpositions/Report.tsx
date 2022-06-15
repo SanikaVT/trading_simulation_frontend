@@ -2,6 +2,8 @@ import Navbar from './Navbar.tsx';
 import Button from "@mui/material/Button";
 import Datepicker from "./Datepicker.tsx";
 import {useNavigate} from "react-router-dom";
+import {Grid} from "@mui/material";
+import React from "react";
 
 
 function Report() {
@@ -14,9 +16,20 @@ function Report() {
         <div>
 
             <Navbar/>
-            <Button variant="outlined" onClick={routeChangeHome}>Holdings</Button>
-            <Button variant="outlined">Positions</Button>
-            <Button variant="outlined">Report</Button>
+
+            <br/>
+            <Grid container direction="row" alignItems="center"
+                  justifyContent="center" spacing={2} >
+                <Grid item>
+                    <Button variant="outlined" onClick={routeChangeHome}>Holdings</Button>
+                </Grid>
+                <Grid item>
+                    <Button variant="outlined">Positions</Button>
+                </Grid>
+                <Grid item>
+                    <Button variant="contained">Report</Button>
+                </Grid>
+            </Grid>
             <Datepicker/>
 
         </div>
