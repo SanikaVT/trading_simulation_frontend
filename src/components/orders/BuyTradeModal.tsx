@@ -16,7 +16,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 425,
+  width: 375,
   height: 500,
   bgcolor: "background.paper",
   border: "2px solid #000",
@@ -65,6 +65,7 @@ function BuyTradeModal(props: any) {
                 <TextField
                   value={quantity}
                   onKeyDown={acceptNumbers}
+                  sx={{ width: "15ch" }}
                   onChange={(event) => {
                     let quantity = Number(event.target.value);
                     if (quantity === 0) {
@@ -96,17 +97,29 @@ function BuyTradeModal(props: any) {
               {marginError || quantityError ? <></> : <br />}
               <Stack direction="row" spacing={16.1}>
                 <label>Price: </label>
-                <TextField value={props.stockData.price} disabled={true} />
+                <TextField
+                  sx={{ width: "15ch" }}
+                  value={props.stockData.price}
+                  disabled={true}
+                />
               </Stack>
               <br />
               <Stack direction="row" spacing={5.5}>
                 <label>Margin required: </label>
-                <TextField value={marginRequired} disabled={true} />
+                <TextField
+                  sx={{ width: "15ch" }}
+                  value={marginRequired}
+                  disabled={true}
+                />
               </Stack>
               <br />
               <Stack direction="row" spacing={4.9}>
                 <label>Margin available: </label>
-                <TextField value={marginAvailable} disabled={true} />
+                <TextField
+                  sx={{ width: "15ch" }}
+                  value={marginAvailable}
+                  disabled={true}
+                />
               </Stack>
             </CardContent>
             <Divider />
