@@ -1,4 +1,4 @@
-
+import Snackbar from '@mui/material/Snackbar';
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -8,9 +8,13 @@ import Card from "@mui/material/Card";
 import Button from '@mui/material/Button';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import Divider from '@mui/material/Divider';
 
 export default function BlogDetails() {
+
+    const [likeOpen, setlikeOpen] = React.useState(false);
+
     const card_border = {
         backgroundColor: "white",
         // borderRadius: "10px",
@@ -19,9 +23,35 @@ export default function BlogDetails() {
         // alignLeft:20,
     };
 
+
+    const likeblog = () =>{
+        setlikeOpen(true);
+    }
+    const likeblogclose = (event: React.SyntheticEvent | Event, reason?: string) =>{
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setlikeOpen(false);
+    };
+
+    const action = (
+        <React.Fragment>
+
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={likeblogclose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
+
     return (
         <Grid container spacing={2}>
-            <Grid item xs={8}> <Card style={card_border} sx={{pl: 3, pb: 1, mb: 1}}>
+            <Grid item xs={12} md={8}> <Card style={card_border} sx={{pl: 3, pb: 1, mb: 1}}>
                 <Grid container
                       spacing={0}
                       direction="column"
@@ -29,23 +59,25 @@ export default function BlogDetails() {
                       justifyContent="center"
                       maxWidth={"md"}
                 >
-
+                    <Grid item xs={12}>
                     <Typography variant="h3">
                         Stock Market Blog
                     </Typography>
+                    </Grid>
+                    <Grid item sm={12}>
                     <Box
                         component="img"
                         sx={{
                             height: 233,
                             width: 350,
-                            maxHeight: {xs: 200, md: 250},
-                            maxWidth: {xs: 350, md: 250},
-
+                            maxHeight: {xs: 100, md: 250, sm: 200},
+                            maxWidth: {xs: 150, md: 250, sm:350},
                         }}
                         alt="The house from the offer."
                         src={require("./stock.png")}
-                    />
-                    <Typography variant="subtitle1" gutterBottom component="div">
+                    /></Grid>
+                    <Grid item sm={12}>
+                    <Typography variant="subtitle1" gutterBottom >
                         A stock market, equity market, or
                         share market is the aggregation of buyers and sellers of stocks (also called shares), which
                         represent ownership claims on businesses; these may include securities listed on a public stock
@@ -58,19 +90,26 @@ export default function BlogDetails() {
                         considered as part of the Swiss stock market, although the stocks may also be traded on
                         exchanges in other countries, for example, as American depositary receipts (ADRs) on U.S. stock
                         markets.
-                    </Typography>
+                    </Typography></Grid>
                 </Grid></Card>
-                <Grid item>
+                <Grid item sm={12}>
                 <Typography variant={"h6"}> Total Likes: 1</Typography>
                 </Grid>
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
                 Like Blog
-                <IconButton aria-label="like" color="error">
+                <IconButton aria-label="like" onClick={likeblog} color="error">
                     <FavoriteIcon/>
                 </IconButton>
+                <Snackbar
+                    open={likeOpen}
+                    autoHideDuration={2000}
+                    message="Blog Liked"
+                    onClose={likeblogclose}
+                    action={action}
 
+                />
                 <form>
                     <TextField
                         fullWidth
