@@ -51,7 +51,7 @@ export default function RiskAppetite(){
                 >
 
                     <Typography fontSize={25} >
-                       Risk Appetite
+                        Risk Appetite
                     </Typography>
                     <br/>
 

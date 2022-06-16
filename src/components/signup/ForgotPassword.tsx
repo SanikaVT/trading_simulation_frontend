@@ -14,6 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Grid from '@mui/material/Grid';
 
 export default function ForgotPassword() {
     const [open, setOpen] = React.useState(false);
@@ -53,22 +54,22 @@ export default function ForgotPassword() {
             confpassword: undefined
         };
 
-      if (values.password.length < 8) {
+        if (values.password.length < 8) {
             // @ts-ignore
-          errors.password = "Password must be more than 8 characters";
-          errori = 1;
+            errors.password = "Password must be more than 8 characters";
+            errori = 1;
         }
-       else if(values.password !== values.confpassword){
+        else if(values.password !== values.confpassword){
             // @ts-ignore
-          errors.confpassword="Password does not match";
+            errors.confpassword="Password does not match";
             // @ts-ignore
-          errors.password="Password does not match";
-          errori = 1;
+            errors.password="Password does not match";
+            errori = 1;
         }
-       else
-      {
-          errori = 0;
-      }
+        else
+        {
+            errori = 0;
+        }
         return errors;
 
     }
@@ -78,7 +79,13 @@ export default function ForgotPassword() {
     const gotpage = () => {
         window.location.href = "/signin";
     }
+    const gotosignin =()=>{
 
+        window.location.href="/";
+    }
+    const gotosignup = () =>{
+        window.location.href="/signup";
+    }
 
     const card_1 = {
         backgroundColor: "white",
@@ -97,7 +104,7 @@ export default function ForgotPassword() {
             <Card variant="outlined" style={card_1}>
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 4,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -112,7 +119,7 @@ export default function ForgotPassword() {
                     </Typography>
                     <br/>
 
-                    <Box >
+                    <Box sx={{ width: 1 }}>
 
 
                         <form onSubmit={handleSubmit}>
@@ -136,22 +143,48 @@ export default function ForgotPassword() {
                                 name='confpassword'
                                 required
                                 type={"password"}
-                                sx={{ marginTop:1, marginBottom:2}}
+                                sx={{ marginTop:1, marginBottom:0}}
                                 onChange={handleChange}
                                 onSubmit={handleSubmit}
                                 value={formValue.confpassword}
                                 error={formError.confpassword}
                             /><FormHelperText>{formError.confpassword}</FormHelperText>
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            type={"submit"}
-                        >
-                            Change Password
-                        </Button>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                type={"submit"}
+                                sx={{marginTop:1}}
+                            >
+                                Change Password
+                            </Button>
                         </form>
                     </Box>
                 </Box>
+            </Card>
+            <Card variant="outlined" style={card_1} >
+                <Grid container spacing={2}>
+
+                    <Grid item xs={12} sm={6}>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            type={"submit"}
+                            onClick={gotosignin}
+                        >
+                            Sign-in
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            type={"submit"}
+                            onClick={gotosignup}
+                        >
+                            Sign-Up
+                        </Button>
+                    </Grid>
+                </Grid>
             </Card>
             <Dialog
                 open={open}
