@@ -41,10 +41,8 @@ function App() {
               </AppHeader>
               <AppBody>
                 <Home />
-             
                   <FooterComp/>
               </AppBody>
-              <FooterComp />
             </Wrapper>
           }
         />
