@@ -1,26 +1,21 @@
 import React, { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-
-
-
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { CardActions } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
 import Tooltip from "@mui/material/Tooltip";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 
-
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 interface StockSymbol {
   symbol: String;
@@ -81,10 +76,9 @@ function StockCard(props: any) {
         sx={{ maxWidth: 300 }}
         style={{
           backgroundColor: "#b9b4b45c",
-          border:'1px solid transparent',
+          border: "1px solid transparent",
           borderRadius: "1px",
           padding: "5spx",
-        
         }}
       >
         <CardActionArea>
@@ -93,13 +87,12 @@ function StockCard(props: any) {
               gutterBottom
               variant="h5"
               component="div"
-              style={{ fontWeight: "bolder",color:'#f07d11' }}
+              style={{ fontWeight: "bolder", color: "#f07d11" }}
             >
               {props.stock.symbol}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               <p>
-              
                 <span
                   style={{
                     backgroundColor: "black",
@@ -113,13 +106,13 @@ function StockCard(props: any) {
                 </span>
               </p>
             </Typography>
-            <div style={{display:'flex',flexFlow:'row',padding:'0'}}>
-              <ArrowDropUpIcon className="up"/>
-              <Typography style={{color:'white'}}>
+            <div style={{ display: "flex", flexFlow: "row", padding: "0" }}>
+              <ArrowDropUpIcon className="up" />
+              <Typography style={{ color: "white" }}>
                 {props.stock.high}
               </Typography>
-              <ArrowDropDownIcon className="down"/>
-              <Typography style={{color:'white'}}>
+              <ArrowDropDownIcon className="down" />
+              <Typography style={{ color: "white" }}>
                 {props.stock.low}
               </Typography>
             </div>
@@ -134,7 +127,7 @@ function StockCard(props: any) {
                   color: "white",
                   fontWeight: "bolder",
                   marginRight: "2px",
-                  boxShadow:'2'
+                  boxShadow: "2",
                 }}
               >
                 Buy
@@ -148,7 +141,7 @@ function StockCard(props: any) {
                   backgroundColor: "#f55723",
                   color: "white",
                   fontWeight: "bolder",
-                  borderRadius:''
+                  borderRadius: "",
                 }}
               >
                 Sell
@@ -160,17 +153,18 @@ function StockCard(props: any) {
                     style={{
                       padding: "1px",
                       color: isActive ? "orange" : "black",
-                   
                     }}
                   />
                 </IconButton>
               </Tooltip>
 
               <Tooltip title="Go to Analytics" arrow>
-                <IconButton aria-label="graph" onClick={() => navigate("/analytics")}>
+                <IconButton
+                  aria-label="graph"
+                  onClick={() => navigate("/analytics")}
+                >
                   <AnalyticsIcon
                     style={{
-                      
                       color: "#e78215",
                     }}
                   />
