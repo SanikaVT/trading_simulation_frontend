@@ -16,6 +16,8 @@ function Header() {
   /** https://mui.com/material-ui/react-menu/ To be cited.*/
   const [openChatModal, setOpenChatModal] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
+
   const open = Boolean(anchorEl);
   const [
     anchorProfileEl,
@@ -25,6 +27,12 @@ function Header() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const open2 = Boolean(anchorEl2);
+  const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl2(event.currentTarget);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
