@@ -19,6 +19,9 @@ import Blog from "./components/blog/Blog"
 import BlogDetails from "./components/blog/BlogDetails";
 import EditBlog from "./components/blog/EditBlog";
 import ForgotPasswordOtp from"./components/signup/ForgotPasswordOtp";
+import HoldingsHome from "./components/holdingsandpositions/HoldingsHome";
+import Report from "./components/holdingsandpositions/Report";
+import ViewNews from "./components/newsmanagement/ViewNews";
 function App() {
   return (
     <Router>
@@ -86,6 +89,9 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
           <Route path="/forgotpasswordotp" element={<ForgotPasswordOtp />}></Route>
           <Route path="/riskappetite" element={<RiskAppetite />}></Route>
+          <Route path="/Holdings" element={<HoldingsHome />}></Route>
+          <Route path="/Report" element={<Report />}></Route>
+          <Route path="/News" element={<ViewNews />}></Route>
           <Route path="/blogdetails" element={<Wrapper>
             <AppHeader>
               <Header />
