@@ -2,6 +2,11 @@ import axios from "axios";
 import { userInfo } from "os";
 import { useEffect, useState } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
+import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
+import { Box } from "@mui/material";
+
+
 
 const AdvisorList = () => {
     const navigate = useNavigate();
@@ -24,9 +29,7 @@ const AdvisorList = () => {
         })
     }
     console.log(data)
-    const handlleOnClick = () => {
-
-    }
+   
     const onChange = (event: any) => {
         event.persist();
         setSearchWord(event.target.value);
@@ -36,19 +39,20 @@ const AdvisorList = () => {
     return (
         <>
             <div >
-                <input className="prompt" type="text" placeholder="enter first name or last name"
+
+                <input  type="text" placeholder="enter first name or last name " 
                     value={searchWord} onChange={onChange}></input>
                 <div>
                     {data?.length ? data.map((user, index) => {
 
                         if (user.firstName === searchWord || user.lastName === searchWord) {
                             return (
-                                <div className="results" key={user.id} onClick={() => navigate(
+                                <div key={user.id} onClick={() => navigate(
                                     '/advisor/' + user.id
 
                                 )}>
-                                    <img className="ui avatar image" src={user.picture}></img>
-                                    <div className="content">
+                                    <img src={user.picture}></img>
+                                    <div >
                                         <a >{user.title}</a>
                                         <a >{user.firstName} {user.lastName}</a>
                                         <a >{user.email}</a>
@@ -61,18 +65,42 @@ const AdvisorList = () => {
                 </div>
 
             </div>
-            <div className="ui list">
+            <div >
 
                 {data?.length ? data.map((user) => {
                     return (<div className="item" key={user.id} onClick={() => {
                         navigate('/advisor/' + user.id)
 
                     }}>
-                        <img className="ui avatar image" src={user.picture}></img>
-                        <div className="content">
-                            <a className="header">{user.title}</a>
-                            <a className="header">{user.firstName} {user.lastName}</a>
-                            <a className="header">{user.email}</a>
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Grid container spacing={1}>
+                                <Grid item xs={2}>
+                                    <img  alt="Remy Sharp" src={user.picture} />
+
+
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Box>
+                                        <p >{user.title}</p>
+                                        <p >{user.firstName} {user.lastName}</p>
+                                        <p >{user.email}</p>
+                                    </Box>
+
+                                </Grid>
+                                <Grid item xs={4}>
+
+                                </Grid>
+                                <Grid item xs={8}>
+
+                                </Grid>
+                            </Grid>
+                        </Box>
+
+
+                        <div >
+
+
+
 
                         </div>
                     </div>)
