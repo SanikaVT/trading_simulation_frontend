@@ -8,12 +8,12 @@ import {Card, Grid} from "@mui/material";
 import "./Datepicker.css";
 // import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
-import PortfolioTable from "./PortfolioTable.tsx"
+import PortfolioTable from "./PortfolioTable"
 import {useState} from "react";
 
 export default function ResponsiveDatePickers() {
-    const [valueFrom, setValueFrom] = React.useState(new Date());
-    const [valueTo, setValueTo] = React.useState(new Date());
+    const [valueFrom, setValueFrom] = React.useState<Date | null>(new Date());
+    const [valueTo, setValueTo] = React.useState<Date | null>(new Date());
     // const navigate = useNavigate();
     // const routeChange = () =>{
     //     let path = `/`;

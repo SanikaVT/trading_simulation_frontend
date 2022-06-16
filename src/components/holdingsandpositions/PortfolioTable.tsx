@@ -37,7 +37,7 @@ export default function BasicTable() {
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
-                    <TableRow bgcolor="#EEEEEE">
+                    <TableRow>
                         <TableCell>Stock Name</TableCell>
                         <TableCell align="right">B. Date</TableCell>
                         <TableCell align="right">Qty.</TableCell>
@@ -48,7 +48,7 @@ export default function BasicTable() {
                 <TableBody>
                     {rows.map((row) => (
                         <TableRow
-                            key={row.name}
+                            // key={row.name}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
