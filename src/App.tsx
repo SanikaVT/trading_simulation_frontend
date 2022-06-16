@@ -209,38 +209,8 @@ function App() {
                 <Header />
               </AppHeader>
               <AppBody>
-                <LineChart width={150} height={450} />
-              </AppBody>
-            </Wrapper>
-          }
-        >
-        </Route>
-
-
-        <Route
-          path="/appointment"
-          element={
-            <Wrapper>
-              <AppHeader>
-                <Header />
-              </AppHeader>
-              <AppBody>
-                <Reservation />
-              </AppBody>
-            </Wrapper>
-          }
-        >
-          
-        </Route>
-        <Route
-          path="/advisor/:userID"
-          element={
-            <Wrapper>
-              <AppHeader>
-                <Header />
-              </AppHeader>
-              <AppBody>
-                <Advisor />
+              <LineChart  width={150} height={450}/>
+              <ForumComp/>
               </AppBody>
             </Wrapper>
           }
