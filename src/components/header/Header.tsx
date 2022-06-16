@@ -1,5 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -9,9 +10,12 @@ import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PersonIcon from "@mui/icons-material/Person";
+import SimpleForm from "../chatbot/SimpleForm";
+
 
 function Header() {
   /** https://mui.com/material-ui/react-menu/ To be cited.*/
+  const [openChatModal, setOpenChatModal] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -20,8 +24,17 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const openChatBotModal = (event: any) => {
+    setOpenChatModal(true);
+  };
   let navigate = useNavigate();
   return (
+    
+    <>
+    <SimpleForm
+        openModal={openChatModal}
+        setOpenModal={setOpenChatModal}
+          />
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#2E8BC0" }}>
         <Toolbar>
@@ -73,9 +86,9 @@ function Header() {
               </Menu>
             </>
           </Tooltip>
-
+          
           <Tooltip title="Technical Support" arrow>
-            <Button className="header">Support</Button>
+            <Button className="header" onClick={openChatBotModal}>Support</Button>
           </Tooltip>
 
           <Tooltip title="Go to Login Page" arrow>
@@ -84,6 +97,7 @@ function Header() {
         </Toolbar>
       </AppBar>
     </Box>
+    </>
   );
 }
 

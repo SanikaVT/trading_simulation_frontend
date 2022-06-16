@@ -12,6 +12,8 @@ import StockLeague from "./components/stockLeague/StockLeaguePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserDetail from "./components/user_profile/UserDetalsContainer";
 import FooterComp from "./components/footer/FooterComp";
+import LineChart from "./components/stockAnalytics/analytics"
+import simpleForm from './components/chatbot/simpleForm'
 
 function App() {
   const [isActive, setIsActive] = useState(false);
@@ -62,6 +64,21 @@ function App() {
           }
         />
 
+      <Route
+          path="/analytics"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <LineChart width = {150} height = {600}/>
+              </AppBody>
+              <FooterComp />
+            </Wrapper>
+          }
+        />
+
         <Route path="/signin" element={<SignIn />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
@@ -79,6 +96,7 @@ function App() {
             </Wrapper>
           }
         />
+        <Route path='/chat' component={simpleForm}/>
       </Routes>
     </Router>
   );

@@ -167,7 +167,7 @@ function StockCard(props: any) {
               </Tooltip>
 
               <Tooltip title="Go to Analytics" arrow>
-                <IconButton aria-label="graph">
+                <IconButton aria-label="graph" onClick={() => navigate("/analytics")}>
                   <AnalyticsIcon
                     style={{
                       

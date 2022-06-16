@@ -15,7 +15,6 @@ import UserDetail from "./components/user_profile/UserDetalsContainer";
 import FooterComp from "./components/footer/FooterComp";
 import ForumComp from "./components/forum/Forum";
 import LineChart from "./components/stockAnalytics/analytics";
-import SimpleForm from "./components/chatbot/simpleForm";
 import Blog from "./components/blog/Blog"
 import BlogDetails from "./components/blog/BlogDetails";
 

@@ -1,16 +1,38 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as d3 from "d3";
 import data from './AAPL_Yearly_HistoricalData.csv';
 import data1 from './APPL_half_yearly_HistoricalData.csv';
 import "./analytics.css";
+import BuyTradeModal from "../orders/BuyTradeModal";
+import SellTradeModal from "../orders/SellTradeModal";
 
 
-   function LineChart(props) {
-      const { width, height } = props;
-   
+   function LineChart(props) { 
+      const { width, height } = props; 
+      const stockData = {
+         symbol: "APPL",
+         currency: "USD",
+         price: 261.74,
+         previousClose: 259.45,
+         open: 261.07,
+         high: 263.31,
+         low: 260.68,
+       };
+      const [openBuyModal, setOpenBuyModal] = useState(false);
+      const [openSellModal, setOpenSellModal] = useState(false);
+
+      const openBuyTradeModal = (event) => {
+         setOpenBuyModal(true);
+       };
+     
+       const openSellTradeModal = (event) => {
+         setOpenSellModal(true);
+       };
+
       useEffect(() => {
-        drawChart();   
+        drawChart();
+           
       });
       function drawChart() {
          window.scrollTo(0, 0);
@@ -278,27 +300,49 @@ import "./analytics.css";
              }
     
           svg.append('rect')
-             .attr("width", 75)
-             .attr("height", 25)
-             .attr("fill", "black")
+             .attr("width", 47)
+             .attr("height", 28)
+             .attr("fill", "green")
              .attr("x", 15)
              .attr("y", 130)
              .attr("cursor", "pointer")
+             .on('click', function(){openBuyTradeModal()});
        
           svg.append('text')
-             .attr('x',33)
-             .attr('y',145)
+             .attr('x',27)
+             .attr('y',147)
              .attr('fill','white')
              .attr('font-family','sans-serif')
              .attr('font-size','12px')
              .attr('font-weight','bold')
              .attr("cursor", "pointer")
-             .text('Trade')
+             .text('Buy')
+             .on('click', function(){openBuyTradeModal()});
+
+             svg.append('rect')
+             .attr("width", 47)
+             .attr("height", 28)
+             .attr("fill", "Red")
+             .attr("x", 67)
+             .attr("y", 130)
+             .attr("cursor", "pointer")
+             .on('click', function(){openSellTradeModal()});
+       
+          svg.append('text')
+             .attr('x',80)
+             .attr('y',147)
+             .attr('fill','white')
+             .attr('font-family','sans-serif')
+             .attr('font-size','12px')
+             .attr('font-weight','bold')
+             .attr("cursor", "pointer")
+             .text('Sell')
+             .on('click', function(){openSellTradeModal()});
           
           var rect1 = svg.append('rect')
              .attr("width", 305)
              .attr("height", 25)
-             .attr("fill", "black")
+             .attr("class", "button")
              .attr("x", 175)
              .attr("y", 430)
              .attr("id","rect1")
@@ -427,9 +471,21 @@ import "./analytics.css";
              })
       }
       
-      return <div id="container" />;
-    
-}
+      return (
+         <>
+      <BuyTradeModal
+        openModal={openBuyModal}
+        setOpenModal={setOpenBuyModal}
+        stockData={stockData}
+      />
+      <SellTradeModal
+        openModal={openSellModal}
+        setOpenModal={setOpenSellModal}
+        stockData={stockData}
+      />
+      <div id="container" />
+    </>
+)}
 
 
 export default LineChart;
