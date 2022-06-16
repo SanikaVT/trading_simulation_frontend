@@ -63,7 +63,6 @@ import SellTradeModal from "../orders/SellTradeModal";
              .attr('x',15)
              .attr('y',55)
              .attr('fill','black')
-             .attr('font-family','Times New Roman')
              .attr('font-size','15px')
              .attr('font-weight',"bold")
              .text('Apple Inc. Common')
@@ -72,7 +71,6 @@ import SellTradeModal from "../orders/SellTradeModal";
              .attr('x',15)
              .attr('y',70)
              .attr('fill','black')
-             .attr('font-family','Calibri')
              .attr('font-size','12px')
              .text('Sector: Information Technology')
     
@@ -87,16 +85,14 @@ import SellTradeModal from "../orders/SellTradeModal";
              .attr('x',15)
              .attr('y',100)
              .attr('fill','black')
-             .attr('font-family','Times New Roman')
              .attr('font-size','15px')
              .attr('font-weight',"bold")
-             .text('148.84$')
+             .text('148.84 USD')
           
           svg.append('text')
              .attr('x',15)
              .attr('y',120)
              .attr('fill','red')
-             .attr('font-family','Times New Roman')
              .attr('font-size','14px')
              .attr('font-weight',"bold")
              .text('-80(-0.53%)')
@@ -185,7 +181,6 @@ import SellTradeModal from "../orders/SellTradeModal";
     
            });
           }
-          //d3.select(window).on('resize', makegraph1());
           makegraph1();
           function makegraph2(){
              var margin = {top: 20, right: 20, bottom: 50, left: 100},
@@ -206,7 +201,6 @@ import SellTradeModal from "../orders/SellTradeModal";
                 data.forEach(d=>{
                    d.Date = parseDate(d.Date);
                    d.Percentage = +d.Percentage;
-                   console.log(d.Percentage)
                });
        
                var x = d3.scaleTime().domain(d3.extent(data, function(d){
@@ -302,7 +296,7 @@ import SellTradeModal from "../orders/SellTradeModal";
           svg.append('rect')
              .attr("width", 47)
              .attr("height", 28)
-             .attr("fill", "green")
+             .attr("fill", "rgb(76, 175, 80)")
              .attr("x", 15)
              .attr("y", 130)
              .attr("cursor", "pointer")
@@ -322,7 +316,7 @@ import SellTradeModal from "../orders/SellTradeModal";
              svg.append('rect')
              .attr("width", 47)
              .attr("height", 28)
-             .attr("fill", "Red")
+             .attr("fill", "rgb(245, 87, 35)")
              .attr("x", 67)
              .attr("y", 130)
              .attr("cursor", "pointer")
@@ -398,7 +392,6 @@ import SellTradeModal from "../orders/SellTradeModal";
                 d3.select(this).attr("fill", "black");
              })
              text1.on("mouseout", function(){
-                console.log(d3.selectAll("#rect1").attr('fill'))
                 if(d3.selectAll("#rect1").attr('fill') !== "rgb(9, 141, 77)"){
                    d3.select(this).attr("fill", "white");
                    d3.selectAll("#rect1").attr("fill", "black")
@@ -420,7 +413,7 @@ import SellTradeModal from "../orders/SellTradeModal";
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
-                makegraph2();
+                window.addEventListener('resize', makegraph2());
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });
@@ -454,7 +447,7 @@ import SellTradeModal from "../orders/SellTradeModal";
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
-                makegraph2();
+                window.addEventListener('resize', makegraph2());
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });
