@@ -13,6 +13,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import SimpleForm from "../chatbot/SimpleForm";
 
 
+
 function Header() {
   /** https://mui.com/material-ui/react-menu/ To be cited.*/
   const [openChatModal, setOpenChatModal] = useState(false);
@@ -20,6 +21,11 @@ function Header() {
   const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
+  const [
+    anchorProfileEl,
+    setAnchorProfileEl,
+  ] = React.useState<null | HTMLElement>(null);
+  const openProfile = Boolean(anchorProfileEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -40,24 +46,20 @@ function Header() {
   };
   let navigate = useNavigate();
   return (
-    
     <>
-    <SimpleForm
-        openModal={openChatModal}
-        setOpenModal={setOpenChatModal}
-          />
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "#2E8BC0" }}>
-        <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            color={"white"}
-            fontWeight={"bolder"}
-            sx={{ flexGrow: 1 }}
-          >
-            DTrade
-          </Typography>
+      <SimpleForm openModal={openChatModal} setOpenModal={setOpenChatModal} />
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" style={{ backgroundColor: "#2E8BC0" }}>
+          <Toolbar>
+            <Typography
+              variant="h6"
+              component="div"
+              color={"white"}
+              fontWeight={"bolder"}
+              sx={{ flexGrow: 1 }}
+            >
+              DTrade
+            </Typography>
 
           <Tooltip title="Menu" arrow>
             <>
@@ -135,15 +137,23 @@ function Header() {
                     navigate("/orderstatus");
                   }}
                 >
-                  Orders
-                </MenuItem>
-              </Menu>
-            </>
-          </Tooltip>
-          
-          <Tooltip title="Technical Support" arrow>
-            <Button className="header" onClick={openChatBotModal}>Support</Button>
-          </Tooltip>
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/profile");
+                    }}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                  >
+                    Log out
+                  </MenuItem>
+                </Menu>
+              </>
+            </Tooltip>
 
 
           <Tooltip title="Go to Profile Page" arrow>

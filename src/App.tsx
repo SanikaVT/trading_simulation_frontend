@@ -23,6 +23,11 @@ import HoldingsHome from "./components/holdingsandpositions/HoldingsHome";
 import Report from "./components/holdingsandpositions/Report";
 import ViewNews from "./components/newsmanagement/ViewNews";
 import PositionsHome from "./components/holdingsandpositions/PositionsHome";
+import Reservation from "./components/appoinment/Reservation";
+import Advisor from "./components/appoinment/Advisor";
+import Advisors from "./components/appoinment/AdvisorList";
+import Information from "./components/appoinment/Information"
+
 function App() {
   return (
     <Router>
@@ -34,10 +39,10 @@ function App() {
               <AppHeader>
                 <Header />
               </AppHeader>
-              
+              <AppBody>
                 <Home />
-             
                   <FooterComp/>
+              </AppBody>
             </Wrapper>
           }
         />
@@ -51,7 +56,7 @@ function App() {
               <AppBody>
                 <OrderStatus />
               </AppBody>
-              <FooterComp/>
+              <FooterComp />
             </Wrapper>
           }
         />
@@ -63,9 +68,9 @@ function App() {
                 <Header />
               </AppHeader>
               <AppBody>
-                <UserDetail/>
+                <UserDetail />
               </AppBody>
-              <FooterComp/>
+              <FooterComp />
             </Wrapper>
           }
         />
@@ -178,6 +183,10 @@ function App() {
             </AppBody>
             <FooterComp/>
           </Wrapper>} />
+        <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+        <Route path="/riskappetite" element={<RiskAppetite />}></Route>
         <Route
           path="/stockLeague"
           element={
@@ -191,6 +200,7 @@ function App() {
             </Wrapper>
           }
         />
+
         <Route
           path="/analytics"
           element={
@@ -205,8 +215,36 @@ function App() {
             </Wrapper>
           }
         />
+        <Route
+          path="/advisors"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <Advisors />
+              </AppBody>
+            </Wrapper>
+          }
+        />
+        <Route
+          path="/appoinment/info"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <Information />
+              </AppBody>
+            </Wrapper>
+          }
+        />
+
+
       </Routes>
-      
+
     </Router>
   );
 }
