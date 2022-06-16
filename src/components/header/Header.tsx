@@ -33,7 +33,7 @@ function Header() {
     setAnchorEl(null);
   };
   const handleClose2 = () => {
-    setAnchorEl(null);
+    setAnchorEl2(null);
   };
   const openChatBotModal = (event: any) => {
     setOpenChatModal(true);
@@ -92,6 +92,13 @@ function Header() {
                 >
                   League
                 </MenuItem>
+
+                <MenuItem onClick={() => {
+                  navigate("/News");
+                }}>News</MenuItem>
+                <MenuItem onClick={() => {
+                  navigate("/appointment");
+                }}>Appointment</MenuItem>
               </Menu>
             </>
           </Tooltip>
