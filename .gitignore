@@ -5,6 +5,7 @@ node_modules
 # dependencies
 /node_modules
 /.pnp
+/package-lock.json
 .pnp.js
 
 # testing
