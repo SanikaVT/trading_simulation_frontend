@@ -1,23 +1,25 @@
-import Navbar from './Navbar';
+import PortfolioTable from './PortfolioTable'
+import Navbar from './Navbar'
 import Button from "@mui/material/Button";
-import Datepicker from "./Datepicker";
 import {useNavigate} from "react-router-dom";
-import {Grid} from "@mui/material";
 import React from "react";
+import {Grid} from "@mui/material";
+import PortfolioTablePositions from './PortfolioTablePositions';
 
-
-function Report() {
+export default function PositionsHome() {
     const navigate = useNavigate();
+    const routeChange = () =>{
+        let path = `/report`;
+        navigate(path);
+    }
+
     const routeChangeHome = () =>{
         let path = `/holdings`;
         navigate(path);
     }
 
-    const routeChangePosi = () =>{
-        let path = `/positions`;
-        navigate(path);
-    }
     return (
+
         <div>
             <br/>
             <Grid container direction="row" alignItems="center"
@@ -26,16 +28,17 @@ function Report() {
                     <Button variant="outlined" onClick={routeChangeHome}>Holdings</Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="outlined" onClick={routeChangePosi}>Positions</Button>
+                    <Button variant="contained" >Positions</Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="contained">Report</Button>
+                    <Button variant="outlined" onClick={routeChange}>Report</Button>
                 </Grid>
             </Grid>
-            <Datepicker/>
+            <PortfolioTablePositions />
+
 
         </div>
     );
 }
 
-export default Report;
+

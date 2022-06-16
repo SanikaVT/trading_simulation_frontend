@@ -38,11 +38,12 @@ export default function BasicTable() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Stock Name</TableCell>
-                        <TableCell align="right">B. Date</TableCell>
-                        <TableCell align="right">Qty.</TableCell>
-                        <TableCell align="right">Avg. Cost</TableCell>
-                        <TableCell align="right">Current Value</TableCell>
+                        <TableCell><Typography variant="h6">Stock Name</Typography></TableCell>
+                        <TableCell align="right">
+                            <Typography variant="h6">B. Date</Typography></TableCell>
+                        <TableCell align="right"><Typography variant="h6">Qty.</Typography></TableCell>
+                        <TableCell align="right"><Typography variant="h6">Avg.</Typography></TableCell>
+                        <TableCell align="right"><Typography variant="h6">Current Value</Typography></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -70,10 +71,10 @@ export default function BasicTable() {
                                 <Typography variant="h5">Total investment: $23,982.77</Typography>
                             </Grid>
                             <Grid item>
-                                <Typography variant="h6" color="#00FF00">Profit: $120.67</Typography>
+                                <Typography variant="h6" color="#4CAF50">Profit: $120.67</Typography>
                             </Grid>
                             <Grid item>
-                                <Typography variant="h6" color="#FF0000">Loss: $540.67</Typography>
+                                <Typography variant="h6" color="#f55723">Loss: $540.67</Typography>
                             </Grid>
                         </Grid>
                     </TableCell>

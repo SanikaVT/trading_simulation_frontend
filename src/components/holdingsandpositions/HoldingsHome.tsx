@@ -17,10 +17,14 @@ export default function HoldingsHome() {
         navigate(path);
     }
 
+    const routeChangePosi = () =>{
+        let path = `/positions`;
+        navigate(path);
+    }
+
     return (
 
         <div>
-            <Navbar/>
             <br/>
             <Grid container direction="row" alignItems="center"
                   justifyContent="center" spacing={2} >
@@ -28,7 +32,7 @@ export default function HoldingsHome() {
                     <Button variant="contained" onClick={routeChangeHome}>Holdings</Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="outlined">Positions</Button>
+                    <Button variant="outlined" onClick={routeChangePosi}>Positions</Button>
                 </Grid>
                 <Grid item>
                     <Button variant="outlined" onClick={routeChange}>Report</Button>

@@ -45,25 +45,7 @@ export default function StockReviewCard() {
 
     return (
         <>
-        <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static" className="belowmargin">
-        <Toolbar>
-            <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 0 }}>
-                News
-            </Typography>
-            {/*<Button color="inherit">Login</Button>*/}
-        </Toolbar>
-    </AppBar>
-    </Box>
+
     <Grid container
           direction="row"
           spacing={7}

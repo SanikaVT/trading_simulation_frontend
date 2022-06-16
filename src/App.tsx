@@ -22,6 +22,7 @@ import ForgotPasswordOtp from"./components/signup/ForgotPasswordOtp";
 import HoldingsHome from "./components/holdingsandpositions/HoldingsHome";
 import Report from "./components/holdingsandpositions/Report";
 import ViewNews from "./components/newsmanagement/ViewNews";
+import PositionsHome from "./components/holdingsandpositions/PositionsHome";
 function App() {
   return (
     <Router>
@@ -89,9 +90,54 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
           <Route path="/forgotpasswordotp" element={<ForgotPasswordOtp />}></Route>
           <Route path="/riskappetite" element={<RiskAppetite />}></Route>
-          <Route path="/Holdings" element={<HoldingsHome />}></Route>
-          <Route path="/Report" element={<Report />}></Route>
-          <Route path="/News" element={<ViewNews />}></Route>
+          <Route path="/Holdings" element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <HoldingsHome />
+              </AppBody>
+              <FooterComp/>
+            </Wrapper>
+            }></Route>
+          <Route path="/Report" element={<Wrapper>
+            <AppHeader>
+              <Header />
+            </AppHeader>
+            <AppBody>
+              <Report />
+            </AppBody>
+            <FooterComp/>
+          </Wrapper>
+
+            }></Route>
+
+
+          <Route path="/News" element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <ViewNews />
+              </AppBody>
+              <FooterComp/>
+            </Wrapper>
+            }></Route>
+
+        <Route path="/positions" element={
+          <Wrapper>
+            <AppHeader>
+              <Header />
+            </AppHeader>
+            <AppBody>
+              <PositionsHome />
+            </AppBody>
+            <FooterComp/>
+          </Wrapper>
+        }></Route>
+
           <Route path="/blogdetails" element={<Wrapper>
             <AppHeader>
               <Header />
