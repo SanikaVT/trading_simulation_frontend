@@ -1,5 +1,5 @@
-import PortfolioTable from './PortfolioTable.tsx'
-import Navbar from './Navbar.tsx'
+import PortfolioTable from './PortfolioTable'
+import Navbar from './Navbar'
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import React from "react";

@@ -12,14 +12,11 @@ import StockLeague from "./components/stockLeague/StockLeaguePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserDetail from "./components/user_profile/UserDetalsContainer";
 import FooterComp from "./components/footer/FooterComp";
-<<<<<<< HEAD
 import LineChart from "./components/stockAnalytics/analytics"
 import simpleForm from './components/chatbot/simpleForm'
-=======
 import Report from "./components/holdingsandpositions/Report.tsx";
 import HoldingsHome from "./components/holdingsandpositions/HoldingsHome.tsx";
 import ViewNews from "./components/newsmanagement/ViewNews.tsx";
->>>>>>> 6cd19b00ea76709eab63dee3161594b79335f154
 
 function App() {
   const [isActive, setIsActive] = useState(false);
