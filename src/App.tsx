@@ -200,6 +200,7 @@ function App() {
               </AppHeader>
               <AppBody>
               <LineChart  width={150} height={450}/>
+              <ForumComp/>
               </AppBody>
             </Wrapper>
           }
