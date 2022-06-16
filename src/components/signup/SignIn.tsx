@@ -52,7 +52,7 @@ export default function SignIn() {
         if(errori===0)
         {
             console.log("done")
-            window.location.href = "/";
+            window.location.href = "/dashboard";
         }
         else{
             console.log("error");

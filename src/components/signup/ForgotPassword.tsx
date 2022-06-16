@@ -113,32 +113,10 @@ export default function ForgotPassword() {
                     <br/>
 
                     <Box >
-                        <form >
-                        <TextField
-                            fullWidth
-                            label="Email"
-                            required
-                            type={"email"}
-                            sx={{ marginBottom:1}}
-                        />
 
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            type={"submit"}
-                        >
-                            Send Code
-                        </Button>
-                        </form>
 
                         <form onSubmit={handleSubmit}>
-                        <TextField
-                            fullWidth
-                            required
-                            label="Enter Code here"
-                            multiline
-                            sx={{ marginBottom:2, marginTop:2}}
-                        />
+
                             <TextField
                                 fullWidth
                                 label="Enter New Password"
@@ -158,7 +136,7 @@ export default function ForgotPassword() {
                                 name='confpassword'
                                 required
                                 type={"password"}
-                                sx={{ marginTop:1, marginBottom:1}}
+                                sx={{ marginTop:1, marginBottom:2}}
                                 onChange={handleChange}
                                 onSubmit={handleSubmit}
                                 value={formValue.confpassword}
