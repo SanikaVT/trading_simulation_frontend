@@ -28,9 +28,9 @@ const Advisor = (props: any) => {
     }
 
     return (
-        <><div className="item" key={data.id} >
-            <img className="ui avatar image" src={data.picture}></img>
-            <div className="content">
+        <><div  key={data.id} >
+            <img  src={data.picture}></img>
+            <div >
                 <p>{data.title}</p>
                 <p>{data.firstName} {data.lastName}</p>
                 <p>{data.email}</p>
