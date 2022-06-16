@@ -13,16 +13,29 @@ import { TextField } from "@mui/material";
 
 function UserInfoComp(props: any) {
 
-  const [open, setOpen] = React.useState(false);
+  const [openAddrDialog, setAddrDOpen] = React.useState(false);
 
 
-  const handleClickOpen = () => {
-        setOpen(true);
+  const handleClickAddrOpen = () => {
+        setAddrDOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleAddrClose = () => {
+    setAddrDOpen(false);
   };
+
+  const [openAccDialog, setAccDOpen] = React.useState(false);
+
+
+  const handleClickAccOpen = () => {
+        setAccDOpen(true);
+  };
+
+  const handleAccClose = () => {
+    setAccDOpen(false);
+  };
+  
+
   const [address, setAddress]=useState(props.address);
   const [address2, setAddress2] = useState(props.address);
     function changeAddress()
@@ -31,40 +44,40 @@ function UserInfoComp(props: any) {
       {
         setAddress(address2);
       }
-      setOpen(false)
+      setAddrDOpen(false)
     }
 
-  // const [account, setAccount]=useState(props.account);
-  // const [account2, setAccount2] = useState(props.account);
-  //   function changeAccount()
-  //   {
-  //     if (account2.trim().length !== 0)
-  //     {
-  //       setAddress(account2);
-  //     }
-  //     setOpen(false)
-  //   }
+  const [account, setAccount]=useState(props.account);
+  const [account2, setAccount2] = useState(props.account);
+    function changeAccount()
+    {
+      if (account2.trim().length !== 0)
+      {
+        setAccount(account2);
+      }
+      setAccDOpen(false)
+    }
 
-  //   const [risk_app, setRiskAppetite]=useState(props.risk_appetite);
-  //   const [risk_app2, setRiskAppetite2] = useState(props.risk_appetite);
-  //     function changeRiskApp()
-  //     {
-  //       if (risk_app2.trim().length !== 0)
-  //       {
-  //         setAddress(risk_app2);
-  //       }
-  //       setOpen(false)
-  //     }
+    // const [risk_app, setRiskAppetite]=useState(props.risk_appetite);
+    // const [risk_app2, setRiskAppetite2] = useState(props.risk_appetite);
+    //   function changeRiskApp()
+    //   {
+    //     if (risk_app2.trim().length !== 0)
+    //     {
+    //       setAddress(risk_app2);
+    //     }
+    //     setAddrDOpen(false)
+    //   }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={4} sx={{mt:2, ml:1}}>
+    <Box sx={{ flexGrow: 1}}>
+      <Grid container spacing={4} sx={{mt:2, m:1, alignItems:"center"}} >
         <Grid item xs={12} sx={{mb:3}}>
           <Typography variant="h5" color="inherit" component="div" fontWeight="bold">
             Profile Information
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item md={3} xs={12}>
           <Typography
             display="inline"
             variant="h6"
@@ -75,7 +88,7 @@ function UserInfoComp(props: any) {
             Address:
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item md={6}xs={12}>
           <Typography
             display="inline"
             variant="h6"
@@ -86,12 +99,12 @@ function UserInfoComp(props: any) {
           {address}
           </Typography>
         </Grid>
-        <Grid item xs={3}>
-          <Button id="1" onClick={handleClickOpen}>
+        <Grid item md={3} xs={12}>
+          <Button id="1" onClick={handleClickAddrOpen}>
             <EditIcon />
           </Button>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item md={3} xs={12}>
           <Typography
             display="inline"
             variant="h6"
@@ -102,7 +115,7 @@ function UserInfoComp(props: any) {
             Account number:
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item md={6}xs={12}>
           <Typography
             display="inline"
             variant="h6"
@@ -110,15 +123,15 @@ function UserInfoComp(props: any) {
             component="div"
             defaultValue={props.account}
           >
-            {props.account}
+            {account}
           </Typography>
         </Grid>
-        <Grid item xs={2}>
-          <Button id="2" onClick={handleClickOpen}>
+        <Grid item md={2} xs={12}>
+          <Button id="2" onClick={handleClickAccOpen}>
             <EditIcon />
           </Button>
         </Grid>
-        <Grid item xs={3}>
+        {/* <Grid item xs={3}>
           <Typography
             display="inline"
             variant="h6"
@@ -141,16 +154,16 @@ function UserInfoComp(props: any) {
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Button id="3" onClick={handleClickOpen}>
+          <Button id="3" onClick={handleClickAddrOpen}>
             <EditIcon />
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
 
       {/* Code Reference: https://mui.com/material-ui/react-dialog/ */}
       
       <Dialog fullWidth={true}
-  maxWidth={'lg'} open={open} onClose={handleClose}>
+  maxWidth={'lg'} open={openAddrDialog} onClose={handleAddrClose}>
         <DialogTitle>Enter your {props.addr_ip}</DialogTitle>
         <DialogContent>
           <TextField
@@ -166,6 +179,27 @@ function UserInfoComp(props: any) {
         </DialogContent>
         <DialogActions>
           <Button onClick={changeAddress}>Save</Button>
+        </DialogActions>
+
+      </Dialog>
+
+      <Dialog fullWidth={true}
+  maxWidth={'lg'} open={openAccDialog} onClose={handleAccClose}>
+        <DialogTitle>Enter your {props.accountNum}</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={account2}
+            onChange = {(event) => setAccount2(event.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={changeAccount}>Save</Button>
         </DialogActions>
 
       </Dialog>

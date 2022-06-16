@@ -119,7 +119,7 @@ function BuyCreditsModal(props: any) {
                 />
               </Stack>
               {accountError ? (
-                <p style={{ color: "red" }}>Please enter a valid account number</p>
+                <p style={{ color: "red" }}> Card number should have 16 digits</p>
               ) : (
                 <></>
               )}
@@ -151,7 +151,7 @@ function BuyCreditsModal(props: any) {
             <Divider />
             <CardActions style={{ display: "flex", justifyContent: "center" }}>
               <Button
-                disabled={creditsError && accountError && cvvError}
+                // disabled={creditsError && accountError && cvvError}
                 variant="contained"
                 color="success"
                 onClick= {

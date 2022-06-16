@@ -18,7 +18,7 @@ function UserCreditsComp() {
   return (
 
     
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 ,alignItems:"center"}}>
       <BuyCreditsModal
         openModal={openCreditsModal}
         setOpenModal={setOpenCreditsModal}
@@ -28,14 +28,14 @@ function UserCreditsComp() {
         direction="column"
         justifyContent="center"
         alignItems="center"
-        sx={{ m: 4 }}
       >
-        <Grid item xs={12} sx={{ mb: 5, mt: 3 }}>
+        <Grid item xs={12} sx={{ mb: 5, mt: 5 }}>
           <Typography
             variant="h5"
             color="inherit"
             component="div"
             textAlign={"center"}
+            fontWeight="bold"
           >
             Available Credits
           </Typography>
