@@ -174,6 +174,19 @@ function Header() {
                  </Button>     
               </>
             </Tooltip>
+            <Tooltip title="StockLeague" arrow>
+              <>
+                <Button
+                  className="header"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={() => { navigate("/stockLeague"); }}
+                >
+                  StockLeague
+                </Button>
+              </>
+            </Tooltip>
 
             <Tooltip title="Technical Support" arrow>
               <Button className="header" onClick={openChatBotModal}>Support</Button>
