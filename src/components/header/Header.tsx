@@ -13,6 +13,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import SimpleForm from "../chatbot/SimpleForm";
 
 
+
 function Header() {
   /** https://mui.com/material-ui/react-menu/ To be cited.*/
   const [openChatModal, setOpenChatModal] = useState(false);
@@ -95,9 +96,48 @@ function Header() {
             <Button className="header" onClick={openChatBotModal}>Support</Button>
           </Tooltip>
 
-          <Tooltip title="Go to Login Page" arrow>
-            <Button className="header">LOGOUT</Button>
-          </Tooltip>
+          {/* <BootstrapTooltip title="Go to Login">
+            <Button
+              style={{
+                color: "black",
+                background: "white",
+                fontWeight: "bolder",
+                border: "1px solid #2E8BC0",
+              }}
+            >
+              LOGOUT
+            </Button>
+          </BootstrapTooltip>
+          <BootstrapTooltip title="Go to stock league">
+            <Button
+              onClick = {() => navigate('/stockLeague')}
+              style={{
+                color: "black",
+                background: "white",
+                fontWeight: "bolder",
+                border: "1px solid #2E8BC0"
+              }
+            }
+            >
+              stock league
+              
+            </Button>
+          </BootstrapTooltip>
+          <BootstrapTooltip title="Go to appointment">
+            <Button
+              onClick={() => navigate('/advisors')}
+              style={{
+                color: "black",
+                background: "white",
+                fontWeight: "bolder",
+                border: "1px solid #2E8BC0"
+              }
+              }
+            >
+             Appointment
+
+            </Button>
+          </BootstrapTooltip> */}
         </Toolbar>
       </AppBar>
     </Box>
