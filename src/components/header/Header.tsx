@@ -38,11 +38,8 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleProfileClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorProfileEl(event.currentTarget);
-  };
-  const handleProfileClose = () => {
-    setAnchorProfileEl(null);
+  const handleClose2 = () => {
+    setAnchorEl2(null);
   };
   const openChatBotModal = (event: any) => {
     setOpenChatModal(true);
