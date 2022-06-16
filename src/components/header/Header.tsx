@@ -17,11 +17,22 @@ function Header() {
   /** https://mui.com/material-ui/react-menu/ To be cited.*/
   const [openChatModal, setOpenChatModal] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const open2 = Boolean(anchorEl2);
+  const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl2(event.currentTarget);
+  };
+
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleClose2 = () => {
     setAnchorEl(null);
   };
   const openChatBotModal = (event: any) => {
@@ -48,11 +59,43 @@ function Header() {
             DTrade
           </Typography>
 
-          <Tooltip title="Go to Profile Page" arrow>
-            <PersonIcon className="profile"  onClick={() => {
-                    navigate("/profile");
-                  }}></PersonIcon>
+          <Tooltip title="Menu" arrow>
+            <>
+              <Button
+                  className="header"
+                  aria-controls={open2 ? "basic-menu1" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open2 ? "true" : undefined}
+                  onClick={handleClick2}
+              >
+                Menu
+              </Button>
+              <Menu
+                  id="basic-menu1"
+                  anchorEl={anchorEl2}
+                  open={open2}
+                  onClose={handleClose2}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+              >
+                <MenuItem onClick={() => {
+                  navigate("/News");
+                }}>News</MenuItem>
+                <MenuItem onClick={() => {
+                  navigate("/blog");
+                }}>Blogs</MenuItem>
+                <MenuItem
+                    onClick={() => {
+                      navigate("/league");
+                    }}
+                >
+                  League
+                </MenuItem>
+              </Menu>
+            </>
           </Tooltip>
+
 
           <Tooltip title="Portfolio" arrow>
             <>
@@ -75,7 +118,7 @@ function Header() {
                 }}
               >
                 <MenuItem onClick={() => {
-                  navigate("/Holdings");
+                  navigate("/Positions");
                 }}>Positions</MenuItem>
                 <MenuItem onClick={() => {
                   navigate("/Holdings");
@@ -95,8 +138,11 @@ function Header() {
             <Button className="header" onClick={openChatBotModal}>Support</Button>
           </Tooltip>
 
-          <Tooltip title="Go to Login Page" arrow>
-            <Button className="header">LOGOUT</Button>
+
+          <Tooltip title="Go to Profile Page" arrow>
+            <PersonIcon className="profile"  onClick={() => {
+              navigate("/profile");
+            }}></PersonIcon>
           </Tooltip>
         </Toolbar>
       </AppBar>
