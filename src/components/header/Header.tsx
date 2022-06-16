@@ -74,8 +74,12 @@ function Header() {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem onClick={handleClose}>Positions</MenuItem>
-                <MenuItem onClick={handleClose}>Holdings</MenuItem>
+                <MenuItem onClick={() => {
+                  navigate("/Holdings");
+                }}>Positions</MenuItem>
+                <MenuItem onClick={() => {
+                  navigate("/Holdings");
+                }}>Holdings</MenuItem>
                 <MenuItem
                   onClick={() => {
                     navigate("/orderstatus");
