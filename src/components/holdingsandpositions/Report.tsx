@@ -9,7 +9,7 @@ import React from "react";
 function Report() {
     const navigate = useNavigate();
     const routeChangeHome = () =>{
-        let path = `/`;
+        let path = `/holdings`;
         navigate(path);
     }
     return (

@@ -18,6 +18,9 @@ import LineChart from "./components/stockAnalytics/analytics";
 import Blog from "./components/blog/Blog"
 import BlogDetails from "./components/blog/BlogDetails";
 import EditBlog from "./components/blog/EditBlog";
+import HoldingsHome from "./components/holdingsandpositions/HoldingsHome";
+import Report from "./components/holdingsandpositions/Report";
+import ViewNews from "./components/newsmanagement/ViewNews";
 
 function App() {
   return (
@@ -80,6 +83,9 @@ function App() {
           }
         />
 
+          <Route path="/holdings" element={<HoldingsHome />}></Route>
+          <Route path="/report" element={<Report />}></Route>
+          <Route path="/news" element={<ViewNews />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>

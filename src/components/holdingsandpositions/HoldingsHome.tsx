@@ -5,15 +5,15 @@ import {useNavigate} from "react-router-dom";
 import React from "react";
 import {Grid} from "@mui/material";
 
-function HoldingsHome() {
+export default function HoldingsHome() {
     const navigate = useNavigate();
     const routeChange = () =>{
-        let path = `/Report`;
+        let path = `/report`;
         navigate(path);
     }
 
     const routeChangeHome = () =>{
-        let path = `/`;
+        let path = `/holdings`;
         navigate(path);
     }
 
@@ -41,4 +41,4 @@ function HoldingsHome() {
     );
 }
 
-export default HoldingsHome;
+

@@ -25,7 +25,7 @@ export default function ResponsiveDatePickers() {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Stack spacing={3}>
                 <Card className="margin">
-                    <Grid container direction="row" alignItems="right" justifyContent="center" spacing={4} >
+                    <Grid container direction="row" alignItems="center" justifyContent="center" spacing={4} >
                         <Grid item>
                             <DesktopDatePicker className="margin"
                                                disableFuture
@@ -52,9 +52,11 @@ export default function ResponsiveDatePickers() {
                     <br/>
                     {show && <PortfolioTable/>}
                     <br/>
+                    <Grid container direction="column" alignItems="center">
                     <Button variant="contained" color="success" onClick={() => setShow(prev => !prev)}>
                         Show
                     </Button>
+                    </Grid>
                 </Card>
             </Stack>
         </LocalizationProvider>

@@ -12,8 +12,8 @@ import StockLeague from "./components/stockLeague/StockLeaguePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserDetail from "./components/user_profile/UserDetalsContainer";
 import FooterComp from "./components/footer/FooterComp";
-import LineChart from "./components/stockAnalytics/analytics"
-import simpleForm from './components/chatbot/simpleForm'
+import LineChart from "./components/stockAnalytics/analytics";
+import simpleForm from './components/chatbot/SimpleForm';
 import Report from "./components/holdingsandpositions/Report.tsx";
 import HoldingsHome from "./components/holdingsandpositions/HoldingsHome.tsx";
 import ViewNews from "./components/newsmanagement/ViewNews.tsx";
@@ -86,9 +86,9 @@ function App() {
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
         <Route path="/riskappetite" element={<RiskAppetite />}></Route>
-        <Route exact path="/Holdings" element={<HoldingsHome />} />
-        <Route exact path={"/Report"} element={<Report />} />
-        <Route exact path={"/News"} element={<ViewNews />} />
+        <Route path="/Holdings" element={<HoldingsHome />}></Route>
+        <Route path="/Report" element={<Report />}></Route>
+        <Route path="/News" element={<ViewNews />}></Route>
         <Route
           path="/stockLeague"
           element={
