@@ -17,6 +17,7 @@ import ForumComp from "./components/forum/Forum";
 import LineChart from "./components/stockAnalytics/analytics";
 import Blog from "./components/blog/Blog"
 import BlogDetails from "./components/blog/BlogDetails";
+import EditBlog from "./components/blog/EditBlog";
 
 function App() {
   return (
@@ -102,6 +103,18 @@ function App() {
             </AppBody>
             <FooterComp/>
           </Wrapper>}></Route>
+
+
+        <Route path="/editblog" element={<Wrapper>
+          <AppHeader>
+            <Header />
+          </AppHeader>
+          <AppBody>
+            <EditBlog/>
+          </AppBody>
+          <FooterComp/>
+        </Wrapper>}></Route>
+
           <Route path="/blog" element={<Wrapper>
             <AppHeader>
               <Header />

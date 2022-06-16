@@ -6,7 +6,7 @@ import { Divider } from "@mui/material";
 function FooterComp() {
   return (
     <Box sx={{ mt: 5, flexGrow: 1, bgcolor: "#2E8BC0" }}>
-      <Grid container spacing={1} sx={{ pt: 4 }}>
+      {/* <Grid container spacing={1} sx={{ pt: 4 }}>
         <Grid item xs={4}>
           <Box textAlign="center" fontWeight="bold" color="white" mb={1}>
             About
@@ -31,10 +31,9 @@ function FooterComp() {
           <FooterLinksComp name="Privacy" />
           <FooterLinksComp name="Cookies" />
         </Grid>
-      </Grid>
-      <Divider color="white" sx={{ borderBottomWidth: 1, mt: 3 }} />
+      </Grid> */}
       <Grid container color="white" direction="column">
-        <Grid item xs={13} textAlign="center" sx={{ mt: 3, mb: 3 }}>
+        <Grid item xs={12} textAlign="center" sx={{ mt: 3, mb: 3 }}>
           © 2016 - 2022 DTrade.com. All rights reserved.
         </Grid>
       </Grid>

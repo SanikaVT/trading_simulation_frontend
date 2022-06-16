@@ -97,9 +97,9 @@ export default function SignUp() {
             errors.email = "Email is not valid"
             errori =1;
         }
-        else if(!phonereg.test(values.phoneno) || values.phoneno.length < 10 ){
+        else if(!phonereg.test(values.phoneno) || values.phoneno.length != 10 ){
             // @ts-ignore
-            errors.phoneno = "Phone no should only contain numbers and should be 10 digit"
+            errors.phoneno = "Phone number should only contain numbers and should be 10 digit"
             errori =1;
         }
 

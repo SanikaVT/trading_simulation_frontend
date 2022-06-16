@@ -9,6 +9,7 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { Fab } from "@mui/material";
 
 const style = {
   position: "absolute" as "absolute",
@@ -58,13 +59,13 @@ function ConfirmationModal(props: any) {
               </Stack>
             </CardContent>
             <CardActions style={{ display: "flex", justifyContent: "center" }}>
+            <Fab color="primary" aria-label="add">
               <ArrowBackIosNewIcon
                 onClick={() => {
                   props.setOpenModal(false);
                 }}
                 style={{ backgroundColor: "#2E8BC0", color: "white" }}
-              >
-              </ArrowBackIosNewIcon>
+              /></Fab>
             </CardActions>
           </Card>
         </Box>
