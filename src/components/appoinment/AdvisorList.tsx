@@ -35,7 +35,7 @@ const AdvisorList = () => {
 
     return (
         <>
-            <div className="ui search">
+            <div >
                 <input className="prompt" type="text" placeholder="enter first name or last name"
                     value={searchWord} onChange={onChange}></input>
                 <div>
@@ -49,9 +49,9 @@ const AdvisorList = () => {
                                 )}>
                                     <img className="ui avatar image" src={user.picture}></img>
                                     <div className="content">
-                                        <a className="header">{user.title}</a>
-                                        <a className="header">{user.firstName} {user.lastName}</a>
-                                        <a className="header">{user.email}</a>
+                                        <a >{user.title}</a>
+                                        <a >{user.firstName} {user.lastName}</a>
+                                        <a >{user.email}</a>
                                     </div>
                                 </div>
                             )
