@@ -95,9 +95,7 @@ function Header() {
                   League
                 </MenuItem>
 
-                <MenuItem onClick={() => {
-                  navigate("/News");
-                }}>News</MenuItem>
+
                 <MenuItem onClick={() => {
                   navigate("/appointment");
                 }}>Appointment</MenuItem>
