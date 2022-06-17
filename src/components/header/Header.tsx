@@ -136,27 +136,19 @@ function Header() {
                   onClick={() => {
                     navigate("/orderstatus");
                   }}
-                > Status</MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      navigate("/profile");
-                    }}
-                  >
-                    Profile
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      navigate("/login");
-                    }}
-                  >
-                    Log out
-                  </MenuItem>
-                </Menu>
-              </>
+                > Orders
+                </MenuItem>
+              </Menu>
+            </>
+          </Tooltip>
+
+            <Tooltip title="Technical Support" arrow>
+              <Button className="header" onClick={openChatBotModal}>Support</Button>
             </Tooltip>
 
 
-          <Tooltip title="Go to Profile Page" arrow>
+
+            <Tooltip title="Go to Profile Page" arrow>
             <PersonIcon className="profile"  onClick={() => {
               navigate("/profile");
             }}></PersonIcon>
