@@ -96,18 +96,6 @@ function Header() {
                 <MenuItem onClick={() => {
                   navigate("/blog");
                 }}>Blogs</MenuItem>
-                <MenuItem
-                    onClick={() => {
-                      navigate("/stockleague");
-                    }}
-                >
-                  League
-                </MenuItem>
-
-
-                <MenuItem onClick={() => {
-                  navigate("/advisors");
-                }}>Appointment</MenuItem>
               </Menu>
             </>
           </Tooltip>
@@ -143,21 +131,8 @@ function Header() {
                   onClick={() => {
                     navigate("/orderstatus");
                   }}
-                ></MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      navigate("/Holdings");
-                    }}
-                  >
-                    Holdings
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      navigate("/orderstatus");
-                    }}
-                  >
-                    Orders
-                  </MenuItem>
+                  >   Orders</MenuItem>
+                  
                 </Menu>
               </>
             </Tooltip>
