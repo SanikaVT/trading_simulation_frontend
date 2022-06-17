@@ -136,7 +136,7 @@ function Header() {
                   onClick={() => {
                     navigate("/orderstatus");
                   }}
-                >
+                > Status</MenuItem>
                   <MenuItem
                     onClick={() => {
                       navigate("/profile");
