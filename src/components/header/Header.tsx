@@ -51,15 +51,24 @@ function Header() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" style={{ backgroundColor: "#2E8BC0" }}>
           <Toolbar>
-            <Typography
-              variant="h6"
-              component="div"
-              color={"white"}
-              fontWeight={"bolder"}
-              sx={{ flexGrow: 1 }}
+            <Button
+              // variant="h6"
+              // component="div"
+              // color={"white"}
+              // fontWeight={"bolder"}
+                style={{minWidth: '20px'}}
+
+              color="inherit"
+
+              onClick={() => {
+                navigate("/dashboard");
+
+              }}
             >
+
               DTrade
-            </Typography>
+            </Button>
+            <Typography sx={{ flexGrow: 1 }}></Typography>
 
           <Tooltip title="Menu" arrow>
             <>
@@ -89,7 +98,7 @@ function Header() {
                 }}>Blogs</MenuItem>
                 <MenuItem
                     onClick={() => {
-                      navigate("/league");
+                      navigate("/stockleague");
                     }}
                 >
                   League
@@ -97,7 +106,7 @@ function Header() {
 
 
                 <MenuItem onClick={() => {
-                  navigate("/appointment");
+                  navigate("/advisors");
                 }}>Appointment</MenuItem>
               </Menu>
             </>
@@ -144,7 +153,11 @@ function Header() {
               <Button className="header" onClick={openChatBotModal}>Support</Button>
             </Tooltip>
 
-
+            <Tooltip title="Logout" arrow>
+              <Button className="header" onClick={() => {
+                navigate("/");
+              }}>LogOut</Button>
+            </Tooltip>
 
             <Tooltip title="Go to Profile Page" arrow>
             <PersonIcon className="profile"  onClick={() => {
