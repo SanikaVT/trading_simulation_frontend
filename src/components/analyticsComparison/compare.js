@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
 import data from "./AAPL_Yearly_HistoricalData.csv";
 import data1 from "./APPL_half_yearly_HistoricalData.csv";
-import "./analytics.css";
+import msftdata from "./MSFT_Yearly_HistoricalData.csv"
+import msftdata1 from "./MSFT_half_yearly_HistoricalData.csv"
+import "./compare.css";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
 function LineChart(props) {
@@ -54,26 +56,6 @@ function LineChart(props) {
              .attr("x", 10)
              .attr("y", 80)
              .attr("stroke","lightgrey")
-         
-         svg.append('rect')
-             .attr("width", 100)
-             .attr("height", 22)
-             .attr("fill", "black")
-             .attr("x",690)
-             .attr("y", 50)
-             .attr("cursor", "pointer")
-             .on('click', function(){navigate('/compare')});
-       
-          svg.append('text')
-             .attr('x',693)
-             .attr('y',65)
-             .attr('fill','white')
-             .attr('font-family','sans-serif')
-             .attr('font-size','12px')
-             .attr('font-weight','bold')
-             .attr("cursor", "pointer")
-             .text('Compare stocks')
-             .on('click', function(){navigate('/compare')});
     
           svg.append('text')
              .attr('x',15)
@@ -112,8 +94,29 @@ function LineChart(props) {
              .attr('font-size','14px')
              .attr('font-weight',"bold")
              .text('-80(-0.53%)')
-         
-       function makegraph1(){
+        
+    const allGroup = ["Compare","MSFT"]
+    d3.select("#selectButton")
+      .selectAll('myOptions')
+      .data(allGroup)
+      .enter()
+      .append('option')
+      .text(function (d) { return d; }) // text showed in the menu
+      .attr("value", function (d) { return d; }) // corresponding value returned by the button  
+
+    var selectedOption;
+    selectedOption = d3.select("#selectButton").property("value");
+    window.addEventListener('resize', makegraph1(selectedOption));
+    d3.select("#selectButton").on("change", function(event,d){
+        // recover the option that has been chosen
+        selectedOption = d3.select(this).property("value")
+        // run the updateChart function with this selected option
+        d3.selectAll("#graph1").remove();
+        d3.selectAll("#graph2").remove();
+        window.addEventListener('resize', makegraph1(selectedOption));
+    })
+       function makegraph1(selectedOption){
+        console.log(selectedOption);
           var margin = {top: 20, right: 20, bottom: 50, left: 100},
                width = 800 - margin.left - margin.right,
                height = 550 - margin.top - margin.bottom,
@@ -125,7 +128,8 @@ function LineChart(props) {
                .append("g")
                .attr("transform",
                      "translate(" + margin.left + "," + margin.top + ")");
-    
+            var x;
+            var y;
            
            d3.csv(data).then(function(data) {
              var parseDate = d3.timeParse("%d-%m-%Y");
@@ -134,38 +138,19 @@ function LineChart(props) {
                 d.Percentage = +d.Percentage;
             });
     
-            var x = d3.scaleTime().domain(d3.extent(data, function(d){
-             return d.Date
-          })).range([0, width-100]);
-          var y = d3.scaleLinear().domain([0, 200]).range([height-200, 0]);
+            x = d3.scaleTime().domain(d3.extent(data, function(d){
+                return d.Date
+                })).range([0, width-100]);
+            y = d3.scaleLinear().domain([0, 350]).range([height-200, 0]);
           
-            var valueline = d3.area()
+            var valueline = d3.line()
             .x( d=>x(d.Date) )
-            .y0(height-200)	
-            .y1( d=>y(d.Percentage) )
-          
-            svg.append("linearGradient")				
-            .attr("id", "area-gradient")			
-            .attr("gradientUnits", "userSpaceOnUse")	
-            .attr("x1", 0).attr("y1", y(0))			
-            .attr("x2", 0).attr("y2", y(1000))		
-          .selectAll("stop")						
-            .data([								
-              {offset: "0%", color: "white"},		
-              {offset: "10%", color: "rgb(9, 141, 77)"},	
-              {offset: "45%", color: "rgb(9, 141, 77)"},		
-              {offset: "55%", color: "rgb(9, 141, 77)"},		
-              {offset: "60%", color: "rgb(9, 141, 77)"},	
-              {offset: "100%", color: "rgb(9, 141, 77)"}	
-            ])					
-          .enter().append("stop")			
-            .attr("offset", function(d) { return d.offset; })	
-            .attr("stop-color", function(d) { return d.color; });
+            .y( d=>y(d.Percentage) )
     
           g.append('path')
              .datum(data)
-             .attr("class","area")
              .attr("id","graph1")
+             .attr("class","line")
              .attr('d',valueline);
            
           var xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%Y")).tickSize(0);
@@ -196,9 +181,27 @@ function LineChart(props) {
              g.append("g").attr("class","axisc").attr("id","graph1").call(gYAxis).select(".domain").remove();
     
            });
+        if(selectedOption == "MSFT"){
+           d3.csv(msftdata).then(function(data) {
+            var parseDate = d3.timeParse("%d-%m-%Y");
+            data.forEach(d=>{
+               d.Date = parseDate(d.Date);
+               d.Percentage = +d.Percentage;
+           });
+         
+           var valueline1 = d3.line()
+           .x( d=>x(d.Date) )
+           .y( d=>y(d.Percentage) )
+   
+         g.append('path')
+            .datum(data)
+            .attr("id","graph1")
+            .attr("class","line2")
+            .attr('d',valueline1);
+          });
+        }
           }
-          makegraph1();
-        function makegraph2(){
+        function makegraph2(selectedOption){
              var margin = {top: 20, right: 20, bottom: 50, left: 100},
                   width = 800 - margin.left - margin.right,
                   height = 550 - margin.top - margin.bottom,
@@ -210,7 +213,8 @@ function LineChart(props) {
                 .append("g")
                   .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
-              
+              var x;
+              var y;
               d3.csv(data1).then(function(data) {
                   
                 var parseDate = d3.timeParse("%d-%m-%Y");
@@ -219,38 +223,18 @@ function LineChart(props) {
                    d.Percentage = +d.Percentage;
                });
        
-               var x = d3.scaleTime().domain(d3.extent(data, function(d){
+               x = d3.scaleTime().domain(d3.extent(data, function(d){
                 return d.Date
              })).range([0, width-100]);
-             var y = d3.scaleLinear().domain([0, 200]).range([height-200, 0]);
+             y = d3.scaleLinear().domain([0, 350]).range([height-200, 0]);
              
-               var valueline = d3.area()
+               var valueline = d3.line()
                .x( d=>x(d.Date) )
-               .y0(height-200)	
-               .y1( d=>y(d.Percentage) )
-             
-               svg.append("linearGradient")				
-               .attr("id", "area-gradient")			
-               .attr("gradientUnits", "userSpaceOnUse")	
-               .attr("x1", 0).attr("y1", y(0))			
-               .attr("x2", 0).attr("y2", y(1000))		
-             .selectAll("stop")						
-               .data([								
-                 {offset: "0%", color: "white"},		
-                 {offset: "10%", color: "rgb(9, 141, 77)"},	
-                 {offset: "45%", color: "rgb(9, 141, 77)"},		
-                 {offset: "55%", color: "rgb(9, 141, 77)"},		
-                 {offset: "60%", color: "rgb(9, 141, 77)"},	
-                 {offset: "100%", color: "rgb(9, 141, 77)"}	
-               ])					
-             .enter().append("stop")			
-               .attr("offset", function(d) { return d.offset; })	
-               .attr("stop-color", function(d) { return d.color; });
+               .y( d=>y(d.Percentage) )
        
              g.append('path')
                 .datum(data)
-                .attr("class","area")
-                .attr("id","line1")
+                .attr("class","line")
                 .attr('d',valueline)
                 .attr('id',"graph2");
               
@@ -282,6 +266,25 @@ function LineChart(props) {
                 g.append("g").attr("class","axisc").attr("id","graph2").call(gYAxis).select(".domain").remove();
        
               });
+              if(selectedOption == "MSFT"){
+                d3.csv(msftdata1).then(function(data) {
+                    var parseDate = d3.timeParse("%d-%m-%Y");
+                    data.forEach(d=>{
+                       d.Date = parseDate(d.Date);
+                       d.Percentage = +d.Percentage;
+                   });
+                 
+                   var valueline1 = d3.line()
+                   .x( d=>x(d.Date) )
+                   .y( d=>y(d.Percentage) )
+           
+                 g.append('path')
+                    .datum(data)
+                    .attr("id","graph2")
+                    .attr("class","line2")
+                    .attr('d',valueline1);
+                  });
+              }
              }
         function responsivefy(svg) {
                  
@@ -327,27 +330,7 @@ function LineChart(props) {
              .attr('font-weight','bold')
              .attr("cursor", "pointer")
              .text('Buy')
-             .on('click', function(){openBuyTradeModal()});
-
-         svg.append('rect')
-             .attr("width", 100)
-             .attr("height", 22)
-             .attr("fill", "black")
-             .attr("x",15)
-             .attr("y", 165)
-             .attr("cursor", "pointer")
-             .on('click', function(){navigate('/financials')});
-       
-          svg.append('text')
-             .attr('x',22)
-             .attr('y',180)
-             .attr('fill','white')
-             .attr('font-family','sans-serif')
-             .attr('font-size','12px')
-             .attr('font-weight','bold')
-             .attr("cursor", "pointer")
-             .text('View Financials')
-             .on('click', function(){navigate('/financials')});
+             .on('click', function(){openBuyTradeModal()})
 
              svg.append('rect')
              .attr("width", 47)
@@ -383,7 +366,7 @@ function LineChart(props) {
                 if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
-                  window.addEventListener('resize', makegraph1());
+                  window.addEventListener('resize', makegraph1(selectedOption));
                 //d3.select(window).on('resize', makegraph1());
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
@@ -418,7 +401,7 @@ function LineChart(props) {
                 if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
-                window.addEventListener('resize', makegraph1());
+                window.addEventListener('resize', makegraph1(selectedOption));
                 //d3.select(window).on('resize', );
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
@@ -449,7 +432,7 @@ function LineChart(props) {
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
-                window.addEventListener('resize', makegraph2());
+                window.addEventListener('resize', makegraph2(selectedOption));
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });
@@ -483,7 +466,7 @@ function LineChart(props) {
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
-                window.addEventListener('resize', makegraph2());
+                window.addEventListener('resize', makegraph2(selectedOption));
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });
@@ -551,8 +534,10 @@ function LineChart(props) {
       .on("click", function() {
         openSellTradeModal();
       });
-    
+      
     }
+
+
 
     
   return (
@@ -567,6 +552,7 @@ function LineChart(props) {
         setOpenModal={setOpenSellModal}
         stockData={stockData}
       />
+      <select id="selectButton" translate="80"></select>
       <div id="container"></div>
     </>
   );

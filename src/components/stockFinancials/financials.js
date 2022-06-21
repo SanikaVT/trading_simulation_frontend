@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
 import data from "./AAPL_Yearly_HistoricalData.csv";
 import data1 from "./APPL_half_yearly_HistoricalData.csv";
-import "./analytics.css";
+import "./financials.css";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
 function LineChart(props) {
@@ -54,26 +54,6 @@ function LineChart(props) {
              .attr("x", 10)
              .attr("y", 80)
              .attr("stroke","lightgrey")
-         
-         svg.append('rect')
-             .attr("width", 100)
-             .attr("height", 22)
-             .attr("fill", "black")
-             .attr("x",690)
-             .attr("y", 50)
-             .attr("cursor", "pointer")
-             .on('click', function(){navigate('/compare')});
-       
-          svg.append('text')
-             .attr('x',693)
-             .attr('y',65)
-             .attr('fill','white')
-             .attr('font-family','sans-serif')
-             .attr('font-size','12px')
-             .attr('font-weight','bold')
-             .attr("cursor", "pointer")
-             .text('Compare stocks')
-             .on('click', function(){navigate('/compare')});
     
           svg.append('text')
              .attr('x',15)
@@ -327,27 +307,7 @@ function LineChart(props) {
              .attr('font-weight','bold')
              .attr("cursor", "pointer")
              .text('Buy')
-             .on('click', function(){openBuyTradeModal()});
-
-         svg.append('rect')
-             .attr("width", 100)
-             .attr("height", 22)
-             .attr("fill", "black")
-             .attr("x",15)
-             .attr("y", 165)
-             .attr("cursor", "pointer")
-             .on('click', function(){navigate('/financials')});
-       
-          svg.append('text')
-             .attr('x',22)
-             .attr('y',180)
-             .attr('fill','white')
-             .attr('font-family','sans-serif')
-             .attr('font-size','12px')
-             .attr('font-weight','bold')
-             .attr("cursor", "pointer")
-             .text('View Financials')
-             .on('click', function(){navigate('/financials')});
+             .on('click', function(){openBuyTradeModal()})
 
              svg.append('rect')
              .attr("width", 47)

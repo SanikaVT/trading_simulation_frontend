@@ -27,6 +27,8 @@ import Reservation from "./components/appoinment/Reservation";
 import Advisor from "./components/appoinment/Advisor";
 import Advisors from "./components/appoinment/AdvisorList";
 import Information from "./components/appoinment/Information"
+import Financials from "./components/stockFinancials/financials"
+import Compare from "./components/analyticsComparison/compare"
 
 function App() {
   return (
@@ -83,6 +85,36 @@ function App() {
               </AppHeader>
               <AppBody>
                 <ForumComp/>
+              </AppBody>
+              <FooterComp/>
+            </Wrapper>
+          }
+        />
+
+        <Route
+          path="/financials"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <Financials/>
+              </AppBody>
+              <FooterComp/>
+            </Wrapper>
+          }
+        />
+
+        <Route
+          path="/compare"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <Compare/>
               </AppBody>
               <FooterComp/>
             </Wrapper>
