@@ -63,6 +63,7 @@ export default function ResponsiveDatePickers() {
                             />                        </Grid>
                         <Grid item>
                             <DesktopDatePicker className="margin"
+                                               disableFuture
                                                label="To"
                                                value={valueTo}
                                                minDate={new Date('2017-01-01')}
