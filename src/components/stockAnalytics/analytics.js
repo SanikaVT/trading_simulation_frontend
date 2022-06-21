@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Forum from "../forum/Forum"
 import * as d3 from "d3";
 import data from "./AAPL_Yearly_HistoricalData.csv";
 import data1 from "./APPL_half_yearly_HistoricalData.csv";
@@ -568,6 +569,7 @@ function LineChart(props) {
         stockData={stockData}
       />
       <div id="container"></div>
+      <Forum/>
     </>
   );
   
