@@ -96,18 +96,6 @@ function Header() {
                 <MenuItem onClick={() => {
                   navigate("/blog");
                 }}>Blogs</MenuItem>
-                <MenuItem
-                    onClick={() => {
-                      navigate("/stockleague");
-                    }}
-                >
-                  League
-                </MenuItem>
-
-
-                <MenuItem onClick={() => {
-                  navigate("/advisors");
-                }}>Appointment</MenuItem>
               </Menu>
             </>
           </Tooltip>
@@ -143,11 +131,37 @@ function Header() {
                   onClick={() => {
                     navigate("/orderstatus");
                   }}
-                > Orders
-                </MenuItem>
-              </Menu>
-            </>
-          </Tooltip>
+                  >   Orders</MenuItem>
+                  
+                </Menu>
+              </>
+            </Tooltip>
+            <Tooltip title="Advisor" arrow>
+              <>
+                <Button
+                  className="header"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={() => { navigate("/advisors"); }}
+                >
+                 Advisor
+                 </Button>     
+              </>
+            </Tooltip>
+            <Tooltip title="StockLeague" arrow>
+              <>
+                <Button
+                  className="header"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={() => { navigate("/stockLeague"); }}
+                >
+                  StockLeague
+                </Button>
+              </>
+            </Tooltip>
 
             <Tooltip title="Technical Support" arrow>
               <Button className="header" onClick={openChatBotModal}>Support</Button>
