@@ -11,40 +11,43 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import axios from "axios";
 
 interface Orders {
-  ordersStatus: IOrderStatus[];
+  orders: IOrderStatus[];
 }
 interface IOrderStatus {
-  id: Number;
-  symbol: string;
-  tradetime: string;
-  orderid: string;
-  type: string;
-  qty: Number;
-  price: Number;
+  id: string;
+  orderID: string;
+  orderType: string;
+  price: number;
+  quantity: number;
   status: string;
+  symbol: string;
+  timestamp: Date;
 }
 
 const columns: GridColDef[] = [
-  { field: "symbol", headerName: "Symbol", flex: 1 },
+  { field: "id", headerName: "Id", flex: 1, hide: true },
   {
-    field: "tradetime",
-    headerName: "Trade time",
-    flex: 1,
-  },
-  {
-    field: "orderid",
+    field: "orderID",
     headerName: "Order ID",
     flex: 1,
   },
+  { field: "symbol", headerName: "Symbol", flex: 1 },
   {
-    field: "type",
+    field: "timestamp",
+    headerName: "Trade time",
+    flex: 1,
+  },
+
+  {
+    field: "orderType",
     headerName: "Type",
     flex: 1,
   },
   {
-    field: "qty",
+    field: "quantity",
     headerName: "Qty.",
     flex: 1,
   },
@@ -69,101 +72,45 @@ function OrderStatus() {
   const [startDate, setStartDate] = React.useState<Date | null>(new Date());
   const [endDate, setEndDate] = React.useState<Date | null>(new Date());
   const [searchItem, setSearchItem] = useState("");
+  let initialOrders: IOrderStatus[] = [];
+  const [rows, setRows] = useState(initialOrders);
+  const [ordersData, setOrdersData] = useState(initialOrders);
+  const [constOrdersData, setConstOrdersData] = useState(initialOrders);
   const intialOrders: Orders = {
-    ordersStatus: [
+    orders: [
       {
-        id: 1,
+        id: "1",
         symbol: "AAPL",
-        tradetime: "2013-02-24 10:02:05",
-        orderid: "6516250",
-        type: "Buy",
-        qty: 10,
-        price: 165,
-        status: "Cancelled",
-      },
-      {
-        id: 2,
-        symbol: "AAPL",
-        tradetime: "2014-02-24 10:02:05",
-        orderid: "6516251",
-        type: "Buy",
-        qty: 8,
-        price: 135,
-        status: "Cancelled",
-      },
-      {
-        id: 3,
-        symbol: "AAPL",
-        tradetime: "2019-02-24 10:02:05",
-        orderid: "6516252",
-        type: "Buy",
-        qty: 12,
-        price: 145,
-        status: "Cancelled",
-      },
-      {
-        id: 4,
-        symbol: "AAPL",
-        tradetime: "2022-06-24 10:02:05",
-        orderid: "6516253",
-        type: "Buy",
-        qty: 15,
-        price: 185,
-        status: "Cancelled",
-      },
-      {
-        id: 5,
-        symbol: "INFY",
-        tradetime: "2021-02-24 10:02:05",
-        orderid: "6516251",
-        type: "Buy",
-        qty: 10,
-        price: 215,
-        status: "Cancelled",
-      },
-      {
-        id: 6,
-        symbol: "INFY",
-        tradetime: "2019-02-24 10:02:05",
-        orderid: "6516251",
-        type: "Buy",
-        qty: 14,
-        price: 225,
-        status: "Cancelled",
-      },
-      {
-        id: 7,
-        symbol: "TCS",
-        tradetime: "2022-02-24 10:02:05",
-        orderid: "6516250",
-        type: "Buy",
-        qty: 10,
-        price: 165,
-        status: "Cancelled",
-      },
-      {
-        id: 8,
-        symbol: "CBDT",
-        tradetime: "2022-02-24 10:02:05",
-        orderid: "6516250",
-        type: "Buy",
-        qty: 10,
+        timestamp: new Date(),
+        orderID: "6516250",
+        orderType: "Buy",
+        quantity: 10,
         price: 165,
         status: "Cancelled",
       },
     ],
   };
-
-  const [ordersData, setOrdersData] = useState(intialOrders.ordersStatus);
-  const [constOrdersData, setConstOrdersData] = useState(
-    intialOrders.ordersStatus
-  );
-
-  let rows = ordersData;
-
+  //let rows: IOrderStatus[] = intialOrders.orders;
   useEffect(() => {
-    setOrdersData(ordersData);
-    setConstOrdersData(ordersData);
+    axios({
+      method: "get",
+      url: "http://localhost:3100/api/order",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        let data: Orders = response.data;
+        setOrdersData(data.orders);
+        setConstOrdersData(data.orders);
+        console.log(data.orders);
+        console.log(intialOrders.orders);
+        setRows(data.orders);
+        console.log(data.orders);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setSearchItem("");
     updateOrdersHandler("", startDate, endDate);
   }, []);
@@ -173,30 +120,30 @@ function OrderStatus() {
     startDate: Date | null,
     endDate: Date | null
   ) => {
-    rows = constOrdersData;
+    setRows(constOrdersData);
     setOrdersData(constOrdersData);
 
-    startDate = startDate == null ? new Date(Date.now()) : startDate;
-    endDate = endDate == null ? new Date(Date.now()) : endDate;
+    startDate = startDate == null ? new Date() : startDate;
+    endDate = endDate == null ? new Date() : endDate;
 
     rows.forEach((row) => {
-      console.log(new Date(row.tradetime), new Date(row.tradetime));
+      console.log(row.timestamp, row.timestamp);
     });
     console.log(startDate.getDate(), endDate.getDate());
     let filterData = rows.filter((row) => {
-      if (
-        startDate != null &&
-        endDate != null &&
-        new Date(row.tradetime) >= startDate &&
-        new Date(row.tradetime) <= endDate
-      )
-        return row;
+      // if (
+      //   startDate != null &&
+      //   endDate != null &&
+      //   new Date(row.timestamp) >= startDate &&
+      //   new Date(row.timestamp) <= endDate
+      // )
+      return row;
     });
 
     console.log(filterData.length);
 
     setOrdersData(filterData);
-    rows = filterData;
+    setRows(filterData);
 
     if (searchText !== null && searchText !== "") {
       if (searchText.length > 0) {
@@ -204,10 +151,10 @@ function OrderStatus() {
           row.symbol.toLowerCase().includes(searchText.toLowerCase())
         );
         setOrdersData(filterData);
-        rows = filterData;
+        setRows(filterData);
       } else {
         setOrdersData(constOrdersData);
-        rows = constOrdersData;
+        setRows(constOrdersData);
       }
     }
   };
