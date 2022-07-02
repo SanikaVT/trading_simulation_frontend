@@ -76,21 +76,7 @@ function OrderStatus() {
   const [rows, setRows] = useState(initialOrders);
   const [ordersData, setOrdersData] = useState(initialOrders);
   const [constOrdersData, setConstOrdersData] = useState(initialOrders);
-  const intialOrders: Orders = {
-    orders: [
-      {
-        id: "1",
-        symbol: "AAPL",
-        timestamp: new Date(),
-        orderID: "6516250",
-        orderType: "Buy",
-        quantity: 10,
-        price: 165,
-        status: "Cancelled",
-      },
-    ],
-  };
-  //let rows: IOrderStatus[] = intialOrders.orders;
+
   useEffect(() => {
     axios({
       method: "get",
@@ -103,10 +89,7 @@ function OrderStatus() {
         let data: Orders = response.data;
         setOrdersData(data.orders);
         setConstOrdersData(data.orders);
-        console.log(data.orders);
-        console.log(intialOrders.orders);
         setRows(data.orders);
-        console.log(data.orders);
       })
       .catch((err) => {
         console.log(err);
@@ -122,26 +105,24 @@ function OrderStatus() {
   ) => {
     setRows(constOrdersData);
     setOrdersData(constOrdersData);
-
     startDate = startDate == null ? new Date() : startDate;
     endDate = endDate == null ? new Date() : endDate;
 
-    rows.forEach((row) => {
-      console.log(row.timestamp, row.timestamp);
+    let filterData = constOrdersData.filter((row) => {
+      const timestamp = new Date(row.timestamp);
+      if (
+        timestamp != null &&
+        startDate != null &&
+        endDate != null &&
+        timestamp.getDate() >= startDate.getDate() &&
+        timestamp.getMonth() >= startDate.getMonth() &&
+        timestamp.getFullYear() >= startDate.getFullYear() &&
+        timestamp.getDate() <= endDate.getDate() &&
+        timestamp.getMonth() <= endDate.getMonth() &&
+        timestamp.getFullYear() <= endDate.getFullYear()
+      )
+        return row;
     });
-    console.log(startDate.getDate(), endDate.getDate());
-    let filterData = rows.filter((row) => {
-      // if (
-      //   startDate != null &&
-      //   endDate != null &&
-      //   new Date(row.timestamp) >= startDate &&
-      //   new Date(row.timestamp) <= endDate
-      // )
-      return row;
-    });
-
-    console.log(filterData.length);
-
     setOrdersData(filterData);
     setRows(filterData);
 
