@@ -12,10 +12,14 @@ import MenuItem from "@mui/material/MenuItem";
 import PersonIcon from "@mui/icons-material/Person";
 import SimpleForm from "../chatbot/SimpleForm";
 
+
+
 function Header() {
   /** https://mui.com/material-ui/react-menu/ To be cited.*/
   const [openChatModal, setOpenChatModal] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
+
   const open = Boolean(anchorEl);
   const [
     anchorProfileEl,
@@ -25,6 +29,12 @@ function Header() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const open2 = Boolean(anchorEl2);
+  const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl2(event.currentTarget);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -129,12 +139,39 @@ function Header() {
                 </Menu>
               </>
             </Tooltip>
+            <Tooltip title="Advisor" arrow>
+              <>
+                <Button
+                  className="header"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={() => { navigate("/advisors"); }}
+                >
+                 Advisor
+                 </Button>     
+              </>
+            </Tooltip>
+            <Tooltip title="StockLeague" arrow>
+              <>
+                <Button
+                  className="header"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={() => { navigate("/stockLeague"); }}
+                >
+                  StockLeague
+                </Button>
+              </>
+            </Tooltip>
 
             <Tooltip title="Technical Support" arrow>
               <Button className="header" onClick={openChatBotModal}>
                 Support
               </Button>
             </Tooltip>
+            
           </Toolbar>
         </AppBar>
       </Box>

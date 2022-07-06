@@ -7,13 +7,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import FormHelperText from '@mui/material/FormHelperText';
-import {useState} from "react";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Grid from '@mui/material/Grid';
+
+
 
 export default function ForgotPasswordOtp() {
 
@@ -34,7 +30,13 @@ export default function ForgotPasswordOtp() {
         window.location.href = "/forgotpassword";
     }
 
+    const gotosignin =()=>{
 
+        window.location.href="/";
+    }
+    const gotosignup = () =>{
+        window.location.href="/signup";
+    }
     const card_1 = {
         backgroundColor: "white",
         borderRadius: "10px",
@@ -52,7 +54,7 @@ export default function ForgotPasswordOtp() {
             <Card variant="outlined" style={card_1}>
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 4,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -67,11 +69,11 @@ export default function ForgotPasswordOtp() {
                     </Typography>
                     <br/>
 
-                    <Box >
+                    <Box sx={{ width: 1 }}>
                         <form >
                             <TextField
                                 fullWidth
-                                label="Email"
+                                label="Email Address"
                                 required
                                 type={"email"}
                                 sx={{ marginBottom:1}}
@@ -106,7 +108,31 @@ export default function ForgotPasswordOtp() {
                     </Box>
                 </Box>
             </Card>
+            <Card variant="outlined" style={card_1} >
+                <Grid container spacing={2}>
 
+                    <Grid item xs={12} sm={6}>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            type={"submit"}
+                            onClick={gotosignin}
+                        >
+                            Sign-in
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            type={"submit"}
+                            onClick={gotosignup}
+                        >
+                            Sign-Up
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Card>
         </Container>
 
     );

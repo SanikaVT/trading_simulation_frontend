@@ -97,7 +97,7 @@ export default function SignUp() {
             errors.email = "Email is not valid"
             errori =1;
         }
-        else if(!phonereg.test(values.phoneno) || values.phoneno.length != 10 ){
+        else if(!phonereg.test(values.phoneno) || values.phoneno.length !== 10 ){
             // @ts-ignore
             errors.phoneno = "Phone number should only contain numbers and should be 10 digit"
             errori =1;
@@ -108,6 +108,10 @@ export default function SignUp() {
         }
         return errors;
 
+    }
+    const gotosignin =()=>{
+
+        window.location.href="/";
     }
 
     const card_1 = {
@@ -142,103 +146,103 @@ export default function SignUp() {
 
                     <Box >
 
-                    <form onSubmit={handleSubmit}>
-                        <Grid container spacing={2}>
+                        <form onSubmit={handleSubmit}>
+                            <Grid container spacing={2}>
 
-                            <Grid item xs={12} sm={6}>
-                        <TextField
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
 
-                            label="First Name"
-                            name='fname'
-                            required
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            value={formValue.fname}
-                            error={formError.fname}
-                            // sx={{ marginBottom:1, marginTop:1}}
-                        /><FormHelperText>{formError.fname}</FormHelperText>
+                                        label="First Name"
+                                        name='fname'
+                                        required
+                                        onChange={handleChange}
+                                        onSubmit={handleSubmit}
+                                        value={formValue.fname}
+                                        error={formError.fname}
+                                        // sx={{ marginBottom:1, marginTop:1}}
+                                    /><FormHelperText>{formError.fname}</FormHelperText>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+
+                                        label="Last Name"
+                                        name='lname'
+                                        required
+                                        onChange={handleChange}
+                                        onSubmit={handleSubmit}
+                                        value={formValue.lname}
+                                        error={formError.lname}
+                                        // sx={{ marginBottom:1, marginTop:1}}
+                                    /><FormHelperText>{formError.lname}</FormHelperText>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
-                        <TextField
 
-                            label="Last Name"
-                            name='lname'
-                            required
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            value={formValue.lname}
-                            error={formError.lname}
-                            // sx={{ marginBottom:1, marginTop:1}}
-                        /><FormHelperText>{formError.lname}</FormHelperText>
-                            </Grid>
-                        </Grid>
+                            <TextField
+                                fullWidth
+                                label="Email Address"
+                                name='email'
+                                required
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.email}
+                                error={formError.email}
+                                type='email'
+                                sx={{ marginBottom:1, marginTop:1}}
+                            /><FormHelperText>{formError.email}</FormHelperText>
+                            <TextField
+                                fullWidth
+                                label="Password"
+                                name='password'
+                                type={"password"}
+                                required
+                                sx={{ marginBottom:1}}
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.password}
+                                error={formError.password}
+                            /><FormHelperText>{formError.password}</FormHelperText>
 
-                        <TextField
-                            fullWidth
-                            label="Email Address"
-                            name='email'
-                            required
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            value={formValue.email}
-                            error={formError.email}
-                            type='email'
-                            sx={{ marginBottom:1, marginTop:1}}
-                        /><FormHelperText>{formError.email}</FormHelperText>
-                        <TextField
-                            fullWidth
-                            label="Password"
-                            name='password'
-                            type={"password"}
-                            required
-                            sx={{ marginBottom:1}}
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            value={formValue.password}
-                            error={formError.password}
-                        /><FormHelperText>{formError.password}</FormHelperText>
+                            <TextField
+                                fullWidth
+                                label="Confirm Password"
+                                name='confpassword'
+                                type={"password"}
+                                required
+                                sx={{ marginTop:1, marginBottom:1}}
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.confpassword}
+                                error={formError.confpassword}
+                            /><FormHelperText>{formError.confpassword}</FormHelperText>
 
-                        <TextField
-                            fullWidth
-                            label="Confirm Password"
-                            name='confpassword'
-                            type={"password"}
-                            required
-                            sx={{ marginTop:1, marginBottom:1}}
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            value={formValue.confpassword}
-                            error={formError.confpassword}
-                        /><FormHelperText>{formError.confpassword}</FormHelperText>
-
-                        <TextField
-                            fullWidth
-                            required
-                            label="Phone Number"
-                            name='phoneno'
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            value={formValue.phoneno}
-                            error={formError.phoneno}
-                            sx={{ marginTop:1, marginBottom:1}}
-                        /><FormHelperText>{formError.phoneno}</FormHelperText>
-                        <TextField
-                            fullWidth
-                            required
-                            label="Address"
-                            multiline
-                            sx={{ marginTop:1, marginBottom:2}}
-                        />
+                            <TextField
+                                fullWidth
+                                required
+                                label="Phone Number"
+                                name='phoneno'
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.phoneno}
+                                error={formError.phoneno}
+                                sx={{ marginTop:1, marginBottom:1}}
+                            /><FormHelperText>{formError.phoneno}</FormHelperText>
+                            <TextField
+                                fullWidth
+                                required
+                                label="Address"
+                                multiline
+                                sx={{ marginTop:1, marginBottom:2}}
+                            />
 
 
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            type={"submit"}
-                        >
-                            Next
-                        </Button>
-                    </form>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                type={"submit"}
+                            >
+                                Next
+                            </Button>
+                        </form>
                     </Box>
                 </Box>
             </Card>
@@ -263,6 +267,17 @@ export default function SignUp() {
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            <Card variant="outlined" style={card_1}>
+                <Button
+                    fullWidth
+                    variant="outlined"
+                    type={"submit"}
+                    onClick={gotosignin}
+                >
+                    Sign-in
+                </Button>
+            </Card>
         </Container>
 
     );

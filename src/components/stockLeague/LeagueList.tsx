@@ -24,6 +24,9 @@ function generate(element: any) {
 const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
+const handleClick = ()=>{
+  alert("Application sended!")
+}
 
 export default function InteractiveList() {
   return (
@@ -31,10 +34,11 @@ export default function InteractiveList() {
       <Grid container spacing={2}>
         <Grid item xs={12} md={12}>
           <Demo>
+            
             <List>
               {generate(
                 <ListItem
-                  secondaryAction={<Button variant="outlined">Join</Button>}
+                  secondaryAction={<Button variant="outlined" onClick={handleClick}>Join</Button>}
                 >
                   <ListItemAvatar>
                     <Avatar>

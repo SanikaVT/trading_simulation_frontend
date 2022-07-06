@@ -17,10 +17,10 @@ import {useState} from "react";
 
 export default function SignIn() {
 
-    const Centeral ={
-        justifyContent: 'center',
-        paddingLeft:'50px'
-    };
+    // const Centeral ={
+    //     justifyContent: 'center',
+    //     paddingLeft:'125px'
+    // };
 
     const Color = {
         color: "black", borderWidth:1, borderColor: "black"
@@ -91,7 +91,7 @@ export default function SignIn() {
             <Card variant="outlined" style={card_1}>
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 4,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -106,44 +106,45 @@ export default function SignIn() {
                     </Typography>
                     <br/>
 
-                    <Box>
+                    <Box sx={{ width: 1 }} >
                         <form onSubmit={handleSubmit}>
-                        <TextField
-                            fullWidth
-                            label="Email Address"
-                            type='email'
-                            required
+                            <TextField
+                                fullWidth
+                                label="Email Address"
+                                type='email'
+                                required
 
-                        />
-                        <br></br>
-                        <br></br>
-                        <TextField
-                            fullWidth
-                            name='password'
-                            id='password'
-                            label="Password"
-                            type='password'
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            value={formValue.password}
-                           error={formError.password}
-                            required
-                        />
+                            />
+                            <br></br>
+                            <br></br>
+                            <TextField
+                                fullWidth
+                                name='password'
+                                id='password'
+                                label="Password"
+                                type='password'
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.password}
+                                error={formError.password}
+                                required
+                            />
                             <FormHelperText>{formError.password}</FormHelperText>
-                        {/*<br></br>*/}
-                        <br></br>
-                        <Button
-                            type='submit'
-                            fullWidth
-                            variant="contained"
-                        >
-                            Sign In
-                        </Button>
+                            {/*<br></br>*/}
+                            <br></br>
+                            <Button
+                                type='submit'
+                                fullWidth
+                                variant="contained"
+                            >
+                                Sign In
+                            </Button>
                         </form>
-                        <Grid container>
-                            <Grid item style={Centeral}>
+                        <Grid container  alignItems="center"
+                              justifyContent="center">
+                            <Grid item >
 
-                                <Link variant="body2" href={"/forgotpassword"} >
+                                <Link variant="body2" href={"/forgotpasswordotp"} >
                                     Forgot password?
                                 </Link>
 
@@ -161,6 +162,7 @@ export default function SignIn() {
 
                 </Box>
             </Card>
+
         </Container>
     );
 }
