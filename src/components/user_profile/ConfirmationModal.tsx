@@ -7,8 +7,8 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Fab } from "@mui/material";
 
 const style = {
@@ -22,7 +22,7 @@ const style = {
   border: "2px solid #000",
   boxShadow: 22,
   p: 4,
-  m: 3
+  m: 3,
 };
 
 function ConfirmationModal(props: any) {
@@ -38,34 +38,34 @@ function ConfirmationModal(props: any) {
       >
         <Box sx={style}>
           <Card>
-            <CardContent style={{ backgroundColor: "#2E8BC0", color: "white"}}>
-              <HeaderFirst>
-                Confirmation
-              </HeaderFirst>
+            <CardContent style={{ backgroundColor: "#2E8BC0", color: "white" }}>
+              <HeaderFirst>Confirmation</HeaderFirst>
             </CardContent>
             <Divider />
             <CardContent>
               <Stack direction="column" spacing={6} alignItems="center">
-              <Stack direction="row">
-                <label>Transaction Successful!</label>
-              </Stack>
-              <Stack direction="row">
-                <CheckCircleIcon/>
-              </Stack>
-              <Stack direction="row">
-                <label>Credits will be added to your account shortly!</label>
-              </Stack>
-              <Divider orientation="horizontal" variant="middle" flexItem />
+                <Stack direction="row">
+                  <label>Transaction Successful!</label>
+                </Stack>
+                <Stack direction="row">
+                  <CheckCircleIcon />
+                </Stack>
+                <Stack direction="row">
+                  <label>Credits will be added to your account shortly!</label>
+                </Stack>
+                <Divider orientation="horizontal" variant="middle" flexItem />
               </Stack>
             </CardContent>
             <CardActions style={{ display: "flex", justifyContent: "center" }}>
-            <Fab color="primary" aria-label="add">
-              <ArrowBackIosNewIcon
-                onClick={() => {
-                  props.setOpenModal(false);
-                }}
-                style={{ backgroundColor: "#2E8BC0", color: "white" }}
-              /></Fab>
+              <Fab color="primary" aria-label="add">
+                <ArrowBackIosNewIcon
+                  onClick={() => {
+                    props.setOpenModal(false);
+                    window.location.reload();
+                  }}
+                  style={{ backgroundColor: "#2E8BC0", color: "white" }}
+                />
+              </Fab>
             </CardActions>
           </Card>
         </Box>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
@@ -7,6 +7,7 @@ import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import BuyCreditsModal from "./BuyCreditsModal";
+import axios from "axios";
 
 function UserCreditsComp() {
   const [openCreditsModal, setOpenCreditsModal] = useState(false);
@@ -14,11 +15,22 @@ function UserCreditsComp() {
   const openBuyCreditsModal = (event: any) => {
     setOpenCreditsModal(true);
   };
+  const [credits, setCredits] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3100/api/users`, {
+        responseType: "json",
+        params: { userID: "1" },
+      })
+      .then(function(response) {
+        setCredits(response.data.prof.credits);
+        console.log(response.data.prof);
+      });
+  }, []);
 
   return (
-
-    
-    <Box sx={{ flexGrow: 1 ,alignItems:"center"}}>
+    <Box sx={{ flexGrow: 1, alignItems: "center" }}>
       <BuyCreditsModal
         openModal={openCreditsModal}
         setOpenModal={setOpenCreditsModal}
@@ -49,10 +61,9 @@ function UserCreditsComp() {
               fontSize: "2rem",
               alignItems: "center",
               backgroundColor: "#2E8BC0",
-              default: 450,
             }}
           >
-            450
+            {credits}
           </Avatar>
         </Grid>
         <Grid item xs={12} sx={{ mt: 6 }}>
