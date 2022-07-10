@@ -96,7 +96,18 @@ function Header() {
                 <MenuItem onClick={() => {
                   navigate("/blog");
                 }}>Blogs</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/stockLeague");
+                    }}
+                  >  Stock League</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/advisors");
+                    }}
+                  >      Advisor</MenuItem>
               </Menu>
+                
             </>
           </Tooltip>
 
@@ -133,35 +144,13 @@ function Header() {
                   }}
                   >   Orders</MenuItem>
                   
+                
                 </Menu>
+                
               </>
             </Tooltip>
-            <Tooltip title="Advisor" arrow>
-              <>
-                <Button
-                  className="header"
-                  aria-controls={open ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={() => { navigate("/advisors"); }}
-                >
-                 Advisor
-                 </Button>     
-              </>
-            </Tooltip>
-            <Tooltip title="StockLeague" arrow>
-              <>
-                <Button
-                  className="header"
-                  aria-controls={open ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={() => { navigate("/stockLeague"); }}
-                >
-                  StockLeague
-                </Button>
-              </>
-            </Tooltip>
+            
+            
 
             <Tooltip title="Technical Support" arrow>
               <Button className="header" onClick={openChatBotModal}>Support</Button>
