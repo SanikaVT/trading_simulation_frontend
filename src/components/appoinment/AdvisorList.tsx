@@ -18,7 +18,7 @@ import Button from '@mui/material/Button';
 
 const AdvisorList = () => {
     const navigate = useNavigate();
-    const [searchWord, setSearchWord] = useState<string>('');
+    const [searchWord, setSearchWord] = useState<string>("");
 
     interface characterData {
         id: number;
@@ -29,20 +29,42 @@ const AdvisorList = () => {
         email: string
     }
     const [data, setData] = useState<characterData[]>([])
+    const [dataCopy, setDataCopy] = useState<characterData[]>([])
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
         axios.get('https://tutorial4-api.herokuapp.com/api/users/').then((result) => {
             setData(result.data.data)
+            setDataCopy(result.data.data)
         }).catch((err) => {
             console.log("something went wrong");
         })
     }
-    console.log(data)
+    useEffect(() => {
+        if (data && data.length > 0) {
+            data.map((user, index) => {
+                if (user.firstName.toLowerCase() === searchWord.toLowerCase() || user.lastName.toLowerCase() === searchWord.toLowerCase()) {
+                    const rows = [
+                        { id: user.id, title: user.title, lastName: user.lastName, firstName: user.firstName, email: user.email, picture: user.picture },
+                    ];
+                    setData(rows)
+                    return;
+                } 
+
+            })
+        } 
+
+    }, [searchWord])
+
+
 
     const onChange = (event: any) => {
         event.persist();
-        setSearchWord(event.target.value);
+        const value = event.target.value
+      
+        setSearchWord(value);
+        console.log(searchWord)
     }
+
     const columns: GridColDef[] = [
 
         { field: 'title', headerName: 'Title', width: 150 },
@@ -69,11 +91,11 @@ const AdvisorList = () => {
             headerName: "Advisor",
             width: 150,
             renderCell: (user) => {
-               
+
                 return (
                     <>
                         <Avatar alt="Remy Sharp" src={user.row.picture} />
-                       
+
                     </>
                 );
             }
@@ -87,7 +109,7 @@ const AdvisorList = () => {
                 return (
                     <>
                         <Button variant="contained" onClick={() => navigate(
-                            '/advisor/' + user.id )}>Book an appointment</Button>
+                            '/advisor/' + user.id)}>Book an appointment</Button>
 
                     </>
                 );
@@ -96,6 +118,8 @@ const AdvisorList = () => {
 
 
     ];
+
+
 
 
 
@@ -120,34 +144,7 @@ const AdvisorList = () => {
                     </IconButton>
                 </Paper>
             </Box>
-            <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-            ><Box component="span" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 1 / 8 }}>
-
-                    {data?.length ? data.map((user, index) => {
-
-                        if (user.firstName === searchWord || user.lastName === searchWord) {
-                            return (
-                                <Box key={user.id} onClick={() => navigate(
-                                    '/advisor/' + user.id
-
-                                )} sx={{ width: 1 / 8, heighgt: 1 / 8 }}>
-                                    <img alt="Remy Sharp" src={user.picture} srcSet={`${user.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`} />
-                                    <div >
-                                        <a >{user.title} </a>
-                                        <a >{user.firstName} {user.lastName} </a>
-                                        <a >{user.email}</a>
-                                    </div>
-                                </Box>
-                            )
-                        }
-
-                    }) : null}
-
-                </Box>
-            </Box>
+           
 
 
 
@@ -157,14 +154,15 @@ const AdvisorList = () => {
                 justifyContent="center">
 
 
-                <div style={{ height: 400, width: '80%'}}>
+                <div style={{ height: 400, width: '80%' }}>
+
                     <DataGrid
                         rows={data}
                         columns={columns}
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         disableSelectionOnClick
-                       
+
                     />
                 </div>
 
