@@ -1,0 +1,22 @@
+{
+  "name": "Tutorial7",
+  "version": "1.0.0",
+  "description": "Tutorial 7",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.cs.dal.ca/psuthar/tutorial7_prakrut_b00885349"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.7"
+  }
+}
