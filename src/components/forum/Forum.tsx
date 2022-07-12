@@ -31,6 +31,18 @@ function ForumComp() {
   const [commentData, setCommentData] = useState(initialCommentsList);
   const [commentSet, setComment] = useState("");
   const [loading, setLoading] = useState("");
+  const [chartData, setChartData] = useState({
+    labels: ["Bought", "Sold"],
+    datasets: [
+      {
+        data: [0, 0],
+        backgroundColor: ["#4CAF50", "#f55723"],
+      },
+    ],
+  });
+  const [ordersData, setOrdersData] = useState([{ symbol: "", orderType: "" }]);
+  var buyCount = 10;
+  var sellCount = 10;
 
   useEffect(() => {
     axios
@@ -42,8 +54,39 @@ function ForumComp() {
         setCommentData(response.data.comments);
         console.log(response.data.comments);
       });
+    axios
+      .get(`http://localhost:3100/api/order/`, {
+        responseType: "json",
+        params: { analyticsID: "1" },
+      })
+      .then(function(response) {
+        setOrdersData(response.data.orders);
+        console.log(response.data.orders);
+        calculateChartResult();
+      });
   }, [loading]);
 
+  function calculateChartResult() {
+    for (var i = 0; i < ordersData.length; i++) {
+      let obj = ordersData[i];
+      if (obj.symbol === "ABA") {
+        if (obj.orderType === "Buy") {
+          buyCount += 1;
+        } else {
+          sellCount += 1;
+        }
+      }
+    }
+    setChartData({
+      labels: ["Bought", "Sold"],
+      datasets: [
+        {
+          data: [buyCount, sellCount],
+          backgroundColor: ["#4CAF50", "#f55723"],
+        },
+      ],
+    });
+  }
   function postComment() {
     axios
       .post(`http://localhost:3100/api/forum/`, {
@@ -85,7 +128,7 @@ function ForumComp() {
       </Grid>
       <Grid container component={Paper} style={chatSection}>
         <Grid item md={3} xs={12} style={borderRight500} padding={4}>
-          <PieChartComponent />
+          <PieChartComponent chartData={chartData} />
         </Grid>
         <Grid item md={9} xs={12}>
           <Grid padding={2}>
