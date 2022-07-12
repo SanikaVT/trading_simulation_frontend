@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
+import { Box } from "@mui/material";
 
 export default function AlertDialog() {
     const [open, setOpen] = React.useState(false);
@@ -24,7 +25,7 @@ export default function AlertDialog() {
     }
 
     return (
-        <div>
+        <Box sx={{ width: 1 / 8, alignItems: 'center' }}>
             <Button variant="outlined" onClick={handleClickOpen}>
                 make a appointment
             </Button>
@@ -32,7 +33,9 @@ export default function AlertDialog() {
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
+                aria-describedby="alert-dialog-description" 
+              
+               
             >
                 <DialogTitle id="alert-dialog-title">
                     {"Redirect to the make a appointment page?"}
@@ -49,6 +52,6 @@ export default function AlertDialog() {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </Box>
     );
 }
