@@ -17,7 +17,7 @@ function UserCreditsComp() {
   };
   const [credits, setCredits] = useState(0);
 
-  useEffect(() => {
+  function getUserData() {
     axios
       .get(`http://localhost:3100/api/users`, {
         responseType: "json",
@@ -27,6 +27,10 @@ function UserCreditsComp() {
         setCredits(response.data.prof.credits);
         console.log(response.data.prof);
       });
+  }
+
+  useEffect(() => {
+    getUserData();
   }, []);
 
   return (
@@ -34,6 +38,7 @@ function UserCreditsComp() {
       <BuyCreditsModal
         openModal={openCreditsModal}
         setOpenModal={setOpenCreditsModal}
+        setNewCredits={setCredits}
       />
       <Grid
         container

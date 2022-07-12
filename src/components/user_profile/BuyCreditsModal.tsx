@@ -37,6 +37,10 @@ function BuyCreditsModal(props: any) {
   const [cvv, setCVV] = useState(0);
   const [cvvError, setCVVError] = useState(false);
   const [confirmationModal, setOpenConfirmationModal] = useState(false);
+  const handleClickCreditModalClose = () => {
+    props.openModal(false);
+  };
+
   const acceptNumbers = (event: any) => {
     let charCode = event.keyCode;
     if (
@@ -51,6 +55,8 @@ function BuyCreditsModal(props: any) {
       if (credits2 !== 0) {
         cred = credits + credits2;
         postUserData();
+        // props.setOpenModal(false);
+        props.setNewCredits(Number(cred));
         setOpenConfirmationModal(true);
       }
     }
@@ -87,8 +93,9 @@ function BuyCreditsModal(props: any) {
       >
         <Box sx={style}>
           <ConfirmationModal
-            openModal={confirmationModal}
-            setOpenModal={setOpenConfirmationModal}
+            openConfModal={confirmationModal}
+            setOpenConfModal={setOpenConfirmationModal}
+            closeCreditModal={handleClickCreditModalClose}
           />
           <Card>
             <CardContent style={{ backgroundColor: "#2E8BC0", color: "white" }}>
@@ -186,6 +193,7 @@ function BuyCreditsModal(props: any) {
                 color="success"
                 onClick={() => {
                   changeCredits();
+                  handleClickCreditModalClose();
                 }}
                 style={{ backgroundColor: "#2E8BC0", color: "white" }}
               >

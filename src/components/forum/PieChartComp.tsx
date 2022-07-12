@@ -1,20 +1,20 @@
 import { Pie } from "react-chartjs-2";
-import 'chart.js/auto';
+import "chart.js/auto";
 
 function PieChartComponent({
-  labels = ["Bought", "Sold", "Hold"],
+  labels = ["Bought", "Sold"],
   datasets = [
     {
-      data: [3000, 3000, 1500],
-      backgroundColor: ["#329ba8", "#cc7b4b", "#463054"]
-    }
-  ]
+      data: [5000, 3000],
+      backgroundColor: ["#4CAF50", "#f55723"],
+    },
+  ],
 }) {
   return (
     <Pie
       data={{
         labels: labels,
-        datasets: datasets
+        datasets: datasets,
       }}
     />
   );
