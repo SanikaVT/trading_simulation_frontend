@@ -1,0 +1,29 @@
+.area {							
+    fill: url(#area-gradient);
+    stroke: rgb(9, 141, 77);					
+    stroke-width: 0.5px;			
+  }
+  
+.axisc { 
+    fill: none;
+    stroke:rgb(0, 0, 0);
+    stroke-width: 0.2px;
+    font: 8px sans-serif;
+    }
+.line {
+      fill: none;
+      stroke: rgba(48, 167, 141, 0.904);
+      stroke-width: 2px;
+      }
+  .line2 {
+      fill: none;
+      stroke:rgba(0, 0, 255, 0.966);
+      stroke-width: 2px;
+  }
+.container::-webkit-scrollbar{
+  display: none;
+}
+
+.container {   
+  -ms-overflow-style: none;
+ }
