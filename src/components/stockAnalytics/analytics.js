@@ -25,7 +25,7 @@ function LineChart(props) {
   };
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
-  const [analytics, setAnalytics] = useState([]);
+
   const openBuyTradeModal = (event) => {
     setOpenBuyModal(true);
   };
