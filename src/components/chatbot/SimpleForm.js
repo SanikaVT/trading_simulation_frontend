@@ -1,5 +1,5 @@
-import React from 'react';
-import ChatBot from 'react-simple-chatbot';
+
+// import ChatBot from 'react-simple-chatbot';
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -37,7 +37,7 @@ function SimpleForm(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         >
-        <Box sx={style}>
+        {/* <Box sx={style}>
         <ChatBot
         steps={[
             {
@@ -79,7 +79,7 @@ function SimpleForm(props) {
               >
                 Close
               </Button>
-            </Box>
+            </Box> */}
          </Modal>
       </>
       
