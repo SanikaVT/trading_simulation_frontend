@@ -14,13 +14,13 @@ import axios from "axios";
 
 const initialCommentsList: IComment[] = [
   {
-    analyticsID: "1",
+    symbol: "ABA",
     commentID: "2",
     comment: "Hello",
     creation_date: "01-03-2022",
   },
   {
-    analyticsID: "1",
+    symbol: "ABA",
     commentID: "2",
     comment: "Hi",
     creation_date: "01-03-2022",
@@ -48,7 +48,7 @@ function ForumComp() {
     axios
       .get(`http://localhost:3100/api/forum/`, {
         responseType: "json",
-        params: { analyticsID: "1" },
+        params: { symbol: "ABA" },
       })
       .then(function(response) {
         setCommentData(response.data.comments);
@@ -57,7 +57,7 @@ function ForumComp() {
     axios
       .get(`http://localhost:3100/api/order/`, {
         responseType: "json",
-        params: { analyticsID: "1" },
+        params: { symbol: "ABA" },
       })
       .then(function(response) {
         setOrdersData(response.data.orders);
@@ -90,7 +90,7 @@ function ForumComp() {
   function postComment() {
     axios
       .post(`http://localhost:3100/api/forum/`, {
-        analyticsID: "1",
+        symbol: "1",
         comment: commentSet,
       })
       .then((res) => {
@@ -141,7 +141,7 @@ function ForumComp() {
                   creation_date={formatDate(myVariable.creation_date)}
                   comment={myVariable.comment}
                   commentID={myVariable.commentID}
-                  analyticsID={myVariable.analyticsID}
+                  symbol={myVariable.symbol}
                   rerender={setLoading}
                 />
               );

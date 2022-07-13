@@ -21,12 +21,12 @@ function CommentCard(props: any) {
   const [open, setOpen] = React.useState(false);
   const [comment, setComment] = React.useState("");
   const [commentID, setCommentID] = React.useState(props.commentID);
-  const [analyticsID, setAnalyticsID] = React.useState(props.analyticsID);
+  const [symbol, setSymbol] = React.useState(props.symbol);
   const [loading, setLoading] = React.useState({});
 
   const handleClickOpen = () => {
     setCommentID(props.commentID);
-    setAnalyticsID(props.analyticsID);
+    setSymbol(props.symbol);
     setOpen(true);
   };
 
@@ -38,7 +38,7 @@ function CommentCard(props: any) {
 
   const handleClickOpenDelete = () => {
     setCommentID(props.commentID);
-    setAnalyticsID(props.analyticsID);
+    setSymbol(props.symbol);
     setOpenDelete(true);
   };
 
@@ -51,7 +51,7 @@ function CommentCard(props: any) {
     if (comment.trim() !== "") {
       axios
         .put(`http://localhost:3100/api/forum`, {
-          analyticsID: analyticsID,
+          symbol: symbol,
           commentID: commentID,
           comment: comment,
         })
@@ -67,11 +67,11 @@ function CommentCard(props: any) {
   function deleteComment() {
     axios
       .put(`http://localhost:3100/api/forum/delete`, {
-        analyticsID: analyticsID,
+        symbol: symbol,
         commentID: commentID,
       })
       .then((res) => {
-        console.log(analyticsID);
+        console.log(symbol);
         console.log(commentID);
         console.log(res.data);
         setOpenDelete(false);
