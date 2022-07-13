@@ -11,11 +11,13 @@ function UserDetailComp() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [avatar, setAvatar] = useState("");
+  const userID = localStorage.getItem("userID");
+
   useEffect(() => {
     axios
       .get(`http://localhost:3100/api/users`, {
         responseType: "json",
-        params: { userID: "1" },
+        params: { userID: userID },
       })
       .then(function(response) {
         setFname(response.data.prof.first_name + " ");

@@ -11,6 +11,7 @@ import axios from "axios";
 
 function UserCreditsComp() {
   const [openCreditsModal, setOpenCreditsModal] = useState(false);
+  const userID = localStorage.getItem("userID");
 
   const openBuyCreditsModal = (event: any) => {
     setOpenCreditsModal(true);
@@ -21,7 +22,7 @@ function UserCreditsComp() {
     axios
       .get(`http://localhost:3100/api/users`, {
         responseType: "json",
-        params: { userID: "1" },
+        params: { userID: userID },
       })
       .then(function(response) {
         setCredits(response.data.prof.credits);

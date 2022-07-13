@@ -90,11 +90,12 @@ function ForumComp() {
   function postComment() {
     axios
       .post(`http://localhost:3100/api/forum/`, {
-        symbol: "1",
+        symbol: "ABA",
         comment: commentSet,
       })
       .then((res) => {
         // notify;
+        setComment("");
         console.log(res.data);
         setLoading(Math.random().toString());
       });

@@ -14,6 +14,7 @@ import axios from "axios";
 const options = ["High", "Medium", "Low"];
 
 function UserInfoComp() {
+  const userID = localStorage.getItem("userID");
   const [openAddrDialog, setAddrDOpen] = React.useState(false);
 
   const handleClickAddrOpen = () => {
@@ -48,7 +49,7 @@ function UserInfoComp() {
     axios
       .get(`http://localhost:3100/api/users`, {
         responseType: "json",
-        params: { userID: "1" },
+        params: { userID: userID },
       })
       .then(function(response) {
         setAddress(response.data.prof.address);
@@ -64,7 +65,7 @@ function UserInfoComp() {
   function postUserData() {
     axios
       .post(`http://localhost:3100/api/users`, {
-        userID: "1",
+        userID: userID,
         address: address2,
         account: account2,
         risk_appetite: risk_appetite2,
