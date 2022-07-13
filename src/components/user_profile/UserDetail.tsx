@@ -23,8 +23,8 @@ function UserDetailComp() {
         setEmail(response.data.prof.email);
         setPhone(response.data.prof.phone);
         setAvatar(
-          first_name.substring(0, 1).toUpperCase() +
-            last_name.substring(0, 1).toUpperCase()
+          response.data.prof.first_name.substring(0, 1).toUpperCase() +
+            response.data.prof.last_name.substring(0, 1).toUpperCase()
         );
       });
   }, []);

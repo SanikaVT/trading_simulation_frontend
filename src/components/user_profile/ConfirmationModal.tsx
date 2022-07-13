@@ -29,9 +29,10 @@ function ConfirmationModal(props: any) {
   return (
     <>
       <Modal
-        open={props.openModal}
+        open={props.openConfModal}
         onClose={() => {
-          props.setOpenModal(false);
+          props.setOpenConfModal(false);
+          props.closeCreditModal();
         }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -60,8 +61,8 @@ function ConfirmationModal(props: any) {
               <Fab color="primary" aria-label="add">
                 <ArrowBackIosNewIcon
                   onClick={() => {
-                    props.setOpenModal(false);
-                    window.location.reload();
+                    props.setOpenConfModal(false);
+                    // window.location.reload();
                   }}
                   style={{ backgroundColor: "#2E8BC0", color: "white" }}
                 />

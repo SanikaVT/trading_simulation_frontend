@@ -1,27 +1,115 @@
 import Paper from "@mui/material/Paper";
-import React from "react";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import Fab from "@mui/material/Fab";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { Button } from "@mui/material";
 import PieChartComponent from "./PieChartComp";
 import { ToastContainer, toast, Bounce } from "react-toastify";
+import CommentCard from "./CommentCard";
+import { IComment } from "../../types/IComment";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
+const initialCommentsList: IComment[] = [
+  {
+    analyticsID: "1",
+    commentID: "2",
+    comment: "Hello",
+    creation_date: "01-03-2022",
+  },
+  {
+    analyticsID: "1",
+    commentID: "2",
+    comment: "Hi",
+    creation_date: "01-03-2022",
+  },
+];
 //Code Reference: https://codesandbox.io/s/kqv1w?file=/src/ChartFirst.tsx:269-273
 function ForumComp() {
-  const [open, setOpen] = React.useState(false);
+  const [commentData, setCommentData] = useState(initialCommentsList);
+  const [commentSet, setComment] = useState("");
+  const [loading, setLoading] = useState("");
+  const [chartData, setChartData] = useState({
+    labels: ["Bought", "Sold"],
+    datasets: [
+      {
+        data: [0, 0],
+        backgroundColor: ["#4CAF50", "#f55723"],
+      },
+    ],
+  });
+  const [ordersData, setOrdersData] = useState([{ symbol: "", orderType: "" }]);
+  var buyCount = 10;
+  var sellCount = 10;
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3100/api/forum/`, {
+        responseType: "json",
+        params: { analyticsID: "1" },
+      })
+      .then(function(response) {
+        setCommentData(response.data.comments);
+        console.log(response.data.comments);
+      });
+    axios
+      .get(`http://localhost:3100/api/order/`, {
+        responseType: "json",
+        params: { analyticsID: "1" },
+      })
+      .then(function(response) {
+        setOrdersData(response.data.orders);
+        console.log(response.data.orders);
+        calculateChartResult();
+      });
+  }, [loading]);
+
+  function calculateChartResult() {
+    for (var i = 0; i < ordersData.length; i++) {
+      let obj = ordersData[i];
+      if (obj.symbol === "ABA") {
+        if (obj.orderType === "Buy") {
+          buyCount += 1;
+        } else {
+          sellCount += 1;
+        }
+      }
+    }
+    setChartData({
+      labels: ["Bought", "Sold"],
+      datasets: [
+        {
+          data: [buyCount, sellCount],
+          backgroundColor: ["#4CAF50", "#f55723"],
+        },
+      ],
+    });
+  }
+  function postComment() {
+    axios
+      .post(`http://localhost:3100/api/forum/`, {
+        analyticsID: "1",
+        comment: commentSet,
+      })
+      .then((res) => {
+        // notify;
+        console.log(res.data);
+        setLoading(Math.random().toString());
+      });
+  }
+  function formatDate(date: any) {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
 
   const notify = () => {
     toast(` Comment posted successfully!`, {
@@ -29,23 +117,6 @@ function ForumComp() {
     });
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const [openDelete, setOpenDelete] = React.useState(false);
-
-  const handleClickOpenDelete = () => {
-    setOpenDelete(true);
-  };
-
-  const handleCloseDelete = () => {
-    setOpenDelete(false);
-  };
   return (
     <>
       <Grid container>
@@ -57,75 +128,38 @@ function ForumComp() {
       </Grid>
       <Grid container component={Paper} style={chatSection}>
         <Grid item md={3} xs={12} style={borderRight500} padding={4}>
-          <PieChartComponent />
+          <PieChartComponent chartData={chartData} />
         </Grid>
         <Grid item md={9} xs={12}>
-          <List>
-            <ListItem key="1">
-              <Grid container>
-                <Grid item md={12} xs={12} marginBottom={3}>
-                  <ListItemText>
-                    <b>Comments</b>
-                  </ListItemText>
-                </Grid>
-                <Grid item md={10} xs={12}>
-                  <ListItemText primary="I bought this stock a year ago! "></ListItemText>
-                </Grid>
-                <Grid item md={1} xs={12}>
-                  <DeleteIcon onClick={handleClickOpenDelete} />
-                </Grid>
-                <Grid item md={1} xs={12}>
-                  <EditIcon onClick={handleClickOpen} />
-                </Grid>
-                <Grid item md={12} xs={12}>
-                  <ListItemText secondary="09:30"></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
-            <ListItem key="2">
-              <Grid container>
-                <Grid item md={10} xs={12}>
-                  <ListItemText primary="Hey! I am not sure if I should invest here."></ListItemText>
-                </Grid>
-                <Grid item md={1} xs={12}>
-                  <DeleteIcon onClick={handleClickOpenDelete} />
-                </Grid>
-                <Grid item md={1} xs={12}>
-                  <EditIcon onClick={handleClickOpen} />
-                </Grid>
-                <Grid item md={12} xs={12}>
-                  <ListItemText secondary="09:31"></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
-            {/* <ListItem key="3">
-                        <Grid container>
-                            <Grid item md={10} xs={12}>
-                                <ListItemText primary="Don't worry! I will help you"></ListItemText>
-                            </Grid>
-                            <Grid item md={1} xs={12}>
-                                <DeleteIcon onClick={handleClickOpenDelete}/>
-                            </Grid>
-                            <Grid item md={1} xs={12}>
-                                <EditIcon onClick={handleClickOpen}/>
-                            </Grid>
-                            <Grid item md={12} xs={12}>
-                                <ListItemText secondary="10:30"></ListItemText>
-                            </Grid>
-                        </Grid>
-                    </ListItem> */}
-          </List>
+          <Grid padding={2}>
+            <b>Comments</b>
+          </Grid>
+          <Grid item md={10} xs={12}>
+            {commentData.map((myVariable) => {
+              return (
+                <CommentCard
+                  creation_date={formatDate(myVariable.creation_date)}
+                  comment={myVariable.comment}
+                  commentID={myVariable.commentID}
+                  analyticsID={myVariable.analyticsID}
+                  rerender={setLoading}
+                />
+              );
+            })}
+            {/* <CommentCard commentData={commentData}></CommentCard> */}
+          </Grid>
           <Divider />
           <Grid container style={{ padding: "20px" }}>
             <Grid item md={10} xs={12}>
               <TextField
-                id="outlined-basic-email"
+                id="text"
                 label="Write a comment"
                 fullWidth
+                onChange={(event) => setComment(event.target.value)}
               />
             </Grid>
             <Grid md={1} xs={12} paddingLeft={3}>
-              <Fab color="primary" aria-label="add" onClick={notify}>
+              <Fab color="primary" aria-label="add" onClick={postComment}>
                 <SendRoundedIcon />
               </Fab>
               <ToastContainer
@@ -140,35 +174,6 @@ function ForumComp() {
             </Grid>
           </Grid>
         </Grid>
-        <Dialog
-          fullWidth={true}
-          maxWidth={"lg"}
-          open={open}
-          onClose={handleClose}
-        >
-          <DialogTitle>Edit Comment</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              type="text"
-              fullWidth
-              variant="standard"
-              defaultValue="I bought this stock a year ago!"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Save</Button>
-          </DialogActions>
-        </Dialog>
-
-        <Dialog fullWidth={true} open={openDelete} onClose={handleCloseDelete}>
-          <DialogTitle>Confirm Delete?</DialogTitle>
-          <DialogActions>
-            <Button onClick={handleCloseDelete}>Delete</Button>
-          </DialogActions>
-        </Dialog>
       </Grid>
     </>
   );
