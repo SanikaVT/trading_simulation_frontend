@@ -10,6 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import axios from "axios";
 
 const style = {
   position: "absolute" as "absolute",
@@ -34,6 +35,18 @@ const acceptNumbers = (event: any) => {
 };
 
 function SellTradeModal(props: any) {
+  let placeOrder = (event: any) => {
+    axios
+      .post("/api/order", {
+        symbol: props.stockData.symbol,
+        quantity: quantity,
+        price: props.stockData.price,
+        orderType: "Sell",
+      })
+      .then((res) => {
+        navigate("/orderstatus");
+      });
+  };
   const availableQuantity = 5;
   const [quantity, setQuantity] = useState(1);
   const [quantityLeft, setQuantityLeft] = useState(availableQuantity - 1);
@@ -117,9 +130,7 @@ function SellTradeModal(props: any) {
                 variant="contained"
                 color="error"
                 disabled={quantityError || quantityLeftError}
-                onClick={() => {
-                  navigate("/orderstatus");
-                }}
+                onClick={placeOrder}
                 style={{ backgroundColor: "#f55723", color: "white" }}
               >
                 Sell

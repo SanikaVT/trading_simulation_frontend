@@ -28,9 +28,9 @@ interface StockSymbol {
 }
 
 const stockData: StockSymbol = {
-  symbol: "APPL",
+  symbol: "CBDU",
   currency: "USD",
-  price: 261.74,
+  price: 262.74,
   previousClose: 259.45,
   open: 261.07,
   high: 263.31,
