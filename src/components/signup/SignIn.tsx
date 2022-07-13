@@ -66,6 +66,11 @@ export default function SignIn() {
                     console.log(response);
                     if (response.status === 200) {
                         console.log(response.data.status);
+                        // console.log(response.data);
+                        // console.log("Response data is hre",response.data.userID);
+                        localStorage.setItem("userID",response.data.userID);
+                        localStorage.setItem("email",response.data.email);
+                        // alert(localStorage.getItem("email"));
                         window.location.href = "/dashboard";
                     }
                     else{
