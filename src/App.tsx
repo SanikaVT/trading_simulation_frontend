@@ -6,7 +6,7 @@ import Home from "./components/dashboard/Home";
 import OrderStatus from "./components/orders/OrderStatus";
 import SignIn from "./components/signup/SignIn";
 import SignUp from "./components/signup/SignUp";
-import WriteBlog from"./components/blog/WriteBlog"
+import WriteBlog from "./components/blog/WriteBlog";
 import ForgotPassword from "./components/signup/ForgotPassword";
 import RiskAppetite from "./components/signup/RiskAppetite";
 import StockLeague from "./components/stockLeague/StockLeaguePage";
@@ -15,10 +15,10 @@ import UserDetail from "./components/user_profile/UserDetalsContainer";
 import FooterComp from "./components/footer/FooterComp";
 import ForumComp from "./components/forum/Forum";
 import LineChart from "./components/stockAnalytics/analytics";
-import Blog from "./components/blog/Blog"
+import Blog from "./components/blog/Blog";
 import BlogDetails from "./components/blog/BlogDetails";
 import EditBlog from "./components/blog/EditBlog";
-import ForgotPasswordOtp from"./components/signup/ForgotPasswordOtp";
+import ForgotPasswordOtp from "./components/signup/ForgotPasswordOtp";
 import HoldingsHome from "./components/holdingsandpositions/HoldingsHome";
 import Report from "./components/holdingsandpositions/Report";
 import ViewNews from "./components/newsmanagement/ViewNews";
@@ -84,9 +84,9 @@ function App() {
                 <Header />
               </AppHeader>
               <AppBody>
-                <ForumComp/>
+                <ForumComp />
               </AppBody>
-              <FooterComp/>
+              <FooterComp />
             </Wrapper>
           }
         />
@@ -135,23 +135,28 @@ function App() {
               <AppBody>
                 <HoldingsHome />
               </AppBody>
-              <FooterComp/>
+              <FooterComp />
             </Wrapper>
-            }></Route>
-          <Route path="/Report" element={<Wrapper>
-            <AppHeader>
-              <Header />
-            </AppHeader>
-            <AppBody>
-              <Report />
-            </AppBody>
-            <FooterComp/>
-          </Wrapper>
+          }
+        ></Route>
+        <Route
+          path="/Report"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <Report />
+              </AppBody>
+              <FooterComp />
+            </Wrapper>
+          }
+        ></Route>
 
-            }></Route>
-
-
-          <Route path="/News" element={
+        <Route
+          path="/News"
+          element={
             <Wrapper>
               <AppHeader>
                 <Header />
@@ -159,52 +164,70 @@ function App() {
               <AppBody>
                 <ViewNews />
               </AppBody>
-              <FooterComp/>
+              <FooterComp />
             </Wrapper>
-            }></Route>
+          }
+        ></Route>
 
-        <Route path="/positions" element={
-          <Wrapper>
-            <AppHeader>
-              <Header />
-            </AppHeader>
-            <AppBody>
-              <PositionsHome />
-            </AppBody>
-            <FooterComp/>
-          </Wrapper>
-        }></Route>
+        <Route
+          path="/positions"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <PositionsHome />
+              </AppBody>
+              <FooterComp />
+            </Wrapper>
+          }
+        ></Route>
 
-          <Route path="/blogdetails" element={<Wrapper>
-            <AppHeader>
-              <Header />
-            </AppHeader>
-            <AppBody>
-              <BlogDetails/>
-            </AppBody>
-            <FooterComp/>
-          </Wrapper>}></Route>
+        <Route
+          path="/blogdetails"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <BlogDetails />
+              </AppBody>
+              <FooterComp />
+            </Wrapper>
+          }
+        ></Route>
 
-          <Route path="/writeblog" element={<Wrapper>
-            <AppHeader>
-              <Header />
-            </AppHeader>
-            <AppBody>
-              <WriteBlog/>
-            </AppBody>
-            <FooterComp/>
-          </Wrapper>}></Route>
+        <Route
+          path="/writeblog"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <WriteBlog />
+              </AppBody>
+              <FooterComp />
+            </Wrapper>
+          }
+        ></Route>
 
-
-        <Route path="/editblog" element={<Wrapper>
-          <AppHeader>
-            <Header />
-          </AppHeader>
-          <AppBody>
-            <EditBlog/>
-          </AppBody>
-          <FooterComp/>
-        </Wrapper>}></Route>
+        <Route
+          path="/editblog"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <EditBlog />
+              </AppBody>
+              <FooterComp />
+            </Wrapper>
+          }
+        ></Route>
 
           <Route path="/blog" element={<Wrapper>
             <AppHeader>
@@ -306,7 +329,6 @@ function App() {
 
 
       </Routes>
-
     </Router>
   );
 }

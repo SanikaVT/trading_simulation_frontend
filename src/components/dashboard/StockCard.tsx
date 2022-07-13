@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -43,6 +43,7 @@ function StockCard(props: any) {
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   const openBuyTradeModal = (event: any) => {
     setOpenBuyModal(true);
@@ -52,11 +53,26 @@ function StockCard(props: any) {
     setOpenSellModal(true);
   };
 
+  // const fadeOut = (cb: any) => {
+  //   if (isActive) {
+  //     setIsFadingOut(false);
+  //   } else if (props.fav) {
+  //     setIsFadingOut(true);
+  //   }
+  //   cb();
+  // };
   const handleStarClick = () => {
     setIsActive((current) => !current);
+    if (props.fav) {
+      props.delFav(props.stock);
+      setIsFadingOut(false);
+      return;
+    }
 
-    if (!isActive) {
-      props.fun();
+    if (!props.stock.isActive) {
+      props.fun(props.stock);
+    } else {
+      props.delFav(props.stock);
     }
   };
 
@@ -73,6 +89,7 @@ function StockCard(props: any) {
         stockData={stockData}
       />
       <Card
+        // className={isFadingOut ? "stock-fadeout" : ""}
         sx={{ maxWidth: 300 }}
         style={{
           backgroundColor: "#b9b4b45c",
@@ -102,7 +119,7 @@ function StockCard(props: any) {
                     border: "1px solid",
                   }}
                 >
-                  {props.stock.price} {props.stock.currency}
+                  {props.stock.price} {props.stock.symbol}
                 </span>
               </p>
             </Typography>
@@ -120,6 +137,7 @@ function StockCard(props: any) {
           <CardActions disableSpacing>
             <div style={{ display: "flex" }}>
               <Button
+                className="shimmer"
                 size="small"
                 onClick={openBuyTradeModal}
                 style={{
@@ -134,7 +152,7 @@ function StockCard(props: any) {
               </Button>
 
               <Button
-                className="btn"
+                className="btn shimmer"
                 size="small"
                 onClick={openSellTradeModal}
                 style={{
@@ -148,11 +166,21 @@ function StockCard(props: any) {
               </Button>
 
               <Tooltip title="Click to add to/remove it from favorite" arrow>
-                <IconButton aria-label="favorite" onClick={handleStarClick}>
+                <IconButton
+                  aria-label="favorite"
+                  onClick={
+                    // fadeOut(setTimeout(() => handleStarClick(), 300))
+                    handleStarClick
+                  }
+                >
                   <StarIcon
                     style={{
                       padding: "1px",
-                      color: isActive ? "orange" : "black",
+                      color: props.fav
+                        ? "orange "
+                        : props.stock.isActive
+                        ? "orange"
+                        : "black",
                     }}
                   />
                 </IconButton>
