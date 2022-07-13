@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
-import data from "./AAPL_Yearly_HistoricalData.csv";
-import data1 from "./APPL_half_yearly_HistoricalData.csv";
-import msftdata from "./MSFT_Yearly_HistoricalData.csv"
-import msftdata1 from "./MSFT_half_yearly_HistoricalData.csv"
 import "./compare.css";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
+import axios from "axios";
 function LineChart(props) {
-  const navigate = useNavigate();
+   var data;
   const { width, height } = props;
   const stockData = {
     symbol: "APPL",
@@ -30,11 +26,19 @@ function LineChart(props) {
   const openSellTradeModal = (event) => {
     setOpenSellModal(true);
   };
-
+  var symbol = "AAPL";
   useEffect(() => {
-    drawChart();
+   axios
+   .get(`http://localhost:8080/api/analytics`, {
+      params: { Symbol: symbol },
+    })
+   .then(function(response) {
+         data = response.data.analytics;
+         drawChart();
+   });
   }, []);
       function drawChart() {
+         var clicked;
         var svg = d3.select("#container")
                   .append("svg")
                   .attr("width", width)
@@ -95,7 +99,7 @@ function LineChart(props) {
              .attr('font-weight',"bold")
              .text('-80(-0.53%)')
         
-    const allGroup = ["Compare","MSFT"]
+    const allGroup = ["Compare","AAPL","AMD","BMWYY","CSCO","INFY","MSFT","QCOM","SBUX","TSLA"]
     d3.select("#selectButton")
       .selectAll('myOptions')
       .data(allGroup)
@@ -107,16 +111,20 @@ function LineChart(props) {
     var selectedOption;
     selectedOption = d3.select("#selectButton").property("value");
     window.addEventListener('resize', makegraph1(selectedOption));
+    clicked = "yearly"
     d3.select("#selectButton").on("change", function(event,d){
         // recover the option that has been chosen
+        console.log(clicked)
         selectedOption = d3.select(this).property("value")
         // run the updateChart function with this selected option
         d3.selectAll("#graph1").remove();
         d3.selectAll("#graph2").remove();
-        window.addEventListener('resize', makegraph1(selectedOption));
+        if(clicked === "yearly"){window.addEventListener('resize', makegraph1(selectedOption));}
+        else{window.addEventListener('resize', makegraph2(selectedOption));}
+        
     })
        function makegraph1(selectedOption){
-        console.log(selectedOption);
+         console.log(selectedOption)
           var margin = {top: 20, right: 20, bottom: 50, left: 100},
                width = 800 - margin.left - margin.right,
                height = 550 - margin.top - margin.bottom,
@@ -130,18 +138,24 @@ function LineChart(props) {
                      "translate(" + margin.left + "," + margin.top + ")");
             var x;
             var y;
-           
-           d3.csv(data).then(function(data) {
+            axios
+            .get(`http://localhost:8080/api/analytics`, {
+               params: { Symbol: symbol },
+             })
+            .then(function(response) {
+                  data = response.data.analytics;
+            });
              var parseDate = d3.timeParse("%d-%m-%Y");
              data.forEach(d=>{
                 d.Date = parseDate(d.Date);
                 d.Percentage = +d.Percentage;
             });
-    
             x = d3.scaleTime().domain(d3.extent(data, function(d){
                 return d.Date
                 })).range([0, width-100]);
-            y = d3.scaleLinear().domain([0, 350]).range([height-200, 0]);
+            y = d3.scaleLinear().domain(d3.extent(data, function(d){
+               return d.Percentage
+               })).range([height-200, 0]);
           
             var valueline = d3.line()
             .x( d=>x(d.Date) )
@@ -180,15 +194,24 @@ function LineChart(props) {
           
              g.append("g").attr("class","axisc").attr("id","graph1").call(gYAxis).select(".domain").remove();
     
-           });
-        if(selectedOption == "MSFT"){
-           d3.csv(msftdata).then(function(data) {
-            var parseDate = d3.timeParse("%d-%m-%Y");
+        if(selectedOption !== "Compare"){
+         axios
+         .get(`http://localhost:8080/api/analytics`, {
+               params: { Symbol: selectedOption },
+            })
+            .then(function(response) {
+               data = response.data.analytics;
+               var parseDate = d3.timeParse("%d-%m-%Y");
             data.forEach(d=>{
                d.Date = parseDate(d.Date);
                d.Percentage = +d.Percentage;
            });
-         
+           x = d3.scaleTime().domain(d3.extent(data, function(d){
+            return d.Date
+            })).range([0, width-100]);
+        y = d3.scaleLinear().domain(d3.extent(data, function(d){
+           return d.Percentage
+           })).range([height-200, 0]);
            var valueline1 = d3.line()
            .x( d=>x(d.Date) )
            .y( d=>y(d.Percentage) )
@@ -198,9 +221,12 @@ function LineChart(props) {
             .attr("id","graph1")
             .attr("class","line2")
             .attr('d',valueline1);
-          });
+          
+            });
+         }
+            
         }
-          }
+          
         function makegraph2(selectedOption){
              var margin = {top: 20, right: 20, bottom: 50, left: 100},
                   width = 800 - margin.left - margin.right,
@@ -215,8 +241,14 @@ function LineChart(props) {
                         "translate(" + margin.left + "," + margin.top + ")");
               var x;
               var y;
-              d3.csv(data1).then(function(data) {
-                  
+              axios
+              .get(`http://localhost:8080/api/halfyearlyanalytics`, {
+               params: { Symbol: symbol },
+               })
+            .then(function(response) {
+                 data = response.data.analytics;
+            });
+                
                 var parseDate = d3.timeParse("%d-%m-%Y");
                 data.forEach(d=>{
                    d.Date = parseDate(d.Date);
@@ -265,15 +297,25 @@ function LineChart(props) {
              
                 g.append("g").attr("class","axisc").attr("id","graph2").call(gYAxis).select(".domain").remove();
        
-              });
-              if(selectedOption == "MSFT"){
-                d3.csv(msftdata1).then(function(data) {
-                    var parseDate = d3.timeParse("%d-%m-%Y");
+              if(selectedOption !== "Compare"){
+               axios
+                  .get(`http://localhost:8080/api/halfyearlyanalytics`, {
+                   params: { Symbol: selectedOption },
+                })
+               .then(function(response) {
+                     data = response.data.analytics;
+                     var parseDate = d3.timeParse("%d-%m-%Y");
                     data.forEach(d=>{
                        d.Date = parseDate(d.Date);
                        d.Percentage = +d.Percentage;
                    });
-                 
+                   x = d3.scaleTime().domain(d3.extent(data, function(d){
+                     return d.Date
+                     })).range([0, width-100]);
+                 y = d3.scaleLinear().domain(d3.extent(data, function(d){
+                    return d.Percentage
+                    })).range([height-200, 0]);
+                    
                    var valueline1 = d3.line()
                    .x( d=>x(d.Date) )
                    .y( d=>y(d.Percentage) )
@@ -283,7 +325,8 @@ function LineChart(props) {
                     .attr("id","graph2")
                     .attr("class","line2")
                     .attr('d',valueline1);
-                  });
+                  
+               });                    
               }
              }
         function responsivefy(svg) {
@@ -362,11 +405,20 @@ function LineChart(props) {
              .attr("cursor", "pointer")
     
              rect1.on("click", function(){
+               clicked = "yearly"
                 d3.selectAll("#graph2").remove()
                 if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
-                  window.addEventListener('resize', makegraph1(selectedOption));
+                axios
+                .get(`http://localhost:8080/api/analytics`, {
+                   params: { Symbol: symbol },
+                 })
+                .then(function(response) {
+                      data = response.data.analytics;
+                      window.addEventListener('resize', makegraph1(selectedOption));
+                });
+                  
                 //d3.select(window).on('resize', makegraph1());
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
@@ -397,11 +449,19 @@ function LineChart(props) {
              .text('Yearly')
              
              text1.on("click", function(){
+               clicked = "yearly"
                 d3.selectAll("#graph2").remove()
                 if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
-                window.addEventListener('resize', makegraph1(selectedOption));
+                axios
+                .get(`http://localhost:8080/api/analytics`, {
+                   params: { Symbol: symbol },
+                 })
+                .then(function(response) {
+                      data = response.data.analytics;
+                      window.addEventListener('resize', makegraph1(selectedOption));
+                });
                 //d3.select(window).on('resize', );
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
@@ -428,11 +488,20 @@ function LineChart(props) {
              .attr("cursor", "pointer")
     
              rect2.on("click", function(){
+               clicked = "halfyearly"
                 d3.selectAll("#graph1").remove()
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
-                window.addEventListener('resize', makegraph2(selectedOption));
+                axios
+              .get(`http://localhost:8080/api/halfyearlyanalytics`, {
+               params: { Symbol: symbol },
+               })
+            .then(function(response) {
+                 data = response.data.analytics;
+                 window.addEventListener('resize', makegraph2(selectedOption));
+            });
+                
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });
@@ -462,11 +531,19 @@ function LineChart(props) {
              .text('Half Yearly')
              
              text2.on("click", function(){
+               clicked = "halfyearly"
                 d3.selectAll("#graph1").remove()
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
-                window.addEventListener('resize', makegraph2(selectedOption));
+                axios
+              .get(`http://localhost:8080/api/halfyearlyanalytics`, {
+               params: { Symbol: symbol },
+               })
+            .then(function(response) {
+                 data = response.data.analytics;
+                 window.addEventListener('resize', makegraph2(selectedOption));
+            });
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });
@@ -537,7 +614,7 @@ function LineChart(props) {
       
     }
 
-
+   
 
     
   return (
@@ -556,6 +633,5 @@ function LineChart(props) {
       <div id="container"></div>
     </>
   );
-  
-}
+  }
 export default LineChart;
