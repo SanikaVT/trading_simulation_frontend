@@ -15,10 +15,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Grid from '@mui/material/Grid';
+import axios from "axios";
 
 export default function ForgotPassword() {
     const [open, setOpen] = React.useState(false);
-    const initialValues = { password: "", confpassword:""};
+    const initialValues = { password: "", confpassword:"", email:""};
     const [formValue, setFormValue] = useState(initialValues);
     const [formError, setFormError] = useState({
         password: false,
@@ -28,10 +29,15 @@ export default function ForgotPassword() {
     const handleChange = (e: { target: { name: any; value: any; }; }) => {
         const { name, value } = e.target;
         setFormValue({ ...formValue, [name]: value });
+
     };
 
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
+        const forgotemail = localStorage.getItem("forgotemail");
+        const checkemail ="email";
+        // @ts-ignore
+        setFormValue({ ...formValue, [checkemail]: forgotemail });
         e.preventDefault();
         // @ts-ignore
         setFormError(validate(formValue));
@@ -77,7 +83,28 @@ export default function ForgotPassword() {
         setOpen(false);
     };
     const gotpage = () => {
-        window.location.href = "/signin";
+        const form_data = {
+            "email": formValue.email,
+            "password": formValue.password,
+        };
+        console.log(formValue);
+        axios.post('http://localhost:8080/api/register/forgotpassword',form_data)
+            .then(response => {
+                console.log(response);
+                if (response.status === 200) {
+                    console.log(response.data.status);
+                    alert("Your password has been successfully changed");
+                    window.location.href = "/signin";
+                }
+                else{
+                    alert("Please try again");
+                }
+
+            }).catch(function (error) {
+            alert("Something went Wrong!");
+            console.log("Exception occured");
+        });
+        // window.location.href = "/signin";
     }
     const gotosignin =()=>{
 

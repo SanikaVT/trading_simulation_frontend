@@ -11,17 +11,81 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import {useState} from "react";
+import axios from "axios";
 
 export default function RiskAppetite(){
 
     const [open, setOpen] = React.useState(false);
+    const initialValues = { question1:"1", question2:"2", question3:"2"};
+    const [formValue, setFormValue] = useState(initialValues);
+    const [calculaterisk, setCalculateRisk] = useState();
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
+        const { name, value } = e.target;
+        setFormValue({ ...formValue, [name]: value });
+    };
+
 
     const handleSubmit = () => {
         // window.location.href = "/signin";
-        setOpen(true);
+
+        console.log(formValue);
+        const que1 = parseInt(formValue.question1);
+        const que2 = parseInt(formValue.question2);
+        const que3 = parseInt(formValue.question3);
+        console.log (que1+que2+que3);
+        const calculaterisk1 = (que1+que2+que3)/3;
+        console.log(calculaterisk1);
+        if(calculaterisk1<2){
+            // @ts-ignore
+            setCalculateRisk("Low");
+        }
+        else if(calculaterisk1<3){
+            // @ts-ignore
+            setCalculateRisk("Medium");
+        }
+        else {
+            // @ts-ignore
+            setCalculateRisk("High");
+        }
+
+        console.log(calculaterisk);
+setOpen(true);
+
     }
     const gotpage = () => {
-        window.location.href = "/signin";
+
+        const form_data = {
+            "first_name": localStorage.getItem("fname"),
+            "last_name":localStorage.getItem("lname"),
+            "email":localStorage.getItem("email"),
+            "password":localStorage.getItem("password"),
+            "phone":localStorage.getItem("phoneno"),
+            "address":localStorage.getItem("address"),
+            "creditCard":localStorage.getItem("creditCard"),
+            "riskappetite":calculaterisk,
+
+        };
+
+        console.log(form_data);
+        axios.post('http://localhost:8080/api/register',form_data)
+            .then(response => {
+                console.log(response);
+                if (response.status === 201) {
+                    console.log(response.data.status);
+                    alert("successfully registered");
+                    window.location.href = "/signin";
+                }
+                else{
+                    alert("Email or password is wrong!");
+                }
+
+            }).catch(function (error) {
+            alert("Email or password is wrong!");
+            console.log("Exception occured");
+        });
+
+        // window.location.href = "/signin";
     }
 
     const handleClose = () => {
@@ -62,11 +126,13 @@ export default function RiskAppetite(){
                             <RadioGroup
                                 row
                                 aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="gain"
-                                name="radio-buttons-group"
+                                defaultValue="1"
+                                name="question1"
+                                onChange={handleChange}
+                                value={formValue.question1}
                             >
-                                <FormControlLabel value="gain" control={<Radio />} label="Potential gains only" />
-                                <FormControlLabel value="loss" control={<Radio />} label="Potential losses only" />
+                                <FormControlLabel value="1" control={<Radio />} label="Potential gains only" />
+                                <FormControlLabel value="3" control={<Radio />} label="Potential losses only" />
 
                             </RadioGroup>
                             <br/>
@@ -74,24 +140,28 @@ export default function RiskAppetite(){
                             <RadioGroup
                                 row
                                 aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="low"
-                                name="radio-buttons-group"
+                                defaultValue="1"
+                                name="question2"
+                                onChange={handleChange}
+                                value={formValue.question2}
                             >
-                                <FormControlLabel value="low" control={<Radio />} label="Low" />
-                                <FormControlLabel value="average" control={<Radio />} label="Average" />
-                                <FormControlLabel value="high" control={<Radio />} label="High" />
+                                <FormControlLabel value="1" control={<Radio />} label="Low" />
+                                <FormControlLabel value="2" control={<Radio />} label="Average" />
+                                <FormControlLabel value="3" control={<Radio />} label="High" />
                             </RadioGroup>
                             <br/>
                             <FormLabel id="demo-radio-buttons-group-label">How easily do you adapt to unexpected negative financial change?</FormLabel>
                             <RadioGroup
                                 row
                                 aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="easily"
-                                name="radio-buttons-group"
+                                defaultValue="3"
+                                name="question3"
+                                onChange={handleChange}
+                                value={formValue.question3}
                             >
-                                <FormControlLabel value="easily" control={<Radio />} label="I adapt easily" />
-                                <FormControlLabel value="neutral" control={<Radio />} label="Neither easily nor uneasily" />
-                                <FormControlLabel value="noteasily" control={<Radio />} label="I do not adapt easily" />
+                                <FormControlLabel value="3" control={<Radio />} label="I adapt easily" />
+                                <FormControlLabel value="2" control={<Radio />} label="Neither easily nor uneasily" />
+                                <FormControlLabel value="1" control={<Radio />} label="I do not adapt easily" />
                             </RadioGroup>
 
                             <Button

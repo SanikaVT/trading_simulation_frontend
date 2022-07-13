@@ -17,7 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function SignUp() {
 
     const [open, setOpen] = React.useState(false);
-    const initialValues = { password: "", confpassword:"", fname:"", lname:"",email:"", phoneno: ""};
+    const initialValues = { password: "", confpassword:"", fname:"", lname:"",email:"", phoneno: "", address:"", creditCard:""};
     const [formValue, setFormValue] = useState(initialValues);
     const [formError, setFormError] = useState({
         password: undefined,
@@ -25,7 +25,8 @@ export default function SignUp() {
         fname: undefined,
         lname: undefined,
         confpassword: undefined,
-        phoneno: undefined
+        phoneno: undefined,
+        creditCard: undefined
     });
     let errori =0;
 
@@ -41,6 +42,13 @@ export default function SignUp() {
         setFormError(validate(formValue));
         if(errori===0)
         {
+            localStorage.setItem("email", formValue.email);
+            localStorage.setItem("fname", formValue.fname);
+            localStorage.setItem("lname", formValue.lname);
+            localStorage.setItem("phoneno", formValue.phoneno);
+            localStorage.setItem("address", formValue.address);
+            localStorage.setItem("creditCard", formValue.creditCard);
+            localStorage.setItem("password", formValue.password);
             setOpen(true);
             console.log("done")
 
@@ -55,14 +63,15 @@ export default function SignUp() {
         window.location.href = "/riskappetite";
     }
 
-    const validate = (values: { password: any; confpassword: any; fname: any; lname: any; email: any; phoneno:any; }) => {
+    const validate = (values: { password: any; confpassword: any; fname: any; lname: any; email: any; phoneno:any; creditCard:any}) => {
 
         const errors = {
             password: undefined,
             confpassword: undefined,
             lname: undefined,
             email: undefined,
-            phoneno: undefined
+            phoneno: undefined,
+            creditCard: undefined
         };
         const namereg = /[^A-Za-z]/;
         const emailreg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -72,6 +81,12 @@ export default function SignUp() {
         if (values.password.length < 8) {
             // @ts-ignore
             errors.password = "Password must be more than 8 characters";
+            errori = 1;
+        }
+        else if (values.creditCard.length !== 16){
+            // @ts-ignore
+            errors.creditCard = "Please enter valid 16 Digit Credit card number";
+
             errori = 1;
         }
         else if(values.password !== values.confpassword){
@@ -231,11 +246,29 @@ export default function SignUp() {
                                 required
                                 label="Address"
                                 multiline
-                                sx={{ marginTop:1, marginBottom:2}}
+                                name={"address"}
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.address}
+                                sx={{ marginTop:1, marginBottom:1}}
                             />
 
+                            <TextField
+                                fullWidth
+                                required
+                                label="Credit Card number"
+                                multiline
+                                name={"creditCard"}
+                                type='number'
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.creditCard}
+                                error={formError.creditCard}
+                                sx={{ marginTop:1, marginBottom:1}}
+                            /><FormHelperText>{formError.creditCard}</FormHelperText>
 
                             <Button
+                                sx={{marginTop:1}}
                                 fullWidth
                                 variant="contained"
                                 type={"submit"}

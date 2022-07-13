@@ -11,6 +11,7 @@ import {Divider} from "@mui/material";
 import Card from '@mui/material/Card';
 import FormHelperText from '@mui/material/FormHelperText';
 import {useState} from "react";
+import axios from "axios";
 
 
 
@@ -33,10 +34,11 @@ export default function SignIn() {
         padding: "10px"
     };
 
-    const initialValues = { password: ""};
+    const initialValues = {email:"", password: ""};
     const [formValue, setFormValue] = useState(initialValues);
     const [formError, setFormError] = useState({
-        password: false
+        password: false,
+        email: false
     });
     let errori =0;
     const handleChange = (e: { target: { name: any; value: any; }; }) => {
@@ -51,8 +53,36 @@ export default function SignIn() {
         setFormError(validate(formValue));
         if(errori===0)
         {
-            console.log("done")
-            window.location.href = "/dashboard";
+            console.log("done");
+
+            const form_data = {
+                "email": formValue.email,
+                "password": formValue.password,
+            };
+
+            console.log(form_data);
+            axios.post('http://localhost:8080/api/register/login',form_data)
+                .then(response => {
+                    console.log(response);
+                    if (response.status === 200) {
+                        console.log(response.data.status);
+                        // console.log(response.data);
+                        // console.log("Response data is hre",response.data.userID);
+                        localStorage.setItem("userID",response.data.userID);
+                        localStorage.setItem("email",response.data.email);
+                        // alert(localStorage.getItem("email"));
+                        window.location.href = "/dashboard";
+                    }
+                    else{
+                        alert("Email or password is wrong!");
+                    }
+
+                }).catch(function (error) {
+                alert("Email or password is wrong!");
+                console.log("Exception occured");
+            });
+
+            //window.location.href = "/dashboard";
         }
         else{
             console.log("error");
@@ -60,10 +90,11 @@ export default function SignIn() {
         }
     };
 
-    const validate = (values: { password: any; }) => {
-
+    const validate = (values: { password: any; email:any;}) => {
+        const emailreg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
         const errors = {
-            password: undefined
+            password: undefined,
+            email: undefined
         };
 
         if (!values.password) {
@@ -75,6 +106,11 @@ export default function SignIn() {
             // @ts-ignore
             errors.password = "Password must be more than 8 characters";
             errori = 1;
+        }
+        else if(!emailreg.test(values.email)){
+            // @ts-ignore
+            errors.email = "Email is not valid"
+            errori =1;
         }
         else {
             errori = 0;
@@ -112,6 +148,10 @@ export default function SignIn() {
                                 fullWidth
                                 label="Email Address"
                                 type='email'
+                                name='email'
+                                onChange={handleChange}
+                                value={formValue.email}
+                                error={formError.email}
                                 required
 
                             />
