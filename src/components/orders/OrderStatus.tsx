@@ -80,7 +80,7 @@ function OrderStatus() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://localhost:3100/api/order",
+      url: "/api/order",
       headers: {
         "Content-Type": "application/json",
       },

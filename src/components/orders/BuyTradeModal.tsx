@@ -37,7 +37,7 @@ const acceptNumbers = (event: any) => {
 function BuyTradeModal(props: any) {
   let placeOrder = (event: any) => {
     axios
-      .post("http://localhost:3100/api/order", {
+      .post("/api/order", {
         symbol: props.stockData.symbol,
         quantity: quantity,
         price: props.stockData.price,
