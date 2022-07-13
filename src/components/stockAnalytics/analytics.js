@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Forum from "../forum/Forum"
 import * as d3 from "d3";
-import data from "./AAPL_Yearly_HistoricalData.csv";
-import data1 from "./APPL_half_yearly_HistoricalData.csv";
+//import data from "./AAPL_Yearly_HistoricalData.csv";
+//import data1 from "./APPL_half_yearly_HistoricalData.csv";
 import "./analytics.css";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
+import axios from "axios";
+
+
 function LineChart(props) {
+  var data;
   const navigate = useNavigate();
   const { width, height } = props;
   const stockData = {
@@ -21,7 +25,7 @@ function LineChart(props) {
   };
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
-
+  const [analytics, setAnalytics] = useState([]);
   const openBuyTradeModal = (event) => {
     setOpenBuyModal(true);
   };
@@ -29,11 +33,19 @@ function LineChart(props) {
   const openSellTradeModal = (event) => {
     setOpenSellModal(true);
   };
-
+  var symbol = "AAPL"
   useEffect(() => {
-    drawChart();
-  }, []);
+   axios
+   .get(`http://localhost:8080/api/analytics`, {
+      params: { Symbol: symbol },
+    })
+   .then(function(response) {
+         data = response.data.analytics;
+         drawChart();
+   });
+    }, []);
       function drawChart() {
+        //console.log(data)
         var svg = d3.select("#container")
                   .append("svg")
                   .attr("width", width)
@@ -126,12 +138,10 @@ function LineChart(props) {
                .append("g")
                .attr("transform",
                      "translate(" + margin.left + "," + margin.top + ")");
-    
-           
-           d3.csv(data).then(function(data) {
+           //d3.csv(data1).then(function(data){
              var parseDate = d3.timeParse("%d-%m-%Y");
              data.forEach(d=>{
-                d.Date = parseDate(d.Date);
+                d.Date = parseDate(d.Date);  
                 d.Percentage = +d.Percentage;
             });
     
@@ -196,7 +206,7 @@ function LineChart(props) {
           
              g.append("g").attr("class","axisc").attr("id","graph1").call(gYAxis).select(".domain").remove();
     
-           });
+          // });
           }
           makegraph1();
         function makegraph2(){
@@ -212,7 +222,6 @@ function LineChart(props) {
                   .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
               
-              d3.csv(data1).then(function(data) {
                   
                 var parseDate = d3.timeParse("%d-%m-%Y");
                 data.forEach(d=>{
@@ -281,8 +290,6 @@ function LineChart(props) {
                 });
              
                 g.append("g").attr("class","axisc").attr("id","graph2").call(gYAxis).select(".domain").remove();
-       
-              });
              }
         function responsivefy(svg) {
                  
@@ -369,7 +376,7 @@ function LineChart(props) {
              .attr("cursor", "pointer")
              .text('Sell')
              .on('click', function(){openSellTradeModal()});
-          
+
           var rect1 = svg.append('rect')
              .attr("width", 305)
              .attr("height", 25)
@@ -378,13 +385,20 @@ function LineChart(props) {
              .attr("y", 430)
              .attr("id","rect1")
              .attr("cursor", "pointer")
-    
+             console.log(data)
              rect1.on("click", function(){
                 d3.selectAll("#graph2").remove()
                 if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
-                  window.addEventListener('resize', makegraph1());
+                axios
+                  .get(`http://localhost:8080/api/analytics`, {
+                           params: { Symbol: symbol },
+                         })
+                     .then(function(response) {
+                     data = response.data.analytics;
+                window.addEventListener('resize', makegraph1());
+                     });
                 //d3.select(window).on('resize', makegraph1());
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
@@ -413,13 +427,20 @@ function LineChart(props) {
              .attr("cursor", "pointer")
              .attr("id","text1")
              .text('Yearly')
-             
+
              text1.on("click", function(){
                 d3.selectAll("#graph2").remove()
                 if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
+                axios
+                  .get(`http://localhost:8080/api/analytics`, {
+                           params: { Symbol: symbol },
+                         })
+                     .then(function(response) {
+                     data = response.data.analytics;
                 window.addEventListener('resize', makegraph1());
+                     });
                 //d3.select(window).on('resize', );
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
@@ -450,7 +471,14 @@ function LineChart(props) {
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
+                axios
+                  .get(`http://localhost:8080/api/halfyearlyanalytics`, {
+                           params: { Symbol: symbol },
+                         })
+                     .then(function(response) {
+                     data = response.data.analytics;
                 window.addEventListener('resize', makegraph2());
+                     });
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });
@@ -484,7 +512,14 @@ function LineChart(props) {
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
+                axios
+                  .get(`http://localhost:8080/api/halfyearlyanalytics`, {
+                           params: { Symbol: symbol },
+                         })
+                     .then(function(response) {
+                     data = response.data.analytics;
                 window.addEventListener('resize', makegraph2());
+                     });
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });

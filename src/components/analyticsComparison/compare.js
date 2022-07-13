@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
 import data from "./AAPL_Yearly_HistoricalData.csv";
-import data1 from "./APPL_half_yearly_HistoricalData.csv";
+import data1 from "./AAPL_half_yearly_HistoricalData.csv";
 import msftdata from "./MSFT_Yearly_HistoricalData.csv"
 import msftdata1 from "./MSFT_half_yearly_HistoricalData.csv"
 import "./compare.css";
