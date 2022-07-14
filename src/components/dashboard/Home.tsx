@@ -5,6 +5,7 @@ import Favorites from "./Favorites";
 import { TextField } from "@mui/material";
 import styled from "styled-components";
 import axios from "axios";
+import NoFavorite from "./NoFavorites";
 import { StockSymbol } from "../../types/StockSymbol";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -41,19 +42,19 @@ function Home() {
   const [searchItem, setSearchItem] = useState("");
   const [stocksData, setStocksData] = useState([]);
   const [favoriteStocks, setFavoriteStocks] = useState([]);
-  const [constStocksData, setConstStocksData] = useState(stocksData);
+  const [constStocksData, setConstStocksData] = useState([]);
 
   const notify = (stock: StockSymbol) => {
     axios
       .post("/api/dashboard/favorites", {
-        userId: localStorage.getItem('userID'),
+        userId: localStorage.getItem("userID"),
         stock: stock.symbol,
       })
-      .then(function (response) {
+      .then(function(response) {
         console.log("btn click response", response.data);
         setFavoriteStocks(response.data);
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
 
@@ -79,7 +80,7 @@ function Home() {
   };
 
   useEffect(() => {
-    console.log(localStorage.getItem("userIDs"))
+    console.log(localStorage.getItem("userIDs"));
     axios.get("/api/dashboard/favorites").then((res) => {
       const data = res.data.favorites;
       console.log("favorites are", res.data.favorites);
@@ -90,7 +91,7 @@ function Home() {
   useEffect(() => {
     axios
       .post("/api/dashboard", {
-        userId: localStorage.getItem('userID'),
+        userId: localStorage.getItem("userID"),
       })
       .then(async (res) => {
         const data = res.data.recommendedStocks;
@@ -125,13 +126,17 @@ function Home() {
               value={searchItem}
               onChange={(event) => {
                 setSearchItem(event.target.value);
-                if (event.target.value.length >= 0) {
-                  const filterData = stocksData.filter((stock: StockSymbol) =>
-                    stock.symbol
-                      .toLowerCase()
-                      .includes(event.target.value.toLowerCase())
-                  );
-                  console.log(filterData);
+                if (event.target.value.length > 0) {
+                  const filterData = stocksData.filter((stock: StockSymbol) => {
+                    return (
+                      stock.symbol
+                        .toLowerCase()
+                        .includes(event.target.value.toLowerCase()) ||
+                      stock.symbol
+                        .toLowerCase()
+                        .includes(event.target.value.toLowerCase())
+                    );
+                  });
                   setStocksData(filterData);
                 } else {
                   setStocksData(constStocksData);
