@@ -29,7 +29,7 @@ interface StockSymbol {
 
 const stockData: StockSymbol = {
   symbol: "CBDU",
-  currency: "USD",
+  currency: "$",
   price: 262.74,
   previousClose: 259.45,
   open: 261.07,
@@ -73,12 +73,12 @@ function StockCard(props: any) {
       <BuyTradeModal
         openModal={openBuyModal}
         setOpenModal={setOpenBuyModal}
-        stockData={stockData}
+        stockData={props.stock}
       />
       <SellTradeModal
         openModal={openSellModal}
         setOpenModal={setOpenSellModal}
-        stockData={stockData}
+        stockData={props.stock}
       />
       <Card
         // className={isFadingOut ? "stock-fadeout" : ""}
