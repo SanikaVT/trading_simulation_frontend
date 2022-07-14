@@ -21,7 +21,7 @@ const Advisor = (props: any) => {
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
 
-        axios.get('http://localhost:3100/api/advisor/' + userId).then((result) => {
+        axios.get('/api/advisor/' + userId).then((result) => {
             setData(result.data.advisor)
         }).catch((err) => {
             console.log('error')

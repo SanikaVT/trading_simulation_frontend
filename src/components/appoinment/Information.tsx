@@ -50,7 +50,7 @@ const columns: GridColDef[] = [
             return (
                 <>
                     <Button variant="contained" onClick={() => {
-                        axios.delete('http://localhost:3100/api/appointment/' + appointment.id).then((result) => {
+                        axios.delete('/api/appointment/' + appointment.id).then((result) => {
                             console.log('deleted');
                             window.location.reload();
                         }).catch((err) => {
@@ -90,7 +90,7 @@ export default function Information() {
     const [data, setData] = useState<characterData[]>([]);
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
-        axios.get('http://localhost:3100/api/appointment/').then((result) => {
+        axios.get('/api/appointment/').then((result) => {
             setData(result.data.appointment)    
         }).catch((err) => {
             console.log('error')
