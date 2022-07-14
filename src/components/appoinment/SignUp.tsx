@@ -70,7 +70,7 @@ export default function SignUp() {
     const gotpage = () => {
         const data = { address: formValue.address, email: formValue.email, firstName: formValue.fname, lastName: formValue.lname, age: formValue.age,phoneNumber: formValue.phoneno,title: formValue.title }
         console.log(data)
-        axios.post('http://localhost:3100/api/advisor', data).then((result) => {
+        axios.post('/api/advisor', data).then((result) => {
             console.log("success")
         }).catch((err) => {
             console.log('error')

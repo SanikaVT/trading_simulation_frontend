@@ -29,7 +29,7 @@ const AdvisorList = () => {
     const [dataCopy, setDataCopy] = useState<characterData[]>([])
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
-        axios.get('http://localhost:3100/api/advisor').then((result) => {
+        axios.get('/api/advisor').then((result) => {
             setData(result.data.advisor)
             setDataCopy(result.data.advisor)
 

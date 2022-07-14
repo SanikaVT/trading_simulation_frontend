@@ -36,7 +36,7 @@ export default function Reservation() {
     useEffect(() => { fetchData() }, [])
 
     const fetchData = () => {
-        axios.get('http://localhost:3100/api/advisor').then((result) => {
+        axios.get('/api/advisor').then((result) => {
             setData(result.data.advisor)
         }).catch((err) => {
             console.log('error')
@@ -53,11 +53,11 @@ export default function Reservation() {
 
 
     const handleClick = (e: any) => {
-        axios.get('http://localhost:3100/api/advisor/' + advisorName).then((result) => {
+        axios.get('/api/advisor/' + advisorName).then((result) => {
             console.log(result)
             const data = { fullName: advisorName, address: address, date: value, email: result.data.advisor.email, firstName: result.data.advisor.firstName, lastName: result.data.advisor.lastName, age: result.data.advisor.age }
             console.log(`data:${data}`)
-            axios.post('http://localhost:3100/api/appointment/', data).then((result) => {
+            axios.post('/api/appointment/', data).then((result) => {
                 window.location.reload();
             }).catch((err) => {
                 console.log('error')
