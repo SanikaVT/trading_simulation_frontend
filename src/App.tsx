@@ -42,9 +42,9 @@ function App() {
               <AppHeader>
                 <Header />
               </AppHeader>
+              <Home />
               <AppBody>
-                <Home />
-                  <FooterComp/>
+                <FooterComp />
               </AppBody>
             </Wrapper>
           }
@@ -100,9 +100,9 @@ function App() {
                 <Header />
               </AppHeader>
               <AppBody>
-                <Financials/>
+                <Financials />
               </AppBody>
-              <FooterComp/>
+              <FooterComp />
             </Wrapper>
           }
         />
@@ -115,20 +115,25 @@ function App() {
                 <Header />
               </AppHeader>
               <AppBody>
-                <Compare/>
+                <Compare />
               </AppBody>
-              <FooterComp/>
+              <FooterComp />
             </Wrapper>
           }
         />
 
-          <Route path="/" element={<SignIn />}></Route>
-          <Route path="/signin" element={<SignIn />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
-          <Route path="/forgotpasswordotp" element={<ForgotPasswordOtp />}></Route>
-          <Route path="/riskappetite" element={<RiskAppetite />}></Route>
-          <Route path="/Holdings" element={
+        <Route path="/" element={<SignIn />}></Route>
+        <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+        <Route
+          path="/forgotpasswordotp"
+          element={<ForgotPasswordOtp />}
+        ></Route>
+        <Route path="/riskappetite" element={<RiskAppetite />}></Route>
+        <Route
+          path="/Holdings"
+          element={
             <Wrapper>
               <AppHeader>
                 <Header />
@@ -230,15 +235,20 @@ function App() {
           }
         ></Route>
 
-          <Route path="/blog" element={<Wrapper>
-            <AppHeader>
-              <Header />
-            </AppHeader>
-            <AppBody>
-              <Blog/>
-            </AppBody>
-            <FooterComp/>
-          </Wrapper>} />
+        <Route
+          path="/blog"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <Blog />
+              </AppBody>
+              <FooterComp />
+            </Wrapper>
+          }
+        />
         <Route path="/signin" element={<SignIn />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
@@ -340,8 +350,6 @@ function App() {
             </Wrapper>
           }
         />
-
-
       </Routes>
     </Router>
   );

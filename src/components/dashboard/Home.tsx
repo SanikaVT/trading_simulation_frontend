@@ -46,7 +46,7 @@ function Home() {
   const notify = (stock: StockSymbol) => {
     axios
       .post("/api/dashboard/favorites", {
-        userId: 1,
+        userId: localStorage.getItem('userID'),
         stock: stock.symbol,
       })
       .then(function (response) {
@@ -66,7 +66,7 @@ function Home() {
     axios
       .delete("/api/dashboard/delete", {
         data: {
-          userId: 1,
+          userId: localStorage.getItem("userID"),
           stock: stock.symbol,
         },
       })
@@ -79,6 +79,7 @@ function Home() {
   };
 
   useEffect(() => {
+    console.log(localStorage.getItem("userIDs"))
     axios.get("/api/dashboard/favorites").then((res) => {
       const data = res.data.favorites;
       console.log("favorites are", res.data.favorites);
@@ -87,26 +88,30 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    axios.get("/api/dashboard").then(async (res) => {
-      const data = res.data.recommendedStocks;
-      const updatedStock = data.map((stock: StockSymbol) => {
-        if (JSON.stringify(favoriteStocks).includes(stock._id)) {
-          return {
-            ...stock,
-            isActive: true,
-          };
-        } else {
-          return {
-            ...stock,
-            isActive: false,
-          };
-        }
-      });
-      console.log("data on dashboard", updatedStock);
+    axios
+      .post("/api/dashboard", {
+        userId: localStorage.getItem('userID'),
+      })
+      .then(async (res) => {
+        const data = res.data.recommendedStocks;
+        const updatedStock = data.map((stock: StockSymbol) => {
+          if (JSON.stringify(favoriteStocks).includes(stock._id)) {
+            return {
+              ...stock,
+              isActive: true,
+            };
+          } else {
+            return {
+              ...stock,
+              isActive: false,
+            };
+          }
+        });
+        console.log("data on dashboard", updatedStock);
 
-      setStocksData(updatedStock);
-      setConstStocksData(updatedStock);
-    });
+        setStocksData(updatedStock);
+        setConstStocksData(updatedStock);
+      });
   }, [favoriteStocks]);
 
   return (
