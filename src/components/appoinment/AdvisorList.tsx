@@ -12,10 +12,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 
-
-
-
-
 const AdvisorList = () => {
     const navigate = useNavigate();
     const [searchWord, setSearchWord] = useState<string>("");
@@ -25,6 +21,7 @@ const AdvisorList = () => {
         title: string,
         lastName: string,
         firstName: string,
+        age:number,
         picture: string,
         email: string
     }
@@ -32,35 +29,39 @@ const AdvisorList = () => {
     const [dataCopy, setDataCopy] = useState<characterData[]>([])
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
-        axios.get('https://tutorial4-api.herokuapp.com/api/users/').then((result) => {
-            setData(result.data.data)
-            setDataCopy(result.data.data)
+        axios.get('/api/advisor').then((result) => {
+            setData(result.data.advisor)
+            setDataCopy(result.data.advisor)
+
         }).catch((err) => {
-            console.log("something went wrong");
+            console.log(err);
         })
     }
+ 
     useEffect(() => {
         if (data && data.length > 0) {
-            data.map((user, index) => {
+            for (const user of data) {
                 if (user.firstName.toLowerCase() === searchWord.toLowerCase() || user.lastName.toLowerCase() === searchWord.toLowerCase()) {
                     const rows = [
-                        { id: user.id, title: user.title, lastName: user.lastName, firstName: user.firstName, email: user.email, picture: user.picture },
-                    ];
+                        { id: user.id, title: user.title, age:user.age,lastName: user.lastName, firstName: user.firstName, email: user.email, picture: user.picture },
+                    ]; 
                     setData(rows)
-                    return;
-                } 
+                   break
+                } else {
+                    setData(dataCopy)
+                }
 
-            })
-        } 
+            }
+        }
 
     }, [searchWord])
+
 
 
 
     const onChange = (event: any) => {
         event.persist();
         const value = event.target.value
-      
         setSearchWord(value);
         console.log(searchWord)
     }
@@ -79,7 +80,7 @@ const AdvisorList = () => {
             headerName: 'Last name',
             width: 150,
             editable: false,
-        },
+        }, { field: 'age', headerName: 'Age', width: 150, editable: false },
         {
             field: 'email',
             headerName: 'Email',
@@ -118,15 +119,7 @@ const AdvisorList = () => {
 
 
     ];
-
-
-
-
-
-
-
     return (
-
         <>
             <Box
                 display="flex"
@@ -142,18 +135,19 @@ const AdvisorList = () => {
                     <IconButton type="submit" sx={{ mr: 1, p: '10px' }} aria-label="search">
                         <SearchIcon />
                     </IconButton>
+
                 </Paper>
+                <>
+                    <Button variant="contained" onClick={() => navigate(
+                        '/register')} sx={{ p: '2px 4px', ml: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 1 / 8, height: 40 }}> <span >Become a advisor</span></Button>
+
+                </>
+
             </Box>
-           
-
-
-
 
             <Box component="span" sx={{ p: '2px' }} display="flex"
                 alignItems="center"
                 justifyContent="center">
-
-
                 <div style={{ height: 400, width: '80%' }}>
 
                     <DataGrid
@@ -165,15 +159,8 @@ const AdvisorList = () => {
 
                     />
                 </div>
-
-
-
             </Box>
-
-
         </>
-
-
     )
 }
 export default AdvisorList;

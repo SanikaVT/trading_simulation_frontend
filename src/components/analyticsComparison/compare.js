@@ -31,7 +31,7 @@ function LineChart(props) {
   var symbol = location.state.stock.symbol;
   useEffect(() => {
    axios
-   .get(`http://localhost:3100/api/analytics`, {
+   .get(`/api/analytics`, {
       params: { Symbol: symbol },
     })
    .then(function(response) {
@@ -141,7 +141,7 @@ function LineChart(props) {
             var x;
             var y;
             axios
-            .get(`http://localhost:3100/api/analytics`, {
+            .get(`/api/analytics`, {
                params: { Symbol: symbol },
              })
             .then(function(response) {
@@ -198,7 +198,7 @@ function LineChart(props) {
     
         if(selectedOption !== "Compare"){
          axios
-         .get(`http://localhost:3100/api/analytics`, {
+         .get(`/api/analytics`, {
                params: { Symbol: selectedOption },
             })
             .then(function(response) {
@@ -244,7 +244,7 @@ function LineChart(props) {
               var x;
               var y;
               axios
-              .get(`http://localhost:3100/api/halfyearlyanalytics`, {
+              .get(`/api/halfyearlyanalytics`, {
                params: { Symbol: symbol },
                })
             .then(function(response) {
@@ -301,7 +301,7 @@ function LineChart(props) {
        
               if(selectedOption !== "Compare"){
                axios
-                  .get(`http://localhost:3100/api/halfyearlyanalytics`, {
+                  .get(`/api/halfyearlyanalytics`, {
                    params: { Symbol: selectedOption },
                 })
                .then(function(response) {
@@ -413,7 +413,7 @@ function LineChart(props) {
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                 axios
-                .get(`http://localhost:3100/api/analytics`, {
+                .get(`/api/analytics`, {
                    params: { Symbol: symbol },
                  })
                 .then(function(response) {
@@ -457,7 +457,7 @@ function LineChart(props) {
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                 axios
-                .get(`http://localhost:3100/api/analytics`, {
+                .get(`/api/analytics`, {
                    params: { Symbol: symbol },
                  })
                 .then(function(response) {
@@ -496,7 +496,7 @@ function LineChart(props) {
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 axios
-              .get(`http://localhost:3100/api/halfyearlyanalytics`, {
+              .get(`/api/halfyearlyanalytics`, {
                params: { Symbol: symbol },
                })
             .then(function(response) {
@@ -539,7 +539,7 @@ function LineChart(props) {
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 axios
-              .get(`http://localhost:3100/api/halfyearlyanalytics`, {
+              .get(`/api/halfyearlyanalytics`, {
                params: { Symbol: symbol },
                })
             .then(function(response) {

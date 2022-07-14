@@ -29,6 +29,7 @@ import Advisors from "./components/appoinment/AdvisorList";
 import Information from "./components/appoinment/Information"
 import Financials from "./components/stockFinancials/financials"
 import Compare from "./components/analyticsComparison/compare"
+import Register from "./components/appoinment/SignUp"
 
 function App() {
   return (
@@ -270,7 +271,7 @@ function App() {
           }
         >
         </Route>
-
+        
 
         <Route
           path="/appointment"
@@ -285,10 +286,23 @@ function App() {
             </Wrapper>
           }
         >
-          
         </Route>
         <Route
-          path="/advisor/:userID"
+          path="/register"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <Register />
+              </AppBody>
+            </Wrapper>
+          }
+        >
+        </Route>
+        <Route
+          path="/advisor/:id"
           element={
             <Wrapper>
               <AppHeader>

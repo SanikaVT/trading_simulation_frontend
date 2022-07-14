@@ -1,30 +1,79 @@
-import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
-import Information from './Information'
+import Information from './Information';
+import { useEffect, useState } from "react";
+import axios from "axios"
+import Advisor from './Advisor';
 
 
 
 
 export default function Reservation() {
-    const [value, setValue] = useState<Date | null>(
-        new Date('2014-08-18T21:11:54'),
-    );
 
-    const handleChange = (newValue: Date | null) => {
-        setValue(newValue);
-    };
+    const [value, setValue] = useState<Date | null>(new Date());
+    interface characterData {
+        id: number;
+        title: string,
+        lastName: string,
+        firstName: string,
+        age: number,
+        address: string,
+        email: string
+    }
+
+    const [data, setData] = useState<characterData[]>([]);
+    const [advisorName, setAdvisorName] = useState('')
+    const [address, setAddress] = useState('')
+
+
+    useEffect(() => { fetchData() }, [])
+
+    const fetchData = () => {
+        axios.get('/api/advisor').then((result) => {
+            setData(result.data.advisor)
+        }).catch((err) => {
+            console.log('error')
+            console.log(err);
+        })
+    }
+    const advisor = data.map(advisor => advisor.firstName.concat("-").concat(advisor.lastName))
+
+    // useEffect(() => {
+     
+    // }, [advisorName])
+
+
+
+
     const handleClick = (e: any) => {
-        e.preventDefault();
+        axios.get('/api/advisor/' + advisorName).then((result) => {
+            console.log(result)
+            const data = { fullName: advisorName, address: address, date: value, email: result.data.advisor.email, firstName: result.data.advisor.firstName, lastName: result.data.advisor.lastName, age: result.data.advisor.age }
+            console.log(`data:${data}`)
+            axios.post('/api/appointment/', data).then((result) => {
+                window.location.reload();
+            }).catch((err) => {
+                console.log('error')
+                console.log(err);
+            })
+            alert("Appointment make successfully")
+           
+        }).catch((err) => {
+            console.log('error')
+            console.log(err);
+        })
+       
+        
         alert("Appointment make successfully")
     }
+
     return (
 
         <> <Box sx={{ flexGrow: 1 }}>
@@ -32,6 +81,7 @@ export default function Reservation() {
             <Grid spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 6 }}  >
                 <Grid item xs={2} sm={2} md={4}>
                     <Autocomplete
+                        onChange={(event, value) => value ? setAdvisorName(value) : null}
                         disablePortal
                         id="advisor"
                         options={advisor}
@@ -41,6 +91,7 @@ export default function Reservation() {
                 </Grid>
                 <Grid item xs={2} md={4} sm={2}>
                     <Autocomplete
+                        onChange={(event, value) => value ? setAddress(value.label) : null}
                         disablePortal
                         id="city"
                         options={cities}
@@ -49,7 +100,7 @@ export default function Reservation() {
                     />
                 </Grid>
                 <Grid item xs={2} md={4} sm={2}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDatePicker
                             label="Date"
                             inputFormat="MM/dd/yyyy"
@@ -57,9 +108,20 @@ export default function Reservation() {
                             onChange={handleChange}
                             renderInput={(params) => <TextField {...params} />}
                         />
+                    </LocalizationProvider> */}
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DateTimePicker
+                            renderInput={(props) => <TextField {...props} />}
+                            label="DateTimePicker"
+                            value={value}
+                            onChange={(newValue) => {
+                                setValue(newValue);
+                            }}
+                        />
                     </LocalizationProvider>
 
                 </Grid>
+
 
 
             </Grid>
@@ -84,16 +146,10 @@ export default function Reservation() {
     );
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const advisor = [
-    { label: 'ALex', year: 1994 },
-    { label: 'James', year: 1994 },
-    { label: 'Rose', year: 1994 },
-
-];
 
 const cities = [
-    { label: 'Halifax', year: 1994 },
-    { label: 'Totonto   ', year: 1996 },
+    { label: 'Halifax' },
+    { label: 'Totonto   ' },
+    { label: 'Quebec City' }
 ]
 
