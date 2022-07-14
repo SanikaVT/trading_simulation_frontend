@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import Forum from "../forum/Forum"
 import * as d3 from "d3";
 //import data from "./AAPL_Yearly_HistoricalData.csv";
@@ -13,7 +13,8 @@ import axios from "axios";
 function LineChart(props) {
   var data;
   const navigate = useNavigate();
-  const { width, height } = props;
+  const location = useLocation();
+  var stock = location.state.stock;
   const stockData = {
     symbol: "APPL",
     currency: "USD",
@@ -33,10 +34,11 @@ function LineChart(props) {
   const openSellTradeModal = (event) => {
     setOpenSellModal(true);
   };
-  var symbol = "AAPL"
+  var symbol = stock.symbol
+  console.log(symbol)
   useEffect(() => {
    axios
-   .get(`http://localhost:8080/api/analytics`, {
+   .get(`http://localhost:3100/api/analytics`, {
       params: { Symbol: symbol },
     })
    .then(function(response) {
@@ -48,8 +50,8 @@ function LineChart(props) {
         //console.log(data)
         var svg = d3.select("#container")
                   .append("svg")
-                  .attr("width", width)
-                  .attr("height", height)
+                  .attr("width", location.state.width)
+                  .attr("height", location.state.height)
                   .attr("transform","translate(130,-50)")
                   
           svg.append('rect')
@@ -75,7 +77,7 @@ function LineChart(props) {
              .attr("x",690)
              .attr("y", 50)
              .attr("cursor", "pointer")
-             .on('click', function(){navigate('/compare')});
+             .on('click', function(){navigate('/compare',{state:{stock:stock}})});
        
           svg.append('text')
              .attr('x',693)
@@ -86,7 +88,7 @@ function LineChart(props) {
              .attr('font-weight','bold')
              .attr("cursor", "pointer")
              .text('Compare stocks')
-             .on('click', function(){navigate('/compare')});
+             .on('click', function(){navigate('/compare',{state:{stock:stock}})});
     
           svg.append('text')
              .attr('x',15)
@@ -210,6 +212,7 @@ function LineChart(props) {
           }
           makegraph1();
         function makegraph2(){
+         console.log(data)
              var margin = {top: 20, right: 20, bottom: 50, left: 100},
                   width = 800 - margin.left - margin.right,
                   height = 550 - margin.top - margin.bottom,
@@ -221,8 +224,6 @@ function LineChart(props) {
                 .append("g")
                   .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
-              
-                  
                 var parseDate = d3.timeParse("%d-%m-%Y");
                 data.forEach(d=>{
                    d.Date = parseDate(d.Date);
@@ -344,7 +345,7 @@ function LineChart(props) {
              .attr("x",15)
              .attr("y", 165)
              .attr("cursor", "pointer")
-             .on('click', function(){navigate('/financials')});
+             .on('click', function(){navigate("/financials",{state:{stock :stock}})});
        
           svg.append('text')
              .attr('x',22)
@@ -355,7 +356,7 @@ function LineChart(props) {
              .attr('font-weight','bold')
              .attr("cursor", "pointer")
              .text('View Financials')
-             .on('click', function(){navigate('/financials')});
+             .on('click', function(){navigate("/financials",{state:{stock :stock}})});
 
              svg.append('rect')
              .attr("width", 47)
@@ -392,7 +393,7 @@ function LineChart(props) {
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                 axios
-                  .get(`http://localhost:8080/api/analytics`, {
+                  .get(`http://localhost:3100/api/analytics`, {
                            params: { Symbol: symbol },
                          })
                      .then(function(response) {
@@ -434,7 +435,7 @@ function LineChart(props) {
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                 axios
-                  .get(`http://localhost:8080/api/analytics`, {
+                  .get(`http://localhost:3100/api/analytics`, {
                            params: { Symbol: symbol },
                          })
                      .then(function(response) {
@@ -472,7 +473,7 @@ function LineChart(props) {
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 axios
-                  .get(`http://localhost:8080/api/halfyearlyanalytics`, {
+                  .get(`http://localhost:3100/api/halfyearlyanalytics`, {
                            params: { Symbol: symbol },
                          })
                      .then(function(response) {
@@ -513,7 +514,7 @@ function LineChart(props) {
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 axios
-                  .get(`http://localhost:8080/api/halfyearlyanalytics`, {
+                  .get(`http://localhost:3100/api/halfyearlyanalytics`, {
                            params: { Symbol: symbol },
                          })
                      .then(function(response) {

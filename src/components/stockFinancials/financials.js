@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import {useLocation } from "react-router-dom";
 import * as d3 from "d3";
 import "./financials.css";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
 import axios from "axios";
 function LineChart(props) {
-   var symbol = "AAPL";
+   const location = useLocation();
+   console.log(location.state)
+   var symbol = location.state.stock.symbol;
    var data;
   const { width, height } = props;
   const stockData = {
@@ -30,7 +33,7 @@ function LineChart(props) {
 
   useEffect(() => {
    axios
-   .get(`http://localhost:8080/api/financials`, {
+   .get(`http://localhost:3100/api/financials`, {
       params: { Symbol: symbol },
     })
    .then(function(response) {
@@ -344,7 +347,7 @@ function LineChart(props) {
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                 axios
-                     .get(`http://localhost:8080/api/financials`, {
+                     .get(`http://localhost:3100/api/financials`, {
                      params: { Symbol: symbol },
                   })
                .then(function(response) {
@@ -386,7 +389,7 @@ function LineChart(props) {
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                 axios
-                     .get(`http://localhost:8080/api/financials`, {
+                     .get(`http://localhost:3100/api/financials`, {
                      params: { Symbol: symbol },
                   })
                .then(function(response) {
@@ -424,7 +427,7 @@ function LineChart(props) {
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 axios
-                     .get(`http://localhost:8080/api/financials`, {
+                     .get(`http://localhost:3100/api/financials`, {
                      params: { Symbol: symbol },
                   })
                .then(function(response) {
@@ -465,7 +468,7 @@ function LineChart(props) {
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 axios
-                     .get(`http://localhost:8080/api/financials`, {
+                     .get(`http://localhost:3100/api/financials`, {
                      params: { Symbol: symbol },
                   })
                .then(function(response) {
