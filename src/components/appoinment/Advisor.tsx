@@ -6,7 +6,7 @@ import AlertDialog from './AlertDialog';
 
 const Advisor = (props: any) => {
     const params = useParams()
-    const userId = params.userID;
+    const userId = params.id;
     const navigate = useNavigate();
 
     interface characterData {
@@ -20,16 +20,18 @@ const Advisor = (props: any) => {
     const [data, setData] = useState<characterData>(Object)
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
-        axios.get('https://tutorial4-api.herokuapp.com/api/users/' + userId).then((result) => {
-            setData(result.data.data)
+
+        axios.get('http://localhost:3100/api/advisor/' + userId).then((result) => {
+            setData(result.data.advisor)
         }).catch((err) => {
-            console.log("something went wrong");
+            console.log('error')
+            console.log(err);
         })
     }
 
     return (
-        <><div  key={data.id} >
-            <img  src={data.picture}></img>
+        <><div key={data.email} >
+            <img src={data.picture}></img>
             <div >
                 <p>{data.title}</p>
                 <p>{data.firstName} {data.lastName}</p>
