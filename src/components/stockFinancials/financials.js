@@ -33,7 +33,7 @@ function LineChart(props) {
 
   useEffect(() => {
    axios
-   .get(`http://localhost:3100/api/financials`, {
+   .get(`/api/financials`, {
       params: { Symbol: symbol },
     })
    .then(function(response) {
@@ -347,7 +347,7 @@ function LineChart(props) {
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                 axios
-                     .get(`http://localhost:3100/api/financials`, {
+                     .get(`/api/financials`, {
                      params: { Symbol: symbol },
                   })
                .then(function(response) {
@@ -389,7 +389,7 @@ function LineChart(props) {
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
                 axios
-                     .get(`http://localhost:3100/api/financials`, {
+                     .get(`/api/financials`, {
                      params: { Symbol: symbol },
                   })
                .then(function(response) {
@@ -427,7 +427,7 @@ function LineChart(props) {
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 axios
-                     .get(`http://localhost:3100/api/financials`, {
+                     .get(`/api/financials`, {
                      params: { Symbol: symbol },
                   })
                .then(function(response) {
@@ -468,7 +468,7 @@ function LineChart(props) {
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
                 axios
-                     .get(`http://localhost:3100/api/financials`, {
+                     .get(`/api/financials`, {
                      params: { Symbol: symbol },
                   })
                .then(function(response) {
