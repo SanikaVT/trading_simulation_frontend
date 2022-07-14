@@ -45,7 +45,7 @@ function Home() {
 
   const notify = (stock: StockSymbol) => {
     axios
-      .post("http://localhost:8080/api/dashboard/favorites", {
+      .post("http://localhost:3100/api/dashboard/favorites", {
         userId: 1,
         stock: stock.symbol,
       })
@@ -64,7 +64,7 @@ function Home() {
 
   const deleteF = (stock: StockSymbol) => {
     axios
-      .delete("http://localhost:8080/api/dashboard/delete", {
+      .delete("http://localhost:3100/api/dashboard/delete", {
         data: {
           userId: 1,
           stock: stock.symbol,
@@ -79,7 +79,7 @@ function Home() {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/dashboard/favorites").then((res) => {
+    axios.get("http://localhost:3100/api/dashboard/favorites").then((res) => {
       const data = res.data.favorites;
       console.log("favorites are", res.data.favorites);
       setFavoriteStocks(data);
@@ -87,7 +87,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/dashboard").then(async (res) => {
+    axios.get("http://localhost:3100/api/dashboard").then(async (res) => {
       const data = res.data.recommendedStocks;
       const updatedStock = data.map((stock: StockSymbol) => {
         if (JSON.stringify(favoriteStocks).includes(stock._id)) {
