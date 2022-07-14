@@ -47,11 +47,11 @@ function UserInfoComp() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/api/users`, {
+      .get(`/api/users`, {
         responseType: "json",
         params: { userID: userID },
       })
-      .then(function(response) {
+      .then(function (response) {
         setAddress(response.data.prof.address);
         setAddress2(response.data.prof.address);
         setAccount(response.data.prof.account);
@@ -64,7 +64,7 @@ function UserInfoComp() {
 
   function postUserData() {
     axios
-      .post(`http://localhost:3100/api/users`, {
+      .post(`/api/users`, {
         userID: userID,
         address: address2,
         account: account2,

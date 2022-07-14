@@ -63,7 +63,7 @@ function BuyCreditsModal(props: any) {
   }
   function postUserData() {
     axios
-      .post(`http://localhost:3100/api/users`, {
+      .post(`/api/users`, {
         userID: "1",
         credits: Number(cred),
       })
@@ -72,11 +72,11 @@ function BuyCreditsModal(props: any) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/api/users`, {
+      .get(`/api/users`, {
         responseType: "json",
         params: { userID: "1" },
       })
-      .then(function(response) {
+      .then(function (response) {
         setCredits(response.data.prof.credits);
       });
   }, []);

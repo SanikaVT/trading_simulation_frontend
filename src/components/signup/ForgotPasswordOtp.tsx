@@ -1,203 +1,172 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Card from '@mui/material/Card';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Grid from '@mui/material/Grid';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Card from "@mui/material/Card";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Grid from "@mui/material/Grid";
 import axios from "axios";
-import {useState} from "react";
-
-
+import { useState } from "react";
 
 export default function ForgotPasswordOtp() {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    // @ts-ignore
 
+    gotpage();
+  };
+  const initialValues = { email: "", otp: "" };
+  const [formValue, setFormValue] = useState(initialValues);
+  const [checkotp, setCheckOtp] = useState(initialValues);
 
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target;
+    setFormValue({ ...formValue, [name]: value });
+  };
 
+  const sendotp = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
+    console.log("done");
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        // @ts-ignore
-
-        gotpage();
-
-    };
-    const initialValues = {email:"", otp:""};
-    const [formValue, setFormValue] = useState(initialValues);
-    const [checkotp, setCheckOtp] = useState(initialValues);
-
-
-    const handleChange = (e: { target: { name: any; value: any; }; }) => {
-        const { name, value } = e.target;
-        setFormValue({ ...formValue, [name]: value });
-    };
-
-
-
-
-    const sendotp = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-
-
-            console.log("done");
-
-            const form_data = {
-                "email": formValue.email,
-            };
-
-
-            axios.post('http://localhost:8080/api/register/otp',form_data)
-                .then(response => {
-                    console.log(response.data.otp);
-                    setCheckOtp(response.data.otp);
-                    if (response.status === 200) {
-                        console.log(response.data.status);
-                       // window.location.href = "/dashboard";
-                    }
-                    else{
-                        alert("Email does not exist Please register!");
-                    }
-
-                }).catch(function (error) {
-                //alert("Email or password is wrong!");
-                console.log("Exception occured");
-            });
-            alert("Please check your email for code");
-            //window.location.href = "/dashboard";
-
+    const form_data = {
+      email: formValue.email,
     };
 
-
-
-    const gotpage = (e: { preventDefault: () => void; }) => {
-        // @ts-ignore
-        if(checkotp.toString() === formValue.otp.toString()){
-            console.log("OTP success");
-            localStorage.setItem("forgotemail", formValue.email);
-            window.location.href = "/forgotpassword";
+    axios
+      .post("/api/register/otp", form_data)
+      .then((response) => {
+        console.log(response.data.otp);
+        setCheckOtp(response.data.otp);
+        if (response.status === 200) {
+          console.log(response.data.status);
+          // window.location.href = "/dashboard";
+        } else {
+          alert("Email does not exist Please register!");
         }
-        else {
-            console.log("sent otp is ", checkotp);
-            console.log("inputotp is ", formValue.otp);
-            alert("Please check Code and Request again if you have not received!");
-        }
-       // window.location.href = "/forgotpassword";
-    }
+      })
+      .catch(function (error) {
+        //alert("Email or password is wrong!");
+        console.log("Exception occured");
+      });
+    alert("Please check your email for code");
+    //window.location.href = "/dashboard";
+  };
 
-    const gotosignin =()=>{
-
-        window.location.href="/";
-    }
-    const gotosignup = () =>{
-        window.location.href="/signup";
-    }
-    const card_1 = {
-        backgroundColor: "white",
-        borderRadius: "10px",
-        borderWidth: 1,
-        margin: "10px",
-        padding: "10px"
-    };
+  const gotpage = (e: { preventDefault: () => void }) => {
     // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
-    return (
+    if (checkotp.toString() === formValue.otp.toString()) {
+      console.log("OTP success");
+      localStorage.setItem("forgotemail", formValue.email);
+      window.location.href = "/forgotpassword";
+    } else {
+      console.log("sent otp is ", checkotp);
+      console.log("inputotp is ", formValue.otp);
+      alert("Please check Code and Request again if you have not received!");
+    }
+    // window.location.href = "/forgotpassword";
+  };
 
-        <Container component="main" maxWidth="xs">
+  const gotosignin = () => {
+    window.location.href = "/";
+  };
+  const gotosignup = () => {
+    window.location.href = "/signup";
+  };
+  const card_1 = {
+    backgroundColor: "white",
+    borderRadius: "10px",
+    borderWidth: 1,
+    margin: "10px",
+    padding: "10px",
+  };
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  return (
+    <Container component="main" maxWidth="xs">
+      <Card variant="outlined" style={card_1}>
+        <Box
+          sx={{
+            marginTop: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <h2>Welcome to DTrade</h2>
+          <Avatar sx={{ m: 1, bgcolor: "darkorange" }}>
+            {" "}
+            <LockOutlinedIcon />{" "}
+          </Avatar>
 
-            <Card variant="outlined" style={card_1}>
-                <Box
-                    sx={{
-                        marginTop: 4,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
+          <Typography fontSize={25}>Forgot Password</Typography>
+          <br />
 
-                    }}
-                >
-                    <h2>Welcome to DTrade</h2>
-                    <Avatar sx={{ m: 1, bgcolor: 'darkorange' }}> <LockOutlinedIcon /> </Avatar>
+          <Box sx={{ width: 1 }}>
+            <form onSubmit={sendotp}>
+              <TextField
+                fullWidth
+                label="Email Address"
+                required
+                name="email"
+                type={"email"}
+                onChange={handleChange}
+                value={formValue.email}
+                sx={{ marginBottom: 1 }}
+              />
 
-                    <Typography fontSize={25} >
-                        Forgot Password
-                    </Typography>
-                    <br/>
+              <Button fullWidth variant="contained" type={"submit"}>
+                Send Code
+              </Button>
+            </form>
 
-                    <Box sx={{ width: 1 }}>
-                        <form onSubmit={sendotp}>
-                            <TextField
-                                fullWidth
-                                label="Email Address"
-                                required
-                                name='email'
-                                type={"email"}
-                                onChange={handleChange}
-                                value={formValue.email}
-                                sx={{ marginBottom:1}}
-                            />
+            <form onSubmit={handleSubmit}>
+              <TextField
+                fullWidth
+                required
+                label="Enter Code here"
+                multiline
+                name="otp"
+                onChange={handleChange}
+                value={formValue.otp}
+                sx={{ marginBottom: 2, marginTop: 2 }}
+              />
 
-                            <Button
-                                fullWidth
-                                variant="contained"
-                                type={"submit"}
-                            >
-                                Send Code
-                            </Button>
-                        </form>
-
-                        <form onSubmit={handleSubmit}>
-                            <TextField
-                                fullWidth
-                                required
-                                label="Enter Code here"
-                                multiline
-                                name='otp'
-                                onChange={handleChange}
-                                value={formValue.otp}
-                                sx={{ marginBottom:2, marginTop:2}}
-                            />
-
-                            <Button
-                                fullWidth
-                                variant="contained"
-                                type={"submit"}
-                            >
-                                Next
-                            </Button>
-                        </form>
-                    </Box>
-                </Box>
-            </Card>
-            <Card variant="outlined" style={card_1} >
-                <Grid container spacing={2}>
-
-                    <Grid item xs={12} sm={6}>
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            type={"submit"}
-                            onClick={gotosignin}
-                        >
-                            Sign-in
-                        </Button>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            type={"submit"}
-                            onClick={gotosignup}
-                        >
-                            Sign-Up
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Card>
-        </Container>
-
-    );
+              <Button fullWidth variant="contained" type={"submit"}>
+                Next
+              </Button>
+            </form>
+          </Box>
+        </Box>
+      </Card>
+      <Card variant="outlined" style={card_1}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <Button
+              fullWidth
+              variant="outlined"
+              type={"submit"}
+              onClick={gotosignin}
+            >
+              Sign-in
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Button
+              fullWidth
+              variant="outlined"
+              type={"submit"}
+              onClick={gotosignup}
+            >
+              Sign-Up
+            </Button>
+          </Grid>
+        </Grid>
+      </Card>
+    </Container>
+  );
 }

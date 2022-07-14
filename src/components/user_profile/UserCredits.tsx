@@ -20,11 +20,11 @@ function UserCreditsComp() {
 
   function getUserData() {
     axios
-      .get(`http://localhost:3100/api/users`, {
+      .get(`/api/users`, {
         responseType: "json",
         params: { userID: userID },
       })
-      .then(function(response) {
+      .then(function (response) {
         setCredits(response.data.prof.credits);
         console.log(response.data.prof);
       });

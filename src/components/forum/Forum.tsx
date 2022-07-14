@@ -46,20 +46,20 @@ function ForumComp() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/api/forum/`, {
+      .get(`/api/forum/`, {
         responseType: "json",
         params: { symbol: "ABA" },
       })
-      .then(function(response) {
+      .then(function (response) {
         setCommentData(response.data.comments);
         console.log(response.data.comments);
       });
     axios
-      .get(`http://localhost:3100/api/order/`, {
+      .get(`/api/order/`, {
         responseType: "json",
         params: { symbol: "ABA" },
       })
-      .then(function(response) {
+      .then(function (response) {
         setOrdersData(response.data.orders);
         console.log(response.data.orders);
         calculateChartResult();
@@ -89,7 +89,7 @@ function ForumComp() {
   }
   function postComment() {
     axios
-      .post(`http://localhost:3100/api/forum/`, {
+      .post(`/api/forum/`, {
         symbol: "ABA",
         comment: commentSet,
       })

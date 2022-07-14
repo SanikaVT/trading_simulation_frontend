@@ -15,11 +15,11 @@ function UserDetailComp() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/api/users`, {
+      .get(`/api/users`, {
         responseType: "json",
         params: { userID: userID },
       })
-      .then(function(response) {
+      .then(function (response) {
         setFname(response.data.prof.first_name + " ");
         setLname(response.data.prof.last_name);
         setEmail(response.data.prof.email);

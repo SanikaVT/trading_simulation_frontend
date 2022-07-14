@@ -62,7 +62,7 @@ export default function RiskAppetite() {
 
     console.log(form_data);
     axios
-      .post("http://localhost:8080/api/register", form_data)
+      .post("/api/register", form_data)
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
@@ -73,7 +73,7 @@ export default function RiskAppetite() {
           alert("Email or password is wrong!");
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         alert("Email or password is wrong!");
         console.log("Exception occured");
       });

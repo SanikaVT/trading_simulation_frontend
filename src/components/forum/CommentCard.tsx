@@ -50,7 +50,7 @@ function CommentCard(props: any) {
   function updateComment() {
     if (comment.trim() !== "") {
       axios
-        .put(`http://localhost:3100/api/forum`, {
+        .put(`/api/forum`, {
           symbol: symbol,
           commentID: commentID,
           comment: comment,
@@ -66,7 +66,7 @@ function CommentCard(props: any) {
   }
   function deleteComment() {
     axios
-      .put(`http://localhost:3100/api/forum/delete`, {
+      .put(`/api/forum/delete`, {
         symbol: symbol,
         commentID: commentID,
       })

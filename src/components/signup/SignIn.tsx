@@ -58,7 +58,7 @@ export default function SignIn() {
 
       console.log(form_data);
       axios
-        .post("http://localhost:3100/api/register/login", form_data)
+        .post("/api/register/login", form_data)
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
@@ -73,7 +73,7 @@ export default function SignIn() {
             alert("Email or password is wrong!");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           alert("Email or password is wrong!");
           console.log("Exception occured");
         });
