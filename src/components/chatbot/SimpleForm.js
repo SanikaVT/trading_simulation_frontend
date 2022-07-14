@@ -1,9 +1,8 @@
-
-// import ChatBot from 'react-simple-chatbot';
+import ChatBot from 'react-simple-chatbot';
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { color } from 'd3';
+
 
 function SimpleForm(props) {
   const style = {
@@ -37,7 +36,7 @@ function SimpleForm(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         >
-        {/* <Box sx={style}>
+        <Box sx={style}>
         <ChatBot
         steps={[
             {
@@ -79,7 +78,7 @@ function SimpleForm(props) {
               >
                 Close
               </Button>
-            </Box> */}
+            </Box>
          </Modal>
       </>
       
