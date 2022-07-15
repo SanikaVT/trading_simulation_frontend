@@ -11,6 +11,7 @@ import Information from './Information';
 import { useEffect, useState } from "react";
 import axios from "axios"
 import Advisor from './Advisor';
+import { gridColumnPositionsSelector } from '@mui/x-data-grid';
 
 
 
@@ -38,6 +39,7 @@ export default function Reservation() {
     const fetchData = () => {
         axios.get('/api/advisor').then((result) => {
             setData(result.data.advisor)
+            
         }).catch((err) => {
             console.log('error')
             console.log(err);
@@ -45,18 +47,12 @@ export default function Reservation() {
     }
     const advisor = data.map(advisor => advisor.firstName.concat("-").concat(advisor.lastName))
 
-    // useEffect(() => {
-     
-    // }, [advisorName])
-
-
-
-
+    
     const handleClick = (e: any) => {
+        
         axios.get('/api/advisor/' + advisorName).then((result) => {
-            console.log(result)
-            const data = { fullName: advisorName, address: address, date: value, email: result.data.advisor.email, firstName: result.data.advisor.firstName, lastName: result.data.advisor.lastName, age: result.data.advisor.age }
-            console.log(`data:${data}`)
+            const data = { fullName: advisorName, address: address, date: value, email: result.data.advisor.email, firstName: result.data.advisor.firstName, lastName: result.data.advisor.lastName, age: result.data.advisor.age, userID: parseInt(localStorage.getItem("userID") || "") }
+            console.log({data})
             axios.post('/api/appointment/', data).then((result) => {
                 window.location.reload();
             }).catch((err) => {
@@ -73,77 +69,72 @@ export default function Reservation() {
         
         alert("Appointment make successfully")
     }
+    if (localStorage.getItem("userID")){
+        return (
 
-    return (
+            <> <Box sx={{ flexGrow: 1 }}>
 
-        <> <Box sx={{ flexGrow: 1 }}>
-
-            <Grid spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 6 }}  >
-                <Grid item xs={2} sm={2} md={4}>
-                    <Autocomplete
-                        onChange={(event, value) => value ? setAdvisorName(value) : null}
-                        disablePortal
-                        id="advisor"
-                        options={advisor}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Advisor" />}
-                    />
-                </Grid>
-                <Grid item xs={2} md={4} sm={2}>
-                    <Autocomplete
-                        onChange={(event, value) => value ? setAddress(value.label) : null}
-                        disablePortal
-                        id="city"
-                        options={cities}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="City" />}
-                    />
-                </Grid>
-                <Grid item xs={2} md={4} sm={2}>
-                    {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DesktopDatePicker
-                            label="Date"
-                            inputFormat="MM/dd/yyyy"
-                            value={value}
-                            onChange={handleChange}
-                            renderInput={(params) => <TextField {...params} />}
+                <Grid spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 6 }}  >
+                    <Grid item xs={2} sm={2} md={4}>
+                        <Autocomplete
+                            onChange={(event, value) => value ? setAdvisorName(value) : null}
+                            disablePortal
+                            id="advisor"
+                            options={advisor}
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="Advisor" />}
                         />
-                    </LocalizationProvider> */}
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DateTimePicker
-                            renderInput={(props) => <TextField {...props} />}
-                            label="DateTimePicker"
-                            value={value}
-                            onChange={(newValue) => {
-                                setValue(newValue);
-                            }}
+                    </Grid>
+                    <Grid item xs={2} md={4} sm={2}>
+                        <Autocomplete
+                            onChange={(event, value) => value ? setAddress(value.label) : null}
+                            disablePortal
+                            id="city"
+                            options={cities}
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="City" />}
                         />
-                    </LocalizationProvider>
+                    </Grid>
+                    <Grid item xs={2} md={4} sm={2}>
+
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <DateTimePicker
+                                renderInput={(props) => <TextField {...props} />}
+                                label="DateTimePicker"
+                                value={value}
+                                onChange={(newValue) => {
+                                    setValue(newValue);
+                                }}
+                            />
+                        </LocalizationProvider>
+
+                    </Grid>
+
+
 
                 </Grid>
 
+                <Box component="span" sx={{ border: '1px dashed grey' }}>
+                    <Button variant="contained" endIcon={<SendIcon />} onClick={handleClick}>
+                        Send
+                    </Button>
+                </Box>
 
-
-            </Grid>
-
-            <Box component="span" sx={{ border: '1px dashed grey' }}>
-                <Button variant="contained" endIcon={<SendIcon />} onClick={handleClick}>
-                    Send
-                </Button>
             </Box>
+                <div>
+                    <Information />
+                </div>
+            </>
+        );
+        
+    }else{
+        return(
+            <>your need to log in to book an appointment</>
+        )
+        
+    }
 
-        </Box>
-            <div>
-                <Information />
-            </div>
-        </>
-
-
-
-
-
-
-    );
+    
 }
 
 

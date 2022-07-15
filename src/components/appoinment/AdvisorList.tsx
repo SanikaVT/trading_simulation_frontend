@@ -32,7 +32,6 @@ const AdvisorList = () => {
         axios.get('/api/advisor').then((result) => {
             setData(result.data.advisor)
             setDataCopy(result.data.advisor)
-
         }).catch((err) => {
             console.log(err);
         })
@@ -119,6 +118,7 @@ const AdvisorList = () => {
 
 
     ];
+    
     return (
         <>
             <Box
