@@ -69,7 +69,7 @@ function LineChart(props) {
              .attr('fill','black')
              .attr('font-size','15px')
              .attr('font-weight',"bold")
-             .text('Apple Inc. Common')
+             .text(location.state.stock.name)
           
           svg.append('text')
              .attr('x',15)
@@ -260,7 +260,9 @@ function LineChart(props) {
                x = d3.scaleTime().domain(d3.extent(data, function(d){
                 return d.Date
              })).range([0, width-100]);
-             y = d3.scaleLinear().domain([0, 350]).range([height-200, 0]);
+             y = d3.scaleLinear().domain(d3.extent(data, function(d){
+               return d.Percentage
+            })).range([height-200, 0]);
              
                var valueline = d3.line()
                .x( d=>x(d.Date) )

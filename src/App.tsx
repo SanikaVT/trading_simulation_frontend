@@ -21,7 +21,7 @@ import EditBlog from "./components/blog/EditBlog";
 import ForgotPasswordOtp from "./components/signup/ForgotPasswordOtp";
 import HoldingsHome from "./components/holdingsandpositions/HoldingsHome";
 import Report from "./components/holdingsandpositions/Report";
-import ViewNews from "./components/newsmanagement/ViewNews";
+//import ViewNews from "./components/newsmanagement/ViewNews";
 import PositionsHome from "./components/holdingsandpositions/PositionsHome";
 import Reservation from "./components/appoinment/Reservation";
 import Advisor from "./components/appoinment/Advisor";
@@ -154,21 +154,6 @@ function App() {
               </AppHeader>
               <AppBody>
                 <Report />
-              </AppBody>
-              <FooterComp />
-            </Wrapper>
-          }
-        ></Route>
-
-        <Route
-          path="/News"
-          element={
-            <Wrapper>
-              <AppHeader>
-                <Header />
-              </AppHeader>
-              <AppBody>
-                <ViewNews />
               </AppBody>
               <FooterComp />
             </Wrapper>
