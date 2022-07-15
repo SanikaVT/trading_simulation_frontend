@@ -38,9 +38,9 @@ function SellTradeModal(props: any) {
   let placeOrder = (event: any) => {
     axios
       .post("/api/order", {
-        symbol: props.stockData.symbol,
+        symbol: props.symbol,
         quantity: quantity,
-        price: props.stockData.price,
+        price: props.price,
         orderType: "Sell",
       })
       .then((res) => {
@@ -67,9 +67,9 @@ function SellTradeModal(props: any) {
           <Card>
             <CardContent style={{ backgroundColor: "#f55723", color: "white" }}>
               <HeaderFirst>
-                Sell {props.stockData.symbol} X {quantity} Qty
+                Sell {props.symbol} X {quantity} Qty
               </HeaderFirst>
-              <HeaderSecond>Price: ${props.stockData.price}</HeaderSecond>
+              <HeaderSecond>Price: ${props.price}</HeaderSecond>
             </CardContent>
             <Divider />
             <CardContent>
@@ -121,7 +121,7 @@ function SellTradeModal(props: any) {
               <br />
               <Stack direction="row" spacing={19}>
                 <label>Price: </label>
-                <TextField value={props.stockData.price} disabled={true} />
+                <TextField value={props.price} disabled={true} />
               </Stack>
             </CardContent>
             <Divider />

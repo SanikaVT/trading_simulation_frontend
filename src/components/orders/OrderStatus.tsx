@@ -69,7 +69,9 @@ function OrderStatus() {
   const spacingStyles = {
     ...(matchesMD && { marginTop: "20px" }),
   };
-  const [startDate, setStartDate] = React.useState<Date | null>(new Date());
+  const [startDate, setStartDate] = React.useState<Date | null>(
+    new Date("12/31/2021")
+  );
   const [endDate, setEndDate] = React.useState<Date | null>(new Date());
   const [searchItem, setSearchItem] = useState("");
   let initialOrders: IOrderStatus[] = [];
@@ -107,16 +109,30 @@ function OrderStatus() {
     setOrdersData(constOrdersData);
     startDate = startDate == null ? new Date() : startDate;
     endDate = endDate == null ? new Date() : endDate;
-
     let filterData = constOrdersData.filter((row) => {
       const timestamp = new Date(row.timestamp);
+      const checkForYear =
+        startDate != null
+          ? timestamp.getFullYear() > startDate?.getFullYear()
+          : false;
+      console.log("Year: " + checkForYear);
+      const checkForMonth = checkForYear
+        ? true
+        : timestamp.getFullYear() === startDate?.getFullYear()
+        ? timestamp.getMonth() > startDate?.getMonth()
+        : false;
+      console.log("Month: " + checkForMonth);
+      const checkForDate = checkForMonth
+        ? true
+        : timestamp.getMonth() === startDate?.getMonth()
+        ? timestamp.getDate() >= startDate?.getDate()
+        : false;
+      console.log("Date: " + checkForDate);
       if (
         timestamp != null &&
         startDate != null &&
         endDate != null &&
-        timestamp.getDate() >= startDate.getDate() &&
-        timestamp.getMonth() >= startDate.getMonth() &&
-        timestamp.getFullYear() >= startDate.getFullYear() &&
+        checkForDate &&
         timestamp.getDate() <= endDate.getDate() &&
         timestamp.getMonth() <= endDate.getMonth() &&
         timestamp.getFullYear() <= endDate.getFullYear()

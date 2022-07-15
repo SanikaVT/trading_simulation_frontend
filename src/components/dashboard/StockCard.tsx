@@ -81,12 +81,12 @@ function StockCard(props: any) {
       <BuyTradeModal
         openModal={openBuyModal}
         setOpenModal={setOpenBuyModal}
-        stockData={stockData}
+        stockData={props.stock}
       />
       <SellTradeModal
         openModal={openSellModal}
         setOpenModal={setOpenSellModal}
-        stockData={stockData}
+        stockData={props.stock}
       />
       <Card
         // className={isFadingOut ? "stock-fadeout" : ""}
@@ -189,7 +189,11 @@ function StockCard(props: any) {
               <Tooltip title="Go to Analytics" arrow>
                 <IconButton
                   aria-label="graph"
-                  onClick={() => navigate("/analytics",{state:{stock :props.stock,width:150,height : 450}})}
+                  onClick={() =>
+                    navigate("/analytics", {
+                      state: { stock: props.stock, width: 150, height: 450 },
+                    })
+                  }
                 >
                   <AnalyticsIcon
                     style={{

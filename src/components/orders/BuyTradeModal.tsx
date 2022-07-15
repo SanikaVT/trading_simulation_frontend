@@ -38,9 +38,9 @@ function BuyTradeModal(props: any) {
   let placeOrder = (event: any) => {
     axios
       .post("/api/order", {
-        symbol: props.stockData.symbol,
+        symbol: props.symbol,
         quantity: quantity,
-        price: props.stockData.price,
+        price: props.price,
         orderType: "Buy",
       })
       .then((res) => {
@@ -48,7 +48,7 @@ function BuyTradeModal(props: any) {
       });
   };
   const [quantity, setQuantity] = useState(1);
-  const [marginRequired, setMarginRequired] = useState(props.stockData.price);
+  const [marginRequired, setMarginRequired] = useState(props.price);
   const [quantityError, setQuantityError] = useState(false);
   const [marginError, setMarginError] = useState(false);
   const marginAvailable = 10000;
@@ -67,9 +67,9 @@ function BuyTradeModal(props: any) {
           <Card>
             <CardContent style={{ backgroundColor: "#4CAF50", color: "white" }}>
               <HeaderFirst>
-                Buy {props.stockData.symbol} X {quantity} Qty
+                Buy {props.symbol} X {quantity} Qty
               </HeaderFirst>
-              <HeaderSecond>Price: ${props.stockData.price}</HeaderSecond>
+              <HeaderSecond>Price: ${props.price}</HeaderSecond>
             </CardContent>
             <Divider />
             <CardContent>
@@ -87,7 +87,7 @@ function BuyTradeModal(props: any) {
                       setQuantityError(false);
                     }
                     setQuantity(quantity);
-                    let margin = quantity * props.stockData.price;
+                    let margin = quantity * props.price;
                     setMarginRequired(margin);
                     if (margin > marginAvailable) {
                       setMarginError(true);
@@ -112,7 +112,7 @@ function BuyTradeModal(props: any) {
                 <label>Price: </label>
                 <TextField
                   sx={{ width: "15ch" }}
-                  value={props.stockData.price}
+                  value={props.price}
                   disabled={true}
                 />
               </Stack>
@@ -150,7 +150,7 @@ function BuyTradeModal(props: any) {
                 variant="outlined"
                 onClick={() => {
                   setQuantity(1);
-                  setMarginRequired(props.stockData.price);
+                  setMarginRequired(props.price);
                   setQuantityError(false);
                   setMarginError(false);
                   props.setOpenModal(false);
