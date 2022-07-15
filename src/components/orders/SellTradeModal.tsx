@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
@@ -35,6 +35,34 @@ const acceptNumbers = (event: any) => {
 };
 
 function SellTradeModal(props: any) {
+  useEffect(() => {
+    axios
+      .get(`/api/users/credits`, {
+        responseType: "json",
+        params: { userID: localStorage.getItem("userID") },
+      })
+      .then(function(response) {
+        console.log(response.data.credits);
+        setMarginAvailable(response.data.credits);
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get(`/api/order/stockcount`, {
+        responseType: "json",
+        params: {
+          userId: localStorage.getItem("userID"),
+          symbol: props.stockData.symbol,
+        },
+      })
+      .then(function(response) {
+        if (response.data.count === 0) {
+        } else {
+          setAvailableQuantity(response.data.count);
+          setQuantityLeft(response.data.count - 1);
+        }
+      });
+  }, [props.openModal]);
   let placeOrder = (event: any) => {
     axios
       .post("/api/order", {
@@ -43,16 +71,18 @@ function SellTradeModal(props: any) {
         price: props.stockData.price,
         orderType: "Sell",
         userId: localStorage.getItem("userID"),
+        currentMargin: marginAvailable,
       })
       .then((res) => {
         navigate("/orderstatus");
       });
   };
-  const availableQuantity = 5;
+  const [availableQuantity, setAvailableQuantity] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [quantityLeft, setQuantityLeft] = useState(availableQuantity - 1);
+  const [quantityLeft, setQuantityLeft] = useState(availableQuantity);
   const [quantityError, setQuantityError] = useState(false);
   const [quantityLeftError, setQuantityLeftError] = useState(false);
+  const [marginAvailable, setMarginAvailable] = useState(0);
   const navigate = useNavigate();
   return (
     <>

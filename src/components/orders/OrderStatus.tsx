@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import styled from "styled-components";
-import { TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -157,18 +157,7 @@ function OrderStatus() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item lg={2}></Grid>
-          <Grid item lg={5} xs={12}>
-            <Typography
-              variant="h6"
-              component="div"
-              color={"black "}
-              fontWeight={"bolder"}
-              sx={{ flexGrow: 1 }}
-              style={{ marginBottom: 10 }}
-            >
-              Order Status
-            </Typography>
-          </Grid>
+          <Grid item lg={5} xs={12}></Grid>
           <Grid item lg={5}></Grid>
           <Grid item lg={2}></Grid>
           <Grid item lg={3} md={4} xs={12}>
