@@ -105,7 +105,7 @@ function CommentCard(props: any) {
                   onClick={handleClickOpenDelete}
                   startIcon={<DeleteIcon></DeleteIcon>}
                 >
-                  Edit
+                  Del
                 </Button>
               </Grid>
               <Grid item md={1} xs={12}>
