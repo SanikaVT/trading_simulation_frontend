@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
@@ -35,7 +35,18 @@ const acceptNumbers = (event: any) => {
 };
 
 function BuyTradeModal(props: any) {
-  console.log(localStorage.getItem("userID"));
+  useEffect(() => {
+    axios
+      .get(`/api/users/credits`, {
+        responseType: "json",
+        params: { userID: localStorage.getItem("userID") },
+      })
+      .then(function(response) {
+        setMarginAvailable(response.data.credits);
+        console.log(response.data.credits);
+      });
+  }, []);
+
   let placeOrder = (event: any) => {
     axios
       .post("/api/order", {
@@ -44,6 +55,7 @@ function BuyTradeModal(props: any) {
         price: props.stockData.price,
         orderType: "Buy",
         userId: localStorage.getItem("userID"),
+        currentMargin: marginAvailable,
       })
       .then((res) => {
         navigate("/orderstatus");
@@ -53,7 +65,7 @@ function BuyTradeModal(props: any) {
   const [marginRequired, setMarginRequired] = useState(props.stockData.price);
   const [quantityError, setQuantityError] = useState(false);
   const [marginError, setMarginError] = useState(false);
-  const marginAvailable = 10000;
+  const [marginAvailable, setMarginAvailable] = useState(0);
   const navigate = useNavigate();
   return (
     <>
