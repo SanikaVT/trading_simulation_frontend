@@ -11,7 +11,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { TextField } from "@mui/material";
 import { Autocomplete } from "@mui/material";
 import axios from "axios";
-const options = ["High", "Medium", "Low"];
+const options = ["High", "Low"];
 
 function UserInfoComp() {
   const userID = localStorage.getItem("userID");

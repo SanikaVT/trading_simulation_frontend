@@ -14,15 +14,10 @@ import axios from "axios";
 
 const initialCommentsList: IComment[] = [
   {
+    userID: "1",
     symbol: "ABA",
     commentID: "2",
     comment: "Hello",
-    creation_date: "01-03-2022",
-  },
-  {
-    symbol: "ABA",
-    commentID: "2",
-    comment: "Hi",
     creation_date: "01-03-2022",
   },
 ];
@@ -31,6 +26,7 @@ function ForumComp() {
   const [commentData, setCommentData] = useState(initialCommentsList);
   const [commentSet, setComment] = useState("");
   const [loading, setLoading] = useState("");
+  const user_ID = localStorage.getItem("userID");
   const [chartData, setChartData] = useState({
     labels: ["Bought", "Sold"],
     datasets: [
@@ -52,7 +48,7 @@ function ForumComp() {
       })
       .then(function (response) {
         setCommentData(response.data.comments);
-        console.log(response.data.comments);
+        // console.log(response.data.comments);
       });
     axios
       .get(`/api/order/`, {
@@ -61,7 +57,7 @@ function ForumComp() {
       })
       .then(function (response) {
         setOrdersData(response.data.orders);
-        console.log(response.data.orders);
+        // console.log(response.data.orders);
         calculateChartResult();
       });
   }, [loading]);
@@ -90,6 +86,7 @@ function ForumComp() {
   function postComment() {
     axios
       .post(`/api/forum/`, {
+        userID: user_ID,
         symbol: "ABA",
         comment: commentSet,
       })
@@ -143,6 +140,7 @@ function ForumComp() {
                   comment={myVariable.comment}
                   commentID={myVariable.commentID}
                   symbol={myVariable.symbol}
+                  userID={myVariable.userID}
                   rerender={setLoading}
                 />
               );

@@ -29,7 +29,7 @@ interface StockSymbol {
 
 const stockData: StockSymbol = {
   symbol: "CBDU",
-  currency: "USD",
+  currency: "$",
   price: 262.74,
   previousClose: 259.45,
   open: 261.07,
@@ -53,14 +53,6 @@ function StockCard(props: any) {
     setOpenSellModal(true);
   };
 
-  // const fadeOut = (cb: any) => {
-  //   if (isActive) {
-  //     setIsFadingOut(false);
-  //   } else if (props.fav) {
-  //     setIsFadingOut(true);
-  //   }
-  //   cb();
-  // };
   const handleStarClick = () => {
     setIsActive((current) => !current);
     if (props.fav) {
@@ -119,7 +111,7 @@ function StockCard(props: any) {
                     border: "1px solid",
                   }}
                 >
-                  {props.stock.price} {props.stock.symbol}
+                  {props.stock.price} {props.stock.currency}
                 </span>
               </p>
             </Typography>
