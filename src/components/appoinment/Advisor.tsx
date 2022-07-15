@@ -1,14 +1,15 @@
-
+//author: qiwei sun
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AlertDialog from './AlertDialog';
 
+// Advisor class 
 const Advisor = (props: any) => {
     const params = useParams()
     const userId = params.id;
-    const navigate = useNavigate();
 
+    // advisor information
     interface characterData {
         id: number;
         title: string,
@@ -17,6 +18,8 @@ const Advisor = (props: any) => {
         picture: string,
         email: string
     }
+
+    //get advisor data when first time load the page
     const [data, setData] = useState<characterData>(Object)
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
@@ -29,6 +32,7 @@ const Advisor = (props: any) => {
         })
     }
 
+    //render the componnent
     return (
         <><div key={data.email} >
             <img src={data.picture}></img>

@@ -1,55 +1,56 @@
+//author:qiwei sun
 import axios from "axios";
-import { userInfo } from "os";
 import { useEffect, useState } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
 import { Box } from "@mui/material";
 import InputBase from '@mui/material/InputBase';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 
+// show list of advisor
 const AdvisorList = () => {
     const navigate = useNavigate();
     const [searchWord, setSearchWord] = useState<string>("");
 
+    //advisor schema
     interface characterData {
         id: number;
         title: string,
         lastName: string,
         firstName: string,
-        age:number,
+        age: number,
         picture: string,
         email: string
     }
+
+    //get advisor data from mongodatabase
     const [data, setData] = useState<characterData[]>([])
     const [dataCopy, setDataCopy] = useState<characterData[]>([])
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
         axios.get('/api/advisor').then((result) => {
-            if(result.data.advisor){
+            if (result.data.advisor) {
                 setData(result.data.advisor)
                 setDataCopy(result.data.advisor)
             }
-            
-            
         }).catch((err) => {
             console.log(err);
         })
     }
- 
+    // fillter advisor by his/her fisrt name or last name
     useEffect(() => {
         if (data && data.length > 0) {
             for (const user of data) {
                 if (user.firstName.toLowerCase() === searchWord.toLowerCase() || user.lastName.toLowerCase() === searchWord.toLowerCase()) {
                     const rows = [
-                        { id: user.id, title: user.title, age:user.age,lastName: user.lastName, firstName: user.firstName, email: user.email, picture: user.picture },
-                    ]; 
+                        { id: user.id, title: user.title, age: user.age, lastName: user.lastName, firstName: user.firstName, email: user.email, picture: user.picture },
+                    ];
                     setData(rows)
-                   break
+                    break
                 } else {
                     setData(dataCopy)
                 }
@@ -61,7 +62,7 @@ const AdvisorList = () => {
 
 
 
-
+    // read user input and store
     const onChange = (event: any) => {
         event.persist();
         const value = event.target.value
@@ -69,6 +70,7 @@ const AdvisorList = () => {
         console.log(searchWord)
     }
 
+    //define the column of the data grid
     const columns: GridColDef[] = [
 
         { field: 'title', headerName: 'Title', width: 150 },
@@ -104,6 +106,7 @@ const AdvisorList = () => {
                 );
             }
         },
+        // navigate to make an appointment page
         {
             field: "button",
             headerName: "Make an appointment",
@@ -122,7 +125,8 @@ const AdvisorList = () => {
 
 
     ];
-    
+
+    //render the page
     return (
         <>
             <Box

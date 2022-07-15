@@ -1,3 +1,4 @@
+//author: qiwei sun
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -16,8 +17,10 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import { formControlClasses } from '@mui/material';
 
+//signUp page for registering advisor
 export default function SignUp() {
 
+    //initialize the form data
     const [open, setOpen] = React.useState(false);
     const initialValues = { password: "", confpassword:"", fname:"", lname:"",email:"", phoneno: "",address:"",age:"",title:""};
     const [formValue, setFormValue] = useState(initialValues);
@@ -35,12 +38,13 @@ export default function SignUp() {
     });
     let errori =0;
     
+    // read data from user input
     const handleChange = (e: { target: { name: any; value: any; }; }) => {
         const { name, value } = e.target;
         setFormValue({ ...formValue, [name]: value });
     };
 
-
+    // validate user inputes
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         // @ts-ignore
@@ -59,6 +63,7 @@ export default function SignUp() {
 
     };
 
+    // redirector the advisor page when sure click next button
     const gotpage = () => {
         const data = { address: formValue.address, email: formValue.email, firstName: formValue.fname, lastName: formValue.lname, age: formValue.age,phoneNumber: formValue.phoneno,title: formValue.title }
         console.log(data)
@@ -72,6 +77,7 @@ export default function SignUp() {
         window.location.href = "/advisors";
     }
 
+    // logic for vallidate user input(password,confpassword,lname,email,phoneno) 
     const validate = (values: { password: any; confpassword: any; fname: any; lname: any; email: any; phoneno:any; }) => {
 
         const errors = {
@@ -141,6 +147,9 @@ export default function SignUp() {
     const handleClose = () => {
         setOpen(false);
     };
+
+
+    //render the page
     return (
 
         <Container component="main" maxWidth="xs">

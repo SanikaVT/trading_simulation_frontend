@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+//Author: qiwei sun
+import { DataGrid, GridColDef, gridColumnsSelector} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios"
 
+// Definded the columns for grid
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 150 },
     { field: 'email', headerName: 'email', width: 150, editable: true },
@@ -63,18 +64,9 @@ const columns: GridColDef[] = [
             );
         }
     }
-    // {
-    //     field: 'fullName',
-    //     headerName: 'Full name',
-    //     description: 'This column has a value getter and is not sortable.',
-    //     sortable: false,
-    //     width: 160,
-    //     valueGetter: (params: GridValueGetterParams) =>
-    //         `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    // },
 ];
 
-
+// Information components module
 export default function Information() {
     interface characterData {
         id: number;
@@ -85,28 +77,30 @@ export default function Information() {
         address: string,
         email: string
     }
-    const params = useParams()
-    // const id = params.id;
     const [data, setData] = useState<characterData[]>([]);
+
+    // get appointment data from database
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
         axios.get('/api/appointment/' + localStorage.getItem("userID") ).then((result) => {
-            if(result.data.appoinment){
-                setData(result.data.appointment)  
+            let arr = result.data.appointment;
+            if(arr[0])
+            {
+                setData(result.data.appointment);
             }
-            
-            console.log(result)  
+                      
         }).catch((err) => {
             console.log('error')
             console.log(err);
         })
     }
     
-
+    
     return (
         <div>
             <div>Your made these appoinments with our financial advisor</div>
             <div style={{ height: 400, width: '100%' }}>
+               
                 <DataGrid
                     rows={data}
                     columns={columns}
