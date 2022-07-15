@@ -21,7 +21,7 @@ import EditBlog from "./components/blog/EditBlog";
 import ForgotPasswordOtp from "./components/signup/ForgotPasswordOtp";
 import HoldingsHome from "./components/holdingsandpositions/HoldingsHome";
 import Report from "./components/holdingsandpositions/Report";
-//import ViewNews from "./components/newsmanagement/ViewNews";
+import News from "./components/newsmanagement/News";
 import PositionsHome from "./components/holdingsandpositions/PositionsHome";
 import Reservation from "./components/appoinment/Reservation";
 import Advisor from "./components/appoinment/Advisor";
@@ -334,6 +334,19 @@ function App() {
               </AppBody>
             </Wrapper>
           }
+        />
+        <Route
+            path="/news"
+            element={
+              <Wrapper>
+                <AppHeader>
+                  <Header />
+                </AppHeader>
+                <AppBody>
+                  <News />
+                </AppBody>
+              </Wrapper>
+            }
         />
       </Routes>
     </Router>
