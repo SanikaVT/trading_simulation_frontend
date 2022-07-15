@@ -38,7 +38,10 @@ export default function Reservation() {
 
     const fetchData = () => {
         axios.get('/api/advisor').then((result) => {
-            setData(result.data.advisor)
+            if(result.data.advisot){
+                setData(result.data.advisor)
+            }
+            
             
         }).catch((err) => {
             console.log('error')

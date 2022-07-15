@@ -30,8 +30,12 @@ const AdvisorList = () => {
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
         axios.get('/api/advisor').then((result) => {
-            setData(result.data.advisor)
-            setDataCopy(result.data.advisor)
+            if(result.data.advisor){
+                setData(result.data.advisor)
+                setDataCopy(result.data.advisor)
+            }
+            
+            
         }).catch((err) => {
             console.log(err);
         })
