@@ -42,8 +42,8 @@ function BuyTradeModal(props: any) {
         params: { userID: localStorage.getItem("userID") },
       })
       .then(function(response) {
-        setMarginAvailable(response.data.credits);
         console.log(response.data.credits);
+        setMarginAvailable(response.data.credits);
         if (props.stockData.price > response.data.credits) {
           setMarginError(true);
         } else {

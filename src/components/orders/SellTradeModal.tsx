@@ -37,23 +37,32 @@ const acceptNumbers = (event: any) => {
 function SellTradeModal(props: any) {
   useEffect(() => {
     axios
+      .get(`/api/users/credits`, {
+        responseType: "json",
+        params: { userID: localStorage.getItem("userID") },
+      })
+      .then(function(response) {
+        console.log(response.data.credits);
+        setMarginAvailable(response.data.credits);
+      });
+  }, []);
+  useEffect(() => {
+    axios
       .get(`/api/order/stockcount`, {
         responseType: "json",
         params: {
-          userID: localStorage.getItem("userID"),
+          userId: localStorage.getItem("userID"),
           symbol: props.stockData.symbol,
         },
       })
       .then(function(response) {
-        setAvailableQuantity(response.data.count);
-        console.log(response.data.credits);
-        if (props.stockData.price > response.data.credits) {
-          setQuantityError(true);
+        if (response.data.count === 0) {
         } else {
-          setQuantityError(false);
+          setAvailableQuantity(response.data.count);
+          setQuantityLeft(response.data.count - 1);
         }
       });
-  }, []);
+  }, [props.openModal]);
   let placeOrder = (event: any) => {
     axios
       .post("/api/order", {
@@ -62,6 +71,7 @@ function SellTradeModal(props: any) {
         price: props.stockData.price,
         orderType: "Sell",
         userId: localStorage.getItem("userID"),
+        currentMargin: marginAvailable,
       })
       .then((res) => {
         navigate("/orderstatus");
@@ -69,9 +79,10 @@ function SellTradeModal(props: any) {
   };
   const [availableQuantity, setAvailableQuantity] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [quantityLeft, setQuantityLeft] = useState(availableQuantity - 1);
+  const [quantityLeft, setQuantityLeft] = useState(availableQuantity);
   const [quantityError, setQuantityError] = useState(false);
   const [quantityLeftError, setQuantityLeftError] = useState(false);
+  const [marginAvailable, setMarginAvailable] = useState(0);
   const navigate = useNavigate();
   return (
     <>
