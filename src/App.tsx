@@ -11,7 +11,7 @@ import ForgotPassword from "./components/signup/ForgotPassword";
 import RiskAppetite from "./components/signup/RiskAppetite";
 import StockLeague from "./components/stockLeague/StockLeaguePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UserDetail from "./components/user_profile/UserDetalsContainer";
+import UserDetail from "./components/user_profile/UserDetailsContainer";
 import FooterComp from "./components/footer/FooterComp";
 import ForumComp from "./components/forum/Forum";
 import LineChart from "./components/stockAnalytics/analytics";

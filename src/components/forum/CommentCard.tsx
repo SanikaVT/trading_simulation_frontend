@@ -24,6 +24,12 @@ function CommentCard(props: any) {
   const [symbol, setSymbol] = React.useState(props.symbol);
   const [loading, setLoading] = React.useState({});
 
+  var buttonDisabled = true;
+
+  if (props.userID === localStorage.getItem("userID")) {
+    buttonDisabled = false;
+  }
+
   const handleClickOpen = () => {
     setCommentID(props.commentID);
     setSymbol(props.symbol);
@@ -94,11 +100,24 @@ function CommentCard(props: any) {
                 <Typography>{props.comment}</Typography>
               </Grid>
               <Grid item md={1} xs={12}>
-                <DeleteIcon onClick={handleClickOpenDelete} />
+                <Button
+                  disabled={buttonDisabled}
+                  onClick={handleClickOpenDelete}
+                  startIcon={<DeleteIcon></DeleteIcon>}
+                >
+                  Edit
+                </Button>
               </Grid>
               <Grid item md={1} xs={12}>
-                <EditIcon onClick={handleClickOpen} />
+                <Button
+                  disabled={buttonDisabled}
+                  onClick={handleClickOpen}
+                  startIcon={<EditIcon></EditIcon>}
+                >
+                  Edit
+                </Button>
               </Grid>
+
               <Grid item md={12} xs={12}>
                 <Typography>{props.creation_date}</Typography>
               </Grid>
