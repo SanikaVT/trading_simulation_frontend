@@ -159,7 +159,7 @@ function NewsCard(props: any) {
                   type="text"
                   fullWidth
                   variant="standard"
-                  defaultValue={props.news_topic}
+                  defaultValue={props.news_content}
                   onChange={(event) => setNewsContent(event.target.value)}
                 />
               </DialogContent>
