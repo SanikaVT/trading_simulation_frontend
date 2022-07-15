@@ -1,4 +1,12 @@
-// Author: Prakrut Suthar
+/**
+
+ * Author: Prakrut Suthar
+
+ * BannerID: B00885349
+
+ * Email:prakrut@dal.ca
+
+*/
 
 export interface INews {
   userID: String;
