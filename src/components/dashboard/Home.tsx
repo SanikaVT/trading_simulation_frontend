@@ -81,7 +81,9 @@ function Home() {
 
   useEffect(() => {
     console.log(localStorage.getItem("userIDs"));
-    axios.get("/api/dashboard/favorites").then((res) => {
+    axios.post("/api/dashboard/favorite",{
+      userId: localStorage.getItem("userID"),
+    }).then((res) => {
       const data = res.data.favorites;
       console.log("favorites are", res.data.favorites);
       setFavoriteStocks(data);
