@@ -1,3 +1,8 @@
+/**
+ * Author: Sanika Tamhankar
+ * BannerID: B00909848
+ * Email: sn295037@dal.ca
+ */
 export const myData = [
   {
     address: "1991 Brunswick St, B3J2GJ, Canada",
