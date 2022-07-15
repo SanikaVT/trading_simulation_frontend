@@ -1,3 +1,8 @@
+/**
+ * Author: Sampada Thakkar
+ * BannerID: B00893022
+ * Email: sm223034@dal.ca
+ */
 import React, { useEffect, useState } from "react";
 import {useLocation } from "react-router-dom";
 import * as d3 from "d3";
@@ -32,6 +37,7 @@ function LineChart(props) {
   };
 
   useEffect(() => {
+   //Getting initial data
    axios
    .get(`/api/financials`, {
       params: { Symbol: symbol },
@@ -103,6 +109,7 @@ function LineChart(props) {
              .text('-80(-0.53%)')
          
        function makegraph1(){
+          //Making the initial graph
           var margin = {top: 20, right: 20, bottom: 50, left: 100},
                width = 800 - margin.left - margin.right,
                height = 550 - margin.top - margin.bottom,
@@ -200,7 +207,7 @@ function LineChart(props) {
                   .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
                   
-                var parseDate = d3.timeParse("%d-%m-%Y");
+                var parseDate = d3.timeParse("%d-%m-%Y"); //Changing the date format
                 data.forEach(d=>{
                    d.Date = parseDate(d.Date);
                    d.Profit = +d.Profit;
@@ -358,7 +365,7 @@ function LineChart(props) {
                   data = response.data.analytics;
                   window.addEventListener('resize', makegraph1());
                   });
-                //d3.select(window).on('resize', makegraph1());
+                
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
              });
@@ -400,7 +407,6 @@ function LineChart(props) {
                   data = response.data.analytics;
                   window.addEventListener('resize', makegraph1());
                   });
-                //d3.select(window).on('resize', );
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
              });
@@ -494,7 +500,7 @@ function LineChart(props) {
                 
              })
       
-
+//Calling But Trade Modal and Sell Trade Modal
     svg
       .append("rect")
       .attr("width", 47)

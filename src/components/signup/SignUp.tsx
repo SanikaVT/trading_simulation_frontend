@@ -1,3 +1,7 @@
+// @author Dharmay Dineshchandra Sureja 
+// Banner id (B00904061)
+// email : dh276903@dal.ca
+// this component is responsible to register user
 import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -13,7 +17,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
+import bcrypt from 'bcryptjs'
 export default function SignUp() {
   const [open, setOpen] = React.useState(false);
   const initialValues = {
@@ -48,13 +52,14 @@ export default function SignUp() {
     // @ts-ignore
     setFormError(validate(formValue));
     if (errori === 0) {
+      const hashedPassword = bcrypt.hashSync(formValue.password, '$2a$10$ZpUkUuWbmNB6uwSNyxNSmu')
       localStorage.setItem("email", formValue.email);
       localStorage.setItem("fname", formValue.fname);
       localStorage.setItem("lname", formValue.lname);
       localStorage.setItem("phoneno", formValue.phoneno);
       localStorage.setItem("address", formValue.address);
       localStorage.setItem("account", formValue.account);
-      localStorage.setItem("password", formValue.password);
+      localStorage.setItem("password", hashedPassword);
       setOpen(true);
       console.log("done");
     } else {

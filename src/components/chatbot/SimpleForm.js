@@ -1,3 +1,8 @@
+/**
+ * Author: Sampada Thakkar
+ * BannerID: B00893022
+ * Email: sm223034@dal.ca
+ */
 import ChatBot from 'react-simple-chatbot';
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
@@ -5,6 +10,7 @@ import Box from "@mui/material/Box";
 
 
 function SimpleForm(props) {
+  //Giving style to bot
   const style = {
     position: "absolute",
     top: "50%",
@@ -38,7 +44,7 @@ function SimpleForm(props) {
         >
         <Box sx={style}>
         <ChatBot
-        steps={[
+        steps={[   //Intents of the chatbot
             {
              id:'intro', 
              message:'Hi! What can I help you with?', 
@@ -85,5 +91,5 @@ function SimpleForm(props) {
     );
   }
        
-
+//Exporting the form
 export default SimpleForm;

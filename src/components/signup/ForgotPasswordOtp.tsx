@@ -1,3 +1,7 @@
+// @author Dharmay Dineshchandra Sureja 
+// Banner id (B00904061)
+// email : dh276903@dal.ca
+// this component is responsible to validate user by sending and checking otp
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";

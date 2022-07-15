@@ -1,3 +1,7 @@
+// @author Dharmay Dineshchandra Sureja 
+// Banner id (B00904061)
+// email : dh276903@dal.ca
+// this component is responsible to signin user
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -12,6 +16,7 @@ import Card from "@mui/material/Card";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useState } from "react";
 import axios from "axios";
+import bcrypt from 'bcryptjs'
 
 export default function SignIn() {
   // const Centeral ={
@@ -50,13 +55,14 @@ export default function SignIn() {
     setFormError(validate(formValue));
     if (errori === 0) {
       console.log("done");
-
+      const hashedPassword = bcrypt.hashSync(formValue.password, '$2a$10$ZpUkUuWbmNB6uwSNyxNSmu');
+      console.log("hased pwd is ",hashedPassword);
       const form_data = {
         email: formValue.email,
-        password: formValue.password,
+        password: hashedPassword,
       };
-
-      console.log(form_data);
+      
+      
       axios
         .post("/api/register/login", form_data)
         .then((response) => {

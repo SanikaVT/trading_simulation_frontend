@@ -1,3 +1,15 @@
+/**
+ * Author: Dharmik Hiteshkumar Soni
+ * BannerID: B00867641
+ * Email: dh657288@dal.ca
+ */
+
+
+/**
+ * This component is responsible to render recommended and favorite stocks of the current user
+ * This component will fetch the data from backend from the backend file
+ * Components used here are : Recommendation, Favorites, ToastContainer
+ */
 import { useState, useEffect } from "react";
 import Recommendation from "./Recommendation";
 import { Stack } from "@mui/material";

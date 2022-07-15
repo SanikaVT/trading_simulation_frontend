@@ -1,3 +1,7 @@
+// @author Dharmay Dineshchandra Sureja 
+// Banner id (B00904061)
+// email : dh276903@dal.ca
+// this component is responsible to ask riskappetite questions.
 import * as React from "react";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
@@ -68,11 +72,12 @@ export default function RiskAppetite() {
           alert("successfully registered");
           window.location.href = "/signin";
         } else {
-          alert("Email or password is wrong!");
+          alert("Email Already exists!");
         }
       })
       .catch(function (error) {
-        alert("Email or password is wrong!");
+        alert("Email already exists!");
+        console.log(error);
         console.log("Exception occured");
       });
 

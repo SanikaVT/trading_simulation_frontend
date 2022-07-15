@@ -1,3 +1,7 @@
+// @author Dharmay Dineshchandra Sureja 
+// Banner id (B00904061)
+// email : dh276903@dal.ca
+// This componenet is responsible to reset user's password
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -16,6 +20,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
+import bcrypt from 'bcryptjs'
 
 export default function ForgotPassword() {
   const [open, setOpen] = React.useState(false);
@@ -73,9 +78,10 @@ export default function ForgotPassword() {
     setOpen(false);
   };
   const gotpage = () => {
+    const hashedPassword = bcrypt.hashSync(formValue.password, '$2a$10$ZpUkUuWbmNB6uwSNyxNSmu');
     const form_data = {
       email: formValue.email,
-      password: formValue.password,
+      password: hashedPassword,
     };
     console.log(formValue);
     axios

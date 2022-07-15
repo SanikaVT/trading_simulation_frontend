@@ -30,11 +30,27 @@ import Information from "./components/appoinment/Information"
 import Financials from "./components/stockFinancials/financials"
 import Compare from "./components/analyticsComparison/compare"
 import Register from "./components/appoinment/SignUp"
+import ProtectedRoutes from "./ProtectedRoutes";
 
 function App() {
   return (
     <Router>
       <Routes>
+
+
+      <Route path="/" element={<SignIn />}></Route>
+        <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+        <Route
+          path="/forgotpasswordotp"
+          element={<ForgotPasswordOtp />}
+        ></Route>
+        <Route path="/riskappetite" element={<RiskAppetite />}></Route>
+
+        <Route element={<ProtectedRoutes />}>
+
+
         <Route
           path="/dashboard"
           element={
@@ -122,15 +138,6 @@ function App() {
           }
         />
 
-        <Route path="/" element={<SignIn />}></Route>
-        <Route path="/signin" element={<SignIn />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
-        <Route
-          path="/forgotpasswordotp"
-          element={<ForgotPasswordOtp />}
-        ></Route>
-        <Route path="/riskappetite" element={<RiskAppetite />}></Route>
         <Route
           path="/Holdings"
           element={
@@ -234,10 +241,7 @@ function App() {
             </Wrapper>
           }
         />
-        <Route path="/signin" element={<SignIn />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
-        <Route path="/riskappetite" element={<RiskAppetite />}></Route>
+        
         <Route
           path="/stockLeague"
           element={
@@ -348,6 +352,7 @@ function App() {
               </Wrapper>
             }
         />
+        </Route>
       </Routes>
     </Router>
   );

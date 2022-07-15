@@ -1,3 +1,17 @@
+
+/**
+ * Author: Dharmik Hiteshkumar Soni
+ * BannerID: B00867641
+ * Email: dh657288@dal.ca
+ */
+
+
+/**
+ * This component is responsible to render recommended stocks of the current user
+ * This component will fetch the data from backend from the backend file
+ * Calculation for the recommendation is done on backend side
+ */
+
 import React from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";

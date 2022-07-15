@@ -1,3 +1,16 @@
+/**
+ * Author: Dharmik Hiteshkumar Soni
+ * BannerID: B00867641
+ * Email: dh657288@dal.ca
+ */
+
+
+
+/**
+ * This component is responsible to render favorite stocks of the current user
+ * This component will fetch the data from backend from the backend file
+ */
+
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
 import StockCard from "./StockCard";
@@ -42,6 +55,9 @@ function Favorites(props: any) {
           },
         }}
       >
+        
+       {/* Here the splide component is responsible for auto sliding */}
+         
         {props.stocksData.length > 0 ? (
           props.stocksData.map((stock: StockSymbol) => (
             <SplideSlide>

@@ -1,3 +1,14 @@
+/**
+ * Author: Dharmik Hiteshkumar Soni
+ * BannerID: B00867641
+ * Email: dh657288@dal.ca
+ */
+
+
+/**
+ * This component will render when there are no favorite stocks for current user
+ * Once user add somthing to favorite this component will be removed dynamically
+ */
 import React from "react";
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 

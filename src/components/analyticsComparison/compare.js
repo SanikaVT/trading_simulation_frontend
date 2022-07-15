@@ -1,3 +1,8 @@
+/**
+ * Author: Sampada Thakkar
+ * BannerID: B00893022
+ * Email: sm223034@dal.ca
+ */
 import React, { useEffect, useState } from "react";
 import {useLocation } from "react-router-dom";
 import * as d3 from "d3";
@@ -30,6 +35,7 @@ function LineChart(props) {
   };
   var symbol = location.state.stock.symbol;
   useEffect(() => {
+   //Getting the initial data
    axios
    .get(`/api/analytics`, {
       params: { Symbol: symbol },
@@ -228,7 +234,7 @@ function LineChart(props) {
          }
             
         }
-          
+       //Handling half year analytics graph
         function makegraph2(selectedOption){
              var margin = {top: 20, right: 20, bottom: 50, left: 100},
                   width = 800 - margin.left - margin.right,
@@ -300,7 +306,7 @@ function LineChart(props) {
                 });
              
                 g.append("g").attr("class","axisc").attr("id","graph2").call(gYAxis).select(".domain").remove();
-       
+            // Checking which stock to compare with
               if(selectedOption !== "Compare"){
                axios
                   .get(`/api/halfyearlyanalytics`, {
@@ -423,7 +429,6 @@ function LineChart(props) {
                       window.addEventListener('resize', makegraph1(selectedOption));
                 });
                   
-                //d3.select(window).on('resize', makegraph1());
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
              });
@@ -619,7 +624,7 @@ function LineChart(props) {
     }
 
    
-
+//Calling Buy Trade and Sell Trade modal
     
   return (
     <>

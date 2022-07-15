@@ -1,9 +1,13 @@
+/**
+ * Author: Sampada Thakkar
+ * BannerID: B00893022
+ * Email: sm223034@dal.ca
+ */
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Forum from "../forum/Forum";
 import * as d3 from "d3";
-//import data from "./AAPL_Yearly_HistoricalData.csv";
-//import data1 from "./APPL_half_yearly_HistoricalData.csv";
 import "./analytics.css";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
@@ -36,6 +40,7 @@ function LineChart(props) {
   var symbol = stock.symbol;
   console.log(symbol);
   useEffect(() => {
+    //Getting initial data
     axios
       .get(`/api/analytics`, {
         params: { Symbol: symbol },
@@ -46,7 +51,7 @@ function LineChart(props) {
       });
   }, []);
   function drawChart() {
-    //console.log(data)
+    //Getting data and putting in graphs
     var svg = d3
       .select("#container")
       .append("svg")
@@ -155,7 +160,6 @@ function LineChart(props) {
         .call(responsivefy)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      //d3.csv(data1).then(function(data){
       var parseDate = d3.timeParse("%d-%m-%Y");
       data.forEach((d) => {
         d.Date = parseDate(d.Date);
@@ -255,7 +259,6 @@ function LineChart(props) {
         .select(".domain")
         .remove();
 
-      // });
     }
     makegraph1();
     function makegraph2() {
@@ -273,7 +276,7 @@ function LineChart(props) {
         .call(responsivefy)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      var parseDate = d3.timeParse("%d-%m-%Y");
+      var parseDate = d3.timeParse("%d-%m-%Y"); //Changing date format
       data.forEach((d) => {
         d.Date = parseDate(d.Date);
         d.Percentage = +d.Percentage;
@@ -500,7 +503,6 @@ function LineChart(props) {
           data = response.data.analytics;
           window.addEventListener("resize", makegraph1());
         });
-      //d3.select(window).on('resize', makegraph1());
       d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)");
       d3.selectAll("#text1").attr("fill", "white");
     });
@@ -542,7 +544,6 @@ function LineChart(props) {
           data = response.data.analytics;
           window.addEventListener("resize", makegraph1());
         });
-      //d3.select(window).on('resize', );
       d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)");
       d3.selectAll("#text1").attr("fill", "white");
     });
@@ -687,7 +688,7 @@ function LineChart(props) {
         openSellTradeModal();
       });
   }
-
+//Calling BuyTrade Modal and Sell TradeModal
   return (
     <>
       <BuyTradeModal
