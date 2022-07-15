@@ -22,7 +22,7 @@ const initialCommentsList: IComment[] = [
   },
 ];
 //Code Reference: https://codesandbox.io/s/kqv1w?file=/src/ChartFirst.tsx:269-273
-function ForumComp() {
+function ForumComp(props:any) {
   const [commentData, setCommentData] = useState(initialCommentsList);
   const [commentSet, setComment] = useState("");
   const [loading, setLoading] = useState("");
@@ -44,7 +44,7 @@ function ForumComp() {
     axios
       .get(`/api/forum/`, {
         responseType: "json",
-        params: { symbol: "ABA" },
+        params: { symbol: props.symbol },
       })
       .then(function (response) {
         setCommentData(response.data.comments);
@@ -53,7 +53,7 @@ function ForumComp() {
     axios
       .get(`/api/order/`, {
         responseType: "json",
-        params: { symbol: "ABA" },
+        params: { symbol: props.symbol },
       })
       .then(function (response) {
         setOrdersData(response.data.orders);
@@ -65,7 +65,7 @@ function ForumComp() {
   function calculateChartResult() {
     for (var i = 0; i < ordersData.length; i++) {
       let obj = ordersData[i];
-      if (obj.symbol === "ABA") {
+      if (obj.symbol === props.symbol) {
         if (obj.orderType === "Buy") {
           buyCount += 1;
         } else {
@@ -87,7 +87,7 @@ function ForumComp() {
     axios
       .post(`/api/forum/`, {
         userID: user_ID,
-        symbol: "ABA",
+        symbol: props.symbol,
         comment: commentSet,
       })
       .then((res) => {
