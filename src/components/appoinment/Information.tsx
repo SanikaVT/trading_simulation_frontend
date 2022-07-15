@@ -90,13 +90,15 @@ export default function Information() {
     const [data, setData] = useState<characterData[]>([]);
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
-        axios.get('/api/appointment/').then((result) => {
-            setData(result.data.appointment)    
+        axios.get('/api/appointment/' + localStorage.getItem("userID") ).then((result) => {
+            setData(result.data.appointment)  
+            console.log(result)  
         }).catch((err) => {
             console.log('error')
             console.log(err);
         })
     }
+    
 
     return (
         <div>
