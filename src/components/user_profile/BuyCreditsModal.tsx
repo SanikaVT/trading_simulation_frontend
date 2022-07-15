@@ -37,6 +37,7 @@ function BuyCreditsModal(props: any) {
   const [cvv, setCVV] = useState(0);
   const [cvvError, setCVVError] = useState(false);
   const [confirmationModal, setOpenConfirmationModal] = useState(false);
+  const userID = localStorage.getItem("userID");
   const handleClickCreditModalClose = () => {
     props.openModal(false);
   };
@@ -64,7 +65,7 @@ function BuyCreditsModal(props: any) {
   function postUserData() {
     axios
       .post(`/api/users`, {
-        userID: "1",
+        userID: userID,
         credits: Number(cred),
       })
       .then((res) => {});
@@ -74,9 +75,9 @@ function BuyCreditsModal(props: any) {
     axios
       .get(`/api/users`, {
         responseType: "json",
-        params: { userID: "1" },
+        params: { userID: userID },
       })
-      .then(function (response) {
+      .then(function(response) {
         setCredits(response.data.prof.credits);
       });
   }, []);
