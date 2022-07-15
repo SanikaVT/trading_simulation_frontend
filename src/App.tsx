@@ -11,7 +11,7 @@ import ForgotPassword from "./components/signup/ForgotPassword";
 import RiskAppetite from "./components/signup/RiskAppetite";
 import StockLeague from "./components/stockLeague/StockLeaguePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UserDetail from "./components/user_profile/UserDetalsContainer";
+import UserDetail from "./components/user_profile/UserDetailsContainer";
 import FooterComp from "./components/footer/FooterComp";
 import ForumComp from "./components/forum/Forum";
 import LineChart from "./components/stockAnalytics/analytics";
@@ -21,7 +21,7 @@ import EditBlog from "./components/blog/EditBlog";
 import ForgotPasswordOtp from "./components/signup/ForgotPasswordOtp";
 import HoldingsHome from "./components/holdingsandpositions/HoldingsHome";
 import Report from "./components/holdingsandpositions/Report";
-import ViewNews from "./components/newsmanagement/ViewNews";
+import News from "./components/newsmanagement/News";
 import PositionsHome from "./components/holdingsandpositions/PositionsHome";
 import Reservation from "./components/appoinment/Reservation";
 import Advisor from "./components/appoinment/Advisor";
@@ -42,9 +42,9 @@ function App() {
               <AppHeader>
                 <Header />
               </AppHeader>
+              <Home />
               <AppBody>
-                <Home />
-                  <FooterComp/>
+                <FooterComp />
               </AppBody>
             </Wrapper>
           }
@@ -100,9 +100,9 @@ function App() {
                 <Header />
               </AppHeader>
               <AppBody>
-                <Financials/>
+                <Financials />
               </AppBody>
-              <FooterComp/>
+              <FooterComp />
             </Wrapper>
           }
         />
@@ -115,20 +115,25 @@ function App() {
                 <Header />
               </AppHeader>
               <AppBody>
-                <Compare/>
+                <Compare />
               </AppBody>
-              <FooterComp/>
+              <FooterComp />
             </Wrapper>
           }
         />
 
-          <Route path="/" element={<SignIn />}></Route>
-          <Route path="/signin" element={<SignIn />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
-          <Route path="/forgotpasswordotp" element={<ForgotPasswordOtp />}></Route>
-          <Route path="/riskappetite" element={<RiskAppetite />}></Route>
-          <Route path="/Holdings" element={
+        <Route path="/" element={<SignIn />}></Route>
+        <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+        <Route
+          path="/forgotpasswordotp"
+          element={<ForgotPasswordOtp />}
+        ></Route>
+        <Route path="/riskappetite" element={<RiskAppetite />}></Route>
+        <Route
+          path="/Holdings"
+          element={
             <Wrapper>
               <AppHeader>
                 <Header />
@@ -149,21 +154,6 @@ function App() {
               </AppHeader>
               <AppBody>
                 <Report />
-              </AppBody>
-              <FooterComp />
-            </Wrapper>
-          }
-        ></Route>
-
-        <Route
-          path="/News"
-          element={
-            <Wrapper>
-              <AppHeader>
-                <Header />
-              </AppHeader>
-              <AppBody>
-                <ViewNews />
               </AppBody>
               <FooterComp />
             </Wrapper>
@@ -230,15 +220,20 @@ function App() {
           }
         ></Route>
 
-          <Route path="/blog" element={<Wrapper>
-            <AppHeader>
-              <Header />
-            </AppHeader>
-            <AppBody>
-              <Blog/>
-            </AppBody>
-            <FooterComp/>
-          </Wrapper>} />
+        <Route
+          path="/blog"
+          element={
+            <Wrapper>
+              <AppHeader>
+                <Header />
+              </AppHeader>
+              <AppBody>
+                <Blog />
+              </AppBody>
+              <FooterComp />
+            </Wrapper>
+          }
+        />
         <Route path="/signin" element={<SignIn />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
@@ -340,8 +335,19 @@ function App() {
             </Wrapper>
           }
         />
-
-
+        <Route
+            path="/news"
+            element={
+              <Wrapper>
+                <AppHeader>
+                  <Header />
+                </AppHeader>
+                <AppBody>
+                  <News />
+                </AppBody>
+              </Wrapper>
+            }
+        />
       </Routes>
     </Router>
   );

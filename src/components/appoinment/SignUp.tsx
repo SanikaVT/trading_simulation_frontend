@@ -34,15 +34,7 @@ export default function SignUp() {
     
     });
     let errori =0;
-    // useEffect(() => { fetchData() }, [])
-    // const fetchData = () => {
-    //     axios.get('https://tutorial4-api.herokuapp.com/api/users/' + userId).then((result) => {
-    //         setFormValue(result.data.data)
-    //     }).catch((err) => {
-    //         console.log("something went wrong");
-    //     })
-    // }
-
+    
     const handleChange = (e: { target: { name: any; value: any; }; }) => {
         const { name, value } = e.target;
         setFormValue({ ...formValue, [name]: value });
@@ -311,7 +303,7 @@ export default function SignUp() {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        By Clicking Submit you will be redirected to Risk Appetite questionnaire.
+                        By Clicking Submit you will be redirected to advisor page
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -16,32 +16,15 @@ import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
-interface StockSymbol {
-  symbol: String;
-  currency: String;
-  price: Number;
-  previousClose: Number;
-  open: Number;
-  high: Number;
-  low: Number;
-}
-
-const stockData: StockSymbol = {
-  symbol: "CBDU",
-  currency: "USD",
-  price: 262.74,
-  previousClose: 259.45,
-  open: 261.07,
-  high: 263.31,
-  low: 260.68,
-};
+import axios from "axios";
 
 function StockCard(props: any) {
   const navigate = useNavigate();
   document.body.style.overflow = "scroll";
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
+  const [sellModalInActive, setSellModalInActive] = useState(false);
+  const [sellModalBgColor, setSellModalBgColor] = useState("#f55723");
   const [isActive, setIsActive] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
@@ -53,14 +36,6 @@ function StockCard(props: any) {
     setOpenSellModal(true);
   };
 
-  // const fadeOut = (cb: any) => {
-  //   if (isActive) {
-  //     setIsFadingOut(false);
-  //   } else if (props.fav) {
-  //     setIsFadingOut(true);
-  //   }
-  //   cb();
-  // };
   const handleStarClick = () => {
     setIsActive((current) => !current);
     if (props.fav) {
@@ -76,17 +51,37 @@ function StockCard(props: any) {
     }
   };
 
+  useEffect(() => {
+    axios
+      .get(`/api/order/stockcount`, {
+        responseType: "json",
+        params: {
+          userId: localStorage.getItem("userID"),
+          symbol: props.stock.symbol,
+        },
+      })
+      .then(function(response) {
+        if (response.data.count === 0) {
+          setSellModalInActive(true);
+          setSellModalBgColor("#808080");
+        } else {
+          setSellModalInActive(false);
+          setSellModalBgColor("#f55723");
+        }
+      });
+  }, [props.stock.symbol]);
+
   return (
     <>
       <BuyTradeModal
         openModal={openBuyModal}
         setOpenModal={setOpenBuyModal}
-        stockData={stockData}
+        stockData={props.stock}
       />
       <SellTradeModal
         openModal={openSellModal}
         setOpenModal={setOpenSellModal}
-        stockData={stockData}
+        stockData={props.stock}
       />
       <Card
         // className={isFadingOut ? "stock-fadeout" : ""}
@@ -119,7 +114,7 @@ function StockCard(props: any) {
                     border: "1px solid",
                   }}
                 >
-                  {props.stock.price} {props.stock.symbol}
+                  {props.stock.price} {props.stock.currency}
                 </span>
               </p>
             </Typography>
@@ -152,6 +147,7 @@ function StockCard(props: any) {
               </Button>
 
               <Button
+                disabled={sellModalInActive}
                 className="btn shimmer"
                 size="small"
                 onClick={openSellTradeModal}
@@ -189,7 +185,11 @@ function StockCard(props: any) {
               <Tooltip title="Go to Analytics" arrow>
                 <IconButton
                   aria-label="graph"
-                  onClick={() => navigate("/analytics",{state:{stock :props.stock,width:150,height : 450}})}
+                  onClick={() =>
+                    navigate("/analytics", {
+                      state: { stock: props.stock, width: 150, height: 450 },
+                    })
+                  }
                 >
                   <AnalyticsIcon
                     style={{

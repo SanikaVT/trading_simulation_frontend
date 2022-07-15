@@ -43,7 +43,7 @@ const columns: GridColDef[] = [
     },
     {
         field: "button",
-        headerName: "Make an appointment",
+        headerName: "Cancel an appointment",
         width: 200,
         renderCell: (appointment) => {
 
@@ -90,13 +90,18 @@ export default function Information() {
     const [data, setData] = useState<characterData[]>([]);
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
-        axios.get('/api/appointment/').then((result) => {
-            setData(result.data.appointment)    
+        axios.get('/api/appointment/' + localStorage.getItem("userID") ).then((result) => {
+            if(result.data.appoinment){
+                setData(result.data.appointment)  
+            }
+            
+            console.log(result)  
         }).catch((err) => {
             console.log('error')
             console.log(err);
         })
     }
+    
 
     return (
         <div>

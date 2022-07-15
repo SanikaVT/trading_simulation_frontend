@@ -37,10 +37,8 @@ export default function RiskAppetite() {
     if (calculaterisk1 < 2) {
       // @ts-ignore
       setCalculateRisk("Low");
-    } else if (calculaterisk1 < 3) {
-      // @ts-ignore
-      setCalculateRisk("Medium");
-    } else {
+    } 
+     else {
       // @ts-ignore
       setCalculateRisk("High");
     }

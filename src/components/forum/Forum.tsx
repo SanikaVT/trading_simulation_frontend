@@ -14,23 +14,19 @@ import axios from "axios";
 
 const initialCommentsList: IComment[] = [
   {
+    userID: "1",
     symbol: "ABA",
     commentID: "2",
     comment: "Hello",
     creation_date: "01-03-2022",
   },
-  {
-    symbol: "ABA",
-    commentID: "2",
-    comment: "Hi",
-    creation_date: "01-03-2022",
-  },
 ];
 //Code Reference: https://codesandbox.io/s/kqv1w?file=/src/ChartFirst.tsx:269-273
-function ForumComp() {
+function ForumComp(props:any) {
   const [commentData, setCommentData] = useState(initialCommentsList);
   const [commentSet, setComment] = useState("");
   const [loading, setLoading] = useState("");
+  const user_ID = localStorage.getItem("userID");
   const [chartData, setChartData] = useState({
     labels: ["Bought", "Sold"],
     datasets: [
@@ -48,20 +44,20 @@ function ForumComp() {
     axios
       .get(`/api/forum/`, {
         responseType: "json",
-        params: { symbol: "ABA" },
+        params: { symbol: props.symbol },
       })
       .then(function (response) {
         setCommentData(response.data.comments);
-        console.log(response.data.comments);
+        // console.log(response.data.comments);
       });
     axios
       .get(`/api/order/`, {
         responseType: "json",
-        params: { symbol: "ABA" },
+        params: { symbol: props.symbol },
       })
       .then(function (response) {
         setOrdersData(response.data.orders);
-        console.log(response.data.orders);
+        // console.log(response.data.orders);
         calculateChartResult();
       });
   }, [loading]);
@@ -69,7 +65,7 @@ function ForumComp() {
   function calculateChartResult() {
     for (var i = 0; i < ordersData.length; i++) {
       let obj = ordersData[i];
-      if (obj.symbol === "ABA") {
+      if (obj.symbol === props.symbol) {
         if (obj.orderType === "Buy") {
           buyCount += 1;
         } else {
@@ -90,7 +86,8 @@ function ForumComp() {
   function postComment() {
     axios
       .post(`/api/forum/`, {
-        symbol: "ABA",
+        userID: user_ID,
+        symbol: props.symbol,
         comment: commentSet,
       })
       .then((res) => {
@@ -143,6 +140,7 @@ function ForumComp() {
                   comment={myVariable.comment}
                   commentID={myVariable.commentID}
                   symbol={myVariable.symbol}
+                  userID={myVariable.userID}
                   rerender={setLoading}
                 />
               );

@@ -1,3 +1,5 @@
+// Author: Prakrut Suthar
+
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -16,12 +18,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 
-function CommentCard(props: any) {
+function NewsCard(props: any) {
   document.body.style.overflow = "scroll";
   const [open, setOpen] = React.useState(false);
-  const [comment, setComment] = React.useState("");
-  const [commentID, setCommentID] = React.useState(props.commentID);
-  const [symbol, setSymbol] = React.useState(props.symbol);
+  const [news_topic, setNewsTopic] = React.useState("");
+  const [news_content, setNewsContent] = React.useState("");
+  const [newsID, setNewsID] = React.useState(props.newsID);
+  const [userID, setUserID] = React.useState(props.userID);
   const [loading, setLoading] = React.useState({});
 
   var buttonDisabled = true;
@@ -31,8 +34,10 @@ function CommentCard(props: any) {
   }
 
   const handleClickOpen = () => {
-    setCommentID(props.commentID);
-    setSymbol(props.symbol);
+    setNewsTopic(props.news_topic);
+    setNewsContent(props.news_content);
+    setNewsID(props.newsID);
+    setUserID(props.userID);
     setOpen(true);
   };
 
@@ -43,23 +48,26 @@ function CommentCard(props: any) {
   const [openDelete, setOpenDelete] = React.useState(false);
 
   const handleClickOpenDelete = () => {
-    setCommentID(props.commentID);
-    setSymbol(props.symbol);
+    setNewsTopic(props.newsTopic);
+    setNewsContent(props.newsContent);
+    setNewsID(props.newsID);
+    setUserID(props.userID);
     setOpenDelete(true);
   };
 
   const handleCloseDelete = () => {
-    deleteComment();
+    deleteNews();
     setOpenDelete(false);
   };
 
-  function updateComment() {
-    if (comment.trim() !== "") {
+  function updateNews() {
+    if (news_topic.trim() !== "") {
       axios
-        .put(`/api/forum`, {
-          symbol: symbol,
-          commentID: commentID,
-          comment: comment,
+        .put(`/api/news`, {
+          userID: userID,
+          newsID: newsID,
+          news_topic: news_topic,
+          news_content: news_content,
         })
         .then((res) => {
           console.log(res.data);
@@ -70,26 +78,22 @@ function CommentCard(props: any) {
       setOpen(false);
     }
   }
-  function deleteComment() {
+  function deleteNews() {
     axios
-      .put(`/api/forum/delete`, {
-        symbol: symbol,
-        commentID: commentID,
+      .put(`/api/news/delete`, {
+        userID: userID,
+        newsID: newsID,
       })
       .then((res) => {
-        console.log(symbol);
-        console.log(commentID);
         console.log(res.data);
         setOpenDelete(false);
         props.rerender(res.data);
-        // window.location.reload();
       });
   }
   return (
     <>
       <Card
         style={{
-          // border: "1px solid transparent",
           padding: "5spx",
         }}
       >
@@ -97,7 +101,12 @@ function CommentCard(props: any) {
           <CardContent>
             <Grid container>
               <Grid item md={10} xs={12}>
-                <Typography>{props.comment}</Typography>
+                <Typography>
+                  <b>{props.news_topic}</b>
+                </Typography>
+              </Grid>
+              <Grid item md={10} xs={12}>
+                <Typography>{props.news_content}</Typography>
               </Grid>
               <Grid item md={1} xs={12}>
                 <Button
@@ -105,7 +114,7 @@ function CommentCard(props: any) {
                   onClick={handleClickOpenDelete}
                   startIcon={<DeleteIcon></DeleteIcon>}
                 >
-                  Edit
+                  Delete
                 </Button>
               </Grid>
               <Grid item md={1} xs={12}>
@@ -122,14 +131,16 @@ function CommentCard(props: any) {
                 <Typography>{props.creation_date}</Typography>
               </Grid>
             </Grid>
+
             <Dialog
               fullWidth={true}
-              maxWidth={"lg"}
+              maxWidth={"sm"}
               open={open}
               onClose={handleClose}
             >
-              <DialogTitle>Edit Comment</DialogTitle>
+              <DialogTitle>Edit News</DialogTitle>
               <DialogContent>
+                <Typography>News Topic</Typography>
                 <TextField
                   autoFocus
                   margin="dense"
@@ -137,12 +148,23 @@ function CommentCard(props: any) {
                   type="text"
                   fullWidth
                   variant="standard"
-                  defaultValue={props.comment}
-                  onChange={(event) => setComment(event.target.value)}
+                  defaultValue={props.news_topic}
+                  onChange={(event) => setNewsTopic(event.target.value)}
+                />
+                <Typography>News</Typography>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                  defaultValue={props.news_content}
+                  onChange={(event) => setNewsContent(event.target.value)}
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={updateComment}>Save</Button>
+                <Button onClick={updateNews}>Save</Button>
               </DialogActions>
             </Dialog>
 
@@ -153,7 +175,7 @@ function CommentCard(props: any) {
             >
               <DialogTitle>Confirm Delete?</DialogTitle>
               <DialogActions>
-                <Button onClick={deleteComment}>Delete</Button>
+                <Button onClick={deleteNews}>Delete</Button>
               </DialogActions>
             </Dialog>
           </CardContent>
@@ -163,4 +185,4 @@ function CommentCard(props: any) {
   );
 }
 
-export default CommentCard;
+export default NewsCard;

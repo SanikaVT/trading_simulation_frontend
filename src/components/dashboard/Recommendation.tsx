@@ -3,6 +3,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
 import StockCard from "./StockCard";
 import { StockSymbol } from "../../types/StockSymbol";
+import NoRecommended from "./NoRecommended";
 
 function Recommendation(props: any) {
   return (
@@ -41,15 +42,19 @@ function Recommendation(props: any) {
           },
         }}
       >
-        {props.stocksData.map((stock: StockSymbol) => (
-          <SplideSlide>
-            <StockCard
-              stock={stock}
-              fun={props.fun}
-              delFav={props.delFavorite}
-            />
-          </SplideSlide>
-        ))}
+        {props.stocksData.length > 0 ? (
+          props.stocksData.map((stock: StockSymbol) => (
+            <SplideSlide>
+              <StockCard
+                stock={stock}
+                fun={props.fun}
+                delFav={props.delFavorite}
+              />
+            </SplideSlide>
+          ))
+        ) : (
+          <NoRecommended />
+        )}
       </Splide>
     </div>
   );

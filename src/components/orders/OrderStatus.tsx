@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import styled from "styled-components";
-import { TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -69,7 +69,9 @@ function OrderStatus() {
   const spacingStyles = {
     ...(matchesMD && { marginTop: "20px" }),
   };
-  const [startDate, setStartDate] = React.useState<Date | null>(new Date());
+  const [startDate, setStartDate] = React.useState<Date | null>(
+    new Date("12/31/2021")
+  );
   const [endDate, setEndDate] = React.useState<Date | null>(new Date());
   const [searchItem, setSearchItem] = useState("");
   let initialOrders: IOrderStatus[] = [];
@@ -107,16 +109,27 @@ function OrderStatus() {
     setOrdersData(constOrdersData);
     startDate = startDate == null ? new Date() : startDate;
     endDate = endDate == null ? new Date() : endDate;
-
     let filterData = constOrdersData.filter((row) => {
       const timestamp = new Date(row.timestamp);
+      const checkForYear =
+        startDate != null
+          ? timestamp.getFullYear() > startDate?.getFullYear()
+          : false;
+      const checkForMonth = checkForYear
+        ? true
+        : timestamp.getFullYear() === startDate?.getFullYear()
+        ? timestamp.getMonth() > startDate?.getMonth()
+        : false;
+      const checkForDate = checkForMonth
+        ? true
+        : timestamp.getMonth() === startDate?.getMonth()
+        ? timestamp.getDate() >= startDate?.getDate()
+        : false;
       if (
         timestamp != null &&
         startDate != null &&
         endDate != null &&
-        timestamp.getDate() >= startDate.getDate() &&
-        timestamp.getMonth() >= startDate.getMonth() &&
-        timestamp.getFullYear() >= startDate.getFullYear() &&
+        checkForDate &&
         timestamp.getDate() <= endDate.getDate() &&
         timestamp.getMonth() <= endDate.getMonth() &&
         timestamp.getFullYear() <= endDate.getFullYear()
@@ -144,18 +157,7 @@ function OrderStatus() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item lg={2}></Grid>
-          <Grid item lg={5} xs={12}>
-            <Typography
-              variant="h6"
-              component="div"
-              color={"black "}
-              fontWeight={"bolder"}
-              sx={{ flexGrow: 1 }}
-              style={{ marginBottom: 10 }}
-            >
-              Order Status
-            </Typography>
-          </Grid>
+          <Grid item lg={5} xs={12}></Grid>
           <Grid item lg={5}></Grid>
           <Grid item lg={2}></Grid>
           <Grid item lg={3} md={4} xs={12}>
