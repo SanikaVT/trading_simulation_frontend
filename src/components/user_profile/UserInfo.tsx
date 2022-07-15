@@ -1,3 +1,8 @@
+/**
+ * Author: Sanika Tamhankar
+ * BannerID: B00909848
+ * Email: sn295037@dal.ca
+ */
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
