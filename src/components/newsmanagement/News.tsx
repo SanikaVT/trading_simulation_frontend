@@ -81,7 +81,7 @@ function NewsComp() {
             alignItems="center"
             className="header-message"
           >
-            News
+            DTrade News
           </Typography>
         </Grid>
       </Grid>
