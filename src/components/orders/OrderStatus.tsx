@@ -115,19 +115,16 @@ function OrderStatus() {
         startDate != null
           ? timestamp.getFullYear() > startDate?.getFullYear()
           : false;
-      console.log("Year: " + checkForYear);
       const checkForMonth = checkForYear
         ? true
         : timestamp.getFullYear() === startDate?.getFullYear()
         ? timestamp.getMonth() > startDate?.getMonth()
         : false;
-      console.log("Month: " + checkForMonth);
       const checkForDate = checkForMonth
         ? true
         : timestamp.getMonth() === startDate?.getMonth()
         ? timestamp.getDate() >= startDate?.getDate()
         : false;
-      console.log("Date: " + checkForDate);
       if (
         timestamp != null &&
         startDate != null &&
