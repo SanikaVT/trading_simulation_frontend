@@ -44,6 +44,11 @@ function BuyTradeModal(props: any) {
       .then(function(response) {
         setMarginAvailable(response.data.credits);
         console.log(response.data.credits);
+        if (props.stockData.price > response.data.credits) {
+          setMarginError(true);
+        } else {
+          setMarginError(false);
+        }
       });
   }, []);
 

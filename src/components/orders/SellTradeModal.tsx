@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
@@ -35,6 +35,25 @@ const acceptNumbers = (event: any) => {
 };
 
 function SellTradeModal(props: any) {
+  useEffect(() => {
+    axios
+      .get(`/api/order/stockcount`, {
+        responseType: "json",
+        params: {
+          userID: localStorage.getItem("userID"),
+          symbol: props.stockData.symbol,
+        },
+      })
+      .then(function(response) {
+        setAvailableQuantity(response.data.count);
+        console.log(response.data.credits);
+        if (props.stockData.price > response.data.credits) {
+          setQuantityError(true);
+        } else {
+          setQuantityError(false);
+        }
+      });
+  }, []);
   let placeOrder = (event: any) => {
     axios
       .post("/api/order", {
@@ -48,7 +67,7 @@ function SellTradeModal(props: any) {
         navigate("/orderstatus");
       });
   };
-  const availableQuantity = 5;
+  const [availableQuantity, setAvailableQuantity] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [quantityLeft, setQuantityLeft] = useState(availableQuantity - 1);
   const [quantityError, setQuantityError] = useState(false);
