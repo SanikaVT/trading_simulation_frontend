@@ -39,7 +39,7 @@ export default function ForgotPasswordOtp() {
     const form_data = {
       email: formValue.email,
     };
-
+  //api call to send code to user and authenticate user
     axios
       .post("/api/register/otp", form_data)
       .then((response) => {
