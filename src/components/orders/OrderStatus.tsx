@@ -1,3 +1,8 @@
+/**
+ * Author: Udit Gandhi
+ * BannerID: B00889579
+ * Email: udit.gandhi@dal.ca
+ */
 import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import styled from "styled-components";
@@ -80,6 +85,7 @@ function OrderStatus() {
   const [constOrdersData, setConstOrdersData] = useState(initialOrders);
 
   useEffect(() => {
+    //Gets all the orders from the backend 
     axios({
       method: "get",
       url: "/api/order",
@@ -109,6 +115,8 @@ function OrderStatus() {
     setOrdersData(constOrdersData);
     startDate = startDate == null ? new Date() : startDate;
     endDate = endDate == null ? new Date() : endDate;
+
+    //Filters the data first on the basis of the start and end dates 
     let filterData = constOrdersData.filter((row) => {
       const timestamp = new Date(row.timestamp);
       const checkForYear =
@@ -139,6 +147,7 @@ function OrderStatus() {
     setOrdersData(filterData);
     setRows(filterData);
 
+    //Now filters on the basis of the text.
     if (searchText !== null && searchText !== "") {
       if (searchText.length > 0) {
         filterData = filterData.filter((row) =>

@@ -1,3 +1,8 @@
+/**
+ * Author: Udit Gandhi
+ * BannerID: B00889579
+ * Email: udit.gandhi@dal.ca
+ */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -25,6 +30,7 @@ const style = {
   p: 4,
 };
 
+//It will only accept number as input to the sell quantity
 const acceptNumbers = (event: any) => {
   let charCode = event.keyCode;
   if (
@@ -35,17 +41,20 @@ const acceptNumbers = (event: any) => {
 };
 
 function SellTradeModal(props: any) {
+  //Gets the credits available to the user from the api.
   useEffect(() => {
     axios
       .get(`/api/users/credits`, {
         responseType: "json",
         params: { userID: localStorage.getItem("userID") },
       })
-      .then(function(response) {
+      .then(function (response) {
         console.log(response.data.credits);
         setMarginAvailable(response.data.credits);
       });
   }, []);
+
+  //Gets the count of the stock for this user from the api.
   useEffect(() => {
     axios
       .get(`/api/order/stockcount`, {
@@ -55,7 +64,7 @@ function SellTradeModal(props: any) {
           symbol: props.stockData.symbol,
         },
       })
-      .then(function(response) {
+      .then(function (response) {
         if (response.data.count === 0) {
         } else {
           setAvailableQuantity(response.data.count);
@@ -63,6 +72,8 @@ function SellTradeModal(props: any) {
         }
       });
   }, [props.openModal]);
+
+  //Places an order using the backend api and updates in the mongo
   let placeOrder = (event: any) => {
     axios
       .post("/api/order", {
@@ -77,6 +88,8 @@ function SellTradeModal(props: any) {
         navigate("/orderstatus");
       });
   };
+
+  //States related to the quantity of the stocks and errors.
   const [availableQuantity, setAvailableQuantity] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [quantityLeft, setQuantityLeft] = useState(availableQuantity);
