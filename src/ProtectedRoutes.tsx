@@ -18,7 +18,7 @@ const useAuth = () => {
     console.log("looged user is hereeee",loggedcheck);
     return user && user.loggedIn;
 };
-
+// check authentication condition and navigate accordingly
 const ProtectedRoutes = () => {
     const isAuth = useAuth();
     return isAuth ? <Outlet /> : <Navigate to="/" />;
