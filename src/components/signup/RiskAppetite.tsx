@@ -32,6 +32,7 @@ export default function RiskAppetite() {
     // window.location.href = "/signin";
 
     console.log(formValue);
+    // calculate risk appetite
     const que1 = parseInt(formValue.question1);
     const que2 = parseInt(formValue.question2);
     const que3 = parseInt(formValue.question3);
@@ -61,7 +62,7 @@ export default function RiskAppetite() {
       account: localStorage.getItem("account"),
       risk_appetite: calculaterisk,
     };
-
+// api call to store user information and signup
     console.log(form_data);
     axios
       .post("/api/register", form_data)
