@@ -52,6 +52,7 @@ export default function SignUp() {
     // @ts-ignore
     setFormError(validate(formValue));
     if (errori === 0) {
+      //encrypt password and save values to local storage
       const hashedPassword = bcrypt.hashSync(formValue.password, '$2a$10$ZpUkUuWbmNB6uwSNyxNSmu')
       localStorage.setItem("email", formValue.email);
       localStorage.setItem("fname", formValue.fname);
