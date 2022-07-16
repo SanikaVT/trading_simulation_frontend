@@ -62,7 +62,7 @@ export default function SignIn() {
         password: hashedPassword,
       };
       
-      
+      // api call to check login credentials
       axios
         .post("/api/register/login", form_data)
         .then((response) => {
@@ -91,6 +91,7 @@ export default function SignIn() {
     }
   };
 
+//validate user form input
   const validate = (values: { password: any; email: any }) => {
     const emailreg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const errors = {
