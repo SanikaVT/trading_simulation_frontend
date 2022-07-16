@@ -84,6 +84,7 @@ export default function ForgotPassword() {
       password: hashedPassword,
     };
     console.log(formValue);
+    //api call to reset password
     axios
       .post("/api/register/forgotpassword", form_data)
       .then((response) => {
