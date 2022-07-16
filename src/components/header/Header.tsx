@@ -158,6 +158,7 @@ function Header() {
 
             <Tooltip title="Logout" arrow>
               <Button className="header" onClick={() => {
+                localStorage.clear();
                 navigate("/");
               }}>LogOut</Button>
             </Tooltip>

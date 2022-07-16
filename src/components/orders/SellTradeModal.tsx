@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+/**
+ * Author: Udit Gandhi
+ * BannerID: B00889579
+ * Email: udit.gandhi@dal.ca
+ */
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
@@ -10,6 +15,7 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import axios from "axios";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,6 +30,7 @@ const style = {
   p: 4,
 };
 
+//It will only accept number as input to the sell quantity
 const acceptNumbers = (event: any) => {
   let charCode = event.keyCode;
   if (
@@ -34,11 +41,61 @@ const acceptNumbers = (event: any) => {
 };
 
 function SellTradeModal(props: any) {
-  const availableQuantity = 5;
+  //Gets the credits available to the user from the api.
+  useEffect(() => {
+    axios
+      .get(`/api/users/credits`, {
+        responseType: "json",
+        params: { userID: localStorage.getItem("userID") },
+      })
+      .then(function (response) {
+        console.log(response.data.credits);
+        setMarginAvailable(response.data.credits);
+      });
+  }, []);
+
+  //Gets the count of the stock for this user from the api.
+  useEffect(() => {
+    axios
+      .get(`/api/order/stockcount`, {
+        responseType: "json",
+        params: {
+          userId: localStorage.getItem("userID"),
+          symbol: props.stockData.symbol,
+        },
+      })
+      .then(function (response) {
+        if (response.data.count === 0) {
+        } else {
+          setAvailableQuantity(response.data.count);
+          setQuantityLeft(response.data.count - 1);
+        }
+      });
+  }, [props.openModal]);
+
+  //Places an order using the backend api and updates in the mongo
+  let placeOrder = (event: any) => {
+    axios
+      .post("/api/order", {
+        symbol: props.stockData.symbol,
+        quantity: quantity,
+        price: props.stockData.price,
+        orderType: "Sell",
+        userId: localStorage.getItem("userID"),
+        currentMargin: marginAvailable,
+      })
+      .then((res) => {
+        navigate("/orderstatus");
+      });
+  };
+
+  //States related to the quantity of the stocks and errors.
+  const [availableQuantity, setAvailableQuantity] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [quantityLeft, setQuantityLeft] = useState(availableQuantity - 1);
+  const [quantityLeft, setQuantityLeft] = useState(availableQuantity);
   const [quantityError, setQuantityError] = useState(false);
   const [quantityLeftError, setQuantityLeftError] = useState(false);
+  const [marginAvailable, setMarginAvailable] = useState(0);
   const navigate = useNavigate();
   return (
     <>
@@ -117,9 +174,7 @@ function SellTradeModal(props: any) {
                 variant="contained"
                 color="error"
                 disabled={quantityError || quantityLeftError}
-                onClick={() => {
-                  navigate("/orderstatus");
-                }}
+                onClick={placeOrder}
                 style={{ backgroundColor: "#f55723", color: "white" }}
               >
                 Sell

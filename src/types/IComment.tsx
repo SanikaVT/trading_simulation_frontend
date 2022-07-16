@@ -1,5 +1,6 @@
 export interface IComment {
-  analyticsID: String;
+  userID: String;
+  symbol: String;
   commentID: String;
   comment: String;
   creation_date: String;

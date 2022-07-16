@@ -1,8 +1,14 @@
-import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+//Author: qiwei sun
+import { DataGrid, GridColDef, gridColumnsSelector} from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios"
 
+// Definded the columns for grid
 const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'id', headerName: 'ID', width: 150 },
+    { field: 'email', headerName: 'email', width: 150, editable: true },
     {
         field: 'firstName',
         headerName: 'First name',
@@ -23,7 +29,7 @@ const columns: GridColDef[] = [
         editable: true,
     },
     {
-        field: 'location',
+        field: 'address',
         headerName: 'location',
         type: 'string',
         width: 210,
@@ -37,28 +43,66 @@ const columns: GridColDef[] = [
         editable: true,
     },
     {
-        field: 'fullName',
-        headerName: 'Full name',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
-        valueGetter: (params: GridValueGetterParams) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    },
+        field: "button",
+        headerName: "Cancel an appointment",
+        width: 200,
+        renderCell: (appointment) => {
+
+            return (
+                <>
+                    <Button variant="contained" onClick={() => {
+                        axios.delete('/api/appointment/' + appointment.id).then((result) => {
+                            console.log('deleted');
+                            window.location.reload();
+                        }).catch((err) => {
+                            console.log('error')
+                            console.log(err);
+                        })
+                    }}>Cancel</Button>
+
+                </>
+            );
+        }
+    }
 ];
 
-const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 ,location: 'halifax',date:'2020-06-16'},
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42, location: 'spring garden road ',date: '2020-06-16' },
-];
+// Information components module
+export default function Information() {
+    interface characterData {
+        id: number;
+        title: string,
+        lastName: string,
+        firstName: string,
+        age: number,
+        address: string,
+        email: string
+    }
+    const [data, setData] = useState<characterData[]>([]);
 
-export default function DataGridDemo() {
+    // get appointment data from database
+    useEffect(() => { fetchData() }, [])
+    const fetchData = () => {
+        axios.get('/api/appointment/' + localStorage.getItem("userID") ).then((result) => {
+            let arr = result.data.appointment;
+            if(arr[0])
+            {
+                setData(result.data.appointment);
+            }
+                      
+        }).catch((err) => {
+            console.log('error')
+            console.log(err);
+        })
+    }
+    
+    
     return (
         <div>
             <div>Your made these appoinments with our financial advisor</div>
             <div style={{ height: 400, width: '100%' }}>
+               
                 <DataGrid
-                    rows={rows}
+                    rows={data}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
@@ -68,6 +112,6 @@ export default function DataGridDemo() {
             </div>
 
         </div>
-        
+
     );
 }

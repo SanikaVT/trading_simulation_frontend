@@ -1,13 +1,20 @@
+/**
+ * Author: Sampada Thakkar
+ * BannerID: B00893022
+ * Email: sm223034@dal.ca
+ */
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {useLocation } from "react-router-dom";
 import * as d3 from "d3";
-import data from "./AAPL_Yearly_HistoricalData.csv";
-import data1 from "./APPL_half_yearly_HistoricalData.csv";
 import "./financials.css";
 import BuyTradeModal from "../orders/BuyTradeModal";
 import SellTradeModal from "../orders/SellTradeModal";
+import axios from "axios";
 function LineChart(props) {
-  const navigate = useNavigate();
+   const location = useLocation();
+   console.log(location.state)
+   var symbol = location.state.stock.symbol;
+   var data;
   const { width, height } = props;
   const stockData = {
     symbol: "APPL",
@@ -30,7 +37,15 @@ function LineChart(props) {
   };
 
   useEffect(() => {
-    drawChart();
+   //Getting initial data
+   axios
+   .get(`/api/financials`, {
+      params: { Symbol: symbol },
+    })
+   .then(function(response) {
+         data = response.data.analytics;
+         drawChart();
+   });
   }, []);
       function drawChart() {
         var svg = d3.select("#container")
@@ -61,7 +76,7 @@ function LineChart(props) {
              .attr('fill','black')
              .attr('font-size','15px')
              .attr('font-weight',"bold")
-             .text('Apple Inc. Common')
+             .text(location.state.stock.name)
           
           svg.append('text')
              .attr('x',15)
@@ -94,6 +109,7 @@ function LineChart(props) {
              .text('-80(-0.53%)')
          
        function makegraph1(){
+          //Making the initial graph
           var margin = {top: 20, right: 20, bottom: 50, left: 100},
                width = 800 - margin.left - margin.right,
                height = 550 - margin.top - margin.bottom,
@@ -106,23 +122,24 @@ function LineChart(props) {
                .attr("transform",
                      "translate(" + margin.left + "," + margin.top + ")");
     
-           
-           d3.csv(data).then(function(data) {
+            console.log(data)
              var parseDate = d3.timeParse("%d-%m-%Y");
              data.forEach(d=>{
                 d.Date = parseDate(d.Date);
-                d.Percentage = +d.Percentage;
+                d.Profit = +d.Profit;
             });
     
             var x = d3.scaleTime().domain(d3.extent(data, function(d){
              return d.Date
           })).range([0, width-100]);
-          var y = d3.scaleLinear().domain([0, 200]).range([height-200, 0]);
+          var y = d3.scaleLinear().domain(d3.extent(data, function(d){
+            return d.Profit
+         })).range([height-200, 0]);
           
             var valueline = d3.area()
             .x( d=>x(d.Date) )
             .y0(height-200)	
-            .y1( d=>y(d.Percentage) )
+            .y1( d=>y(d.Profit) )
           
             svg.append("linearGradient")				
             .attr("id", "area-gradient")			
@@ -170,12 +187,11 @@ function LineChart(props) {
              .scale(y)
              .tickSize(0)
              .tickFormat(function(d){
-                return "$" + d;
+               return "$" + d/1000000 + "m";
              });
           
              g.append("g").attr("class","axisc").attr("id","graph1").call(gYAxis).select(".domain").remove();
     
-           });
           }
           makegraph1();
         function makegraph2(){
@@ -190,24 +206,24 @@ function LineChart(props) {
                 .append("g")
                   .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
-              
-              d3.csv(data1).then(function(data) {
                   
-                var parseDate = d3.timeParse("%d-%m-%Y");
+                var parseDate = d3.timeParse("%d-%m-%Y"); //Changing the date format
                 data.forEach(d=>{
                    d.Date = parseDate(d.Date);
-                   d.Percentage = +d.Percentage;
+                   d.Profit = +d.Profit;
                });
        
                var x = d3.scaleTime().domain(d3.extent(data, function(d){
                 return d.Date
              })).range([0, width-100]);
-             var y = d3.scaleLinear().domain([0, 200]).range([height-200, 0]);
+             var y = d3.scaleLinear().domain(d3.extent(data, function(d){
+               return d.Profit
+            })).range([height-200, 0]);
              
                var valueline = d3.area()
                .x( d=>x(d.Date) )
                .y0(height-200)	
-               .y1( d=>y(d.Percentage) )
+               .y1( d=>y(d.Profit) )
              
                svg.append("linearGradient")				
                .attr("id", "area-gradient")			
@@ -238,7 +254,7 @@ function LineChart(props) {
                 // Add the x Axis
              var putAxis = g.append("g")
                 .attr("class","axisc")
-                .attr("transform", "translate(0,288)")
+                .attr("transform", "translate(45,288)")
                 .attr("id","graph2")
                 .call(xAxis)
                 
@@ -256,12 +272,10 @@ function LineChart(props) {
                 .scale(y)
                 .tickSize(0)
                 .tickFormat(function(d){
-                   return "$" + d;
+                   return "$" + d/1000000 + "m";
                 });
              
                 g.append("g").attr("class","axisc").attr("id","graph2").call(gYAxis).select(".domain").remove();
-       
-              });
              }
         function responsivefy(svg) {
                  
@@ -343,8 +357,15 @@ function LineChart(props) {
                 if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
+                axios
+                     .get(`/api/financials`, {
+                     params: { Symbol: symbol },
+                  })
+               .then(function(response) {
+                  data = response.data.analytics;
                   window.addEventListener('resize', makegraph1());
-                //d3.select(window).on('resize', makegraph1());
+                  });
+                
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
              });
@@ -378,8 +399,14 @@ function LineChart(props) {
                 if(d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect2").attr("fill", "black")
                 }
-                window.addEventListener('resize', makegraph1());
-                //d3.select(window).on('resize', );
+                axios
+                     .get(`/api/financials`, {
+                     params: { Symbol: symbol },
+                  })
+               .then(function(response) {
+                  data = response.data.analytics;
+                  window.addEventListener('resize', makegraph1());
+                  });
                 d3.selectAll("#rect1").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text1").attr("fill", "white")
              });
@@ -409,7 +436,14 @@ function LineChart(props) {
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
-                window.addEventListener('resize', makegraph2());
+                axios
+                     .get(`/api/financials`, {
+                     params: { Symbol: symbol },
+                  })
+               .then(function(response) {
+                  data = response.data.analytics;
+                  window.addEventListener('resize', makegraph2());
+                  });
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });
@@ -443,7 +477,14 @@ function LineChart(props) {
                 if(d3.selectAll("#rect1").attr("fill") === "rgb(9, 141, 77)"){
                    d3.selectAll("#rect1").attr("fill", "black")
                 }
-                window.addEventListener('resize', makegraph2());
+                axios
+                     .get(`/api/financials`, {
+                     params: { Symbol: symbol },
+                  })
+               .then(function(response) {
+                  data = response.data.analytics;
+                  window.addEventListener('resize', makegraph2());
+                  });
                 d3.selectAll("#rect2").attr("fill", "rgb(9, 141, 77)")
                 d3.selectAll("#text2").attr("fill", "white")
              });
@@ -459,7 +500,7 @@ function LineChart(props) {
                 
              })
       
-
+//Calling But Trade Modal and Sell Trade Modal
     svg
       .append("rect")
       .attr("width", 47)

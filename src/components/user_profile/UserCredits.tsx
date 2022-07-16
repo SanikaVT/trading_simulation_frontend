@@ -1,3 +1,8 @@
+/**
+ * Author: Sanika Tamhankar
+ * BannerID: B00909848
+ * Email: sn295037@dal.ca
+ */
 import React, { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Box } from "@mui/material";
@@ -11,6 +16,7 @@ import axios from "axios";
 
 function UserCreditsComp() {
   const [openCreditsModal, setOpenCreditsModal] = useState(false);
+  const userID = localStorage.getItem("userID");
 
   const openBuyCreditsModal = (event: any) => {
     setOpenCreditsModal(true);
@@ -19,11 +25,11 @@ function UserCreditsComp() {
 
   function getUserData() {
     axios
-      .get(`http://localhost:3100/api/users`, {
+      .get(`/api/users`, {
         responseType: "json",
-        params: { userID: "1" },
+        params: { userID: userID },
       })
-      .then(function(response) {
+      .then(function (response) {
         setCredits(response.data.prof.credits);
         console.log(response.data.prof);
       });

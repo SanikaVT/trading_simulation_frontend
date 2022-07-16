@@ -1,3 +1,8 @@
+/**
+ * Author: Sanika Tamhankar
+ * BannerID: B00909848
+ * Email: sn295037@dal.ca
+ */
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Box } from "@mui/material";
@@ -11,13 +16,15 @@ function UserDetailComp() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [avatar, setAvatar] = useState("");
+  const userID = localStorage.getItem("userID");
+
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/api/users`, {
+      .get(`/api/users`, {
         responseType: "json",
-        params: { userID: "1" },
+        params: { userID: userID },
       })
-      .then(function(response) {
+      .then(function (response) {
         setFname(response.data.prof.first_name + " ");
         setLname(response.data.prof.last_name);
         setEmail(response.data.prof.email);

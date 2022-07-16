@@ -1,3 +1,8 @@
+/**
+ * Author: Sanika Tamhankar
+ * BannerID: B00909848
+ * Email: sn295037@dal.ca
+ */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
@@ -37,6 +42,7 @@ function BuyCreditsModal(props: any) {
   const [cvv, setCVV] = useState(0);
   const [cvvError, setCVVError] = useState(false);
   const [confirmationModal, setOpenConfirmationModal] = useState(false);
+  const userID = localStorage.getItem("userID");
   const handleClickCreditModalClose = () => {
     props.openModal(false);
   };
@@ -63,8 +69,8 @@ function BuyCreditsModal(props: any) {
   }
   function postUserData() {
     axios
-      .post(`http://localhost:3100/api/users`, {
-        userID: "1",
+      .post(`/api/users`, {
+        userID: userID,
         credits: Number(cred),
       })
       .then((res) => {});
@@ -72,9 +78,9 @@ function BuyCreditsModal(props: any) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/api/users`, {
+      .get(`/api/users`, {
         responseType: "json",
-        params: { userID: "1" },
+        params: { userID: userID },
       })
       .then(function(response) {
         setCredits(response.data.prof.credits);

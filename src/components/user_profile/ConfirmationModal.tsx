@@ -1,3 +1,8 @@
+/**
+ * Author: Sanika Tamhankar
+ * BannerID: B00909848
+ * Email: sn295037@dal.ca
+ */
 import React from "react";
 import styled from "styled-components";
 import Box from "@mui/material/Box";

@@ -1,14 +1,15 @@
-
+//author: qiwei sun
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AlertDialog from './AlertDialog';
 
+// Advisor class 
 const Advisor = (props: any) => {
     const params = useParams()
-    const userId = params.userID;
-    const navigate = useNavigate();
+    const userId = params.id;
 
+    // advisor information
     interface characterData {
         id: number;
         title: string,
@@ -17,19 +18,24 @@ const Advisor = (props: any) => {
         picture: string,
         email: string
     }
+
+    //get advisor data when first time load the page
     const [data, setData] = useState<characterData>(Object)
     useEffect(() => { fetchData() }, [])
     const fetchData = () => {
-        axios.get('https://tutorial4-api.herokuapp.com/api/users/' + userId).then((result) => {
-            setData(result.data.data)
+
+        axios.get('/api/advisor/' + userId).then((result) => {
+            setData(result.data.advisor)
         }).catch((err) => {
-            console.log("something went wrong");
+            console.log('error')
+            console.log(err);
         })
     }
 
+    //render the componnent
     return (
-        <><div  key={data.id} >
-            <img  src={data.picture}></img>
+        <><div key={data.email} >
+            <img src={data.picture}></img>
             <div >
                 <p>{data.title}</p>
                 <p>{data.firstName} {data.lastName}</p>

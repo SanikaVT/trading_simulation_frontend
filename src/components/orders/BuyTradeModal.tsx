@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+/**
+ * Author: Udit Gandhi
+ * BannerID: B00889579
+ * Email: udit.gandhi@dal.ca
+ */
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
@@ -10,6 +15,7 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import axios from "axios";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,6 +30,7 @@ const style = {
   p: 4,
 };
 
+//It will only accept number as input to the buy quantity
 const acceptNumbers = (event: any) => {
   let charCode = event.keyCode;
   if (
@@ -34,11 +41,46 @@ const acceptNumbers = (event: any) => {
 };
 
 function BuyTradeModal(props: any) {
+  //Gets the credits available to the user from the api.
+  useEffect(() => {
+    axios
+      .get(`/api/users/credits`, {
+        responseType: "json",
+        params: { userID: localStorage.getItem("userID") },
+      })
+      .then(function (response) {
+        console.log(response.data.credits);
+        setMarginAvailable(response.data.credits);
+        if (props.stockData.price > response.data.credits) {
+          setMarginError(true);
+        } else {
+          setMarginError(false);
+        }
+      });
+  }, []);
+
+    //Places an order using the backend api and updates in the mongo
+  let placeOrder = (event: any) => {
+    axios
+      .post("/api/order", {
+        symbol: props.stockData.symbol,
+        quantity: quantity,
+        price: props.stockData.price,
+        orderType: "Buy",
+        userId: localStorage.getItem("userID"),
+        currentMargin: marginAvailable,
+      })
+      .then((res) => {
+        navigate("/orderstatus");
+      });
+  };
+
+    //States related to the quantity of the stocks and errors.
   const [quantity, setQuantity] = useState(1);
   const [marginRequired, setMarginRequired] = useState(props.stockData.price);
   const [quantityError, setQuantityError] = useState(false);
   const [marginError, setMarginError] = useState(false);
-  const marginAvailable = 10000;
+  const [marginAvailable, setMarginAvailable] = useState(0);
   const navigate = useNavigate();
   return (
     <>
@@ -128,9 +170,7 @@ function BuyTradeModal(props: any) {
                 disabled={quantityError || marginError}
                 variant="contained"
                 color="success"
-                onClick={() => {
-                  navigate("/orderstatus");
-                }}
+                onClick={placeOrder}
                 style={{ backgroundColor: "#4CAF50", color: "white" }}
               >
                 Buy

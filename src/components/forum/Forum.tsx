@@ -1,3 +1,8 @@
+/**
+ * Author: Sanika Tamhankar
+ * BannerID: B00909848
+ * Email: sn295037@dal.ca
+ */
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -14,44 +19,85 @@ import axios from "axios";
 
 const initialCommentsList: IComment[] = [
   {
-    analyticsID: "1",
+    userID: "1",
+    symbol: "ABA",
     commentID: "2",
     comment: "Hello",
     creation_date: "01-03-2022",
   },
-  {
-    analyticsID: "1",
-    commentID: "2",
-    comment: "Hi",
-    creation_date: "01-03-2022",
-  },
 ];
 //Code Reference: https://codesandbox.io/s/kqv1w?file=/src/ChartFirst.tsx:269-273
-function ForumComp() {
+function ForumComp(props:any) {
   const [commentData, setCommentData] = useState(initialCommentsList);
   const [commentSet, setComment] = useState("");
   const [loading, setLoading] = useState("");
+  const user_ID = localStorage.getItem("userID");
+  const [chartData, setChartData] = useState({
+    labels: ["Bought", "Sold"],
+    datasets: [
+      {
+        data: [0, 0],
+        backgroundColor: ["#4CAF50", "#f55723"],
+      },
+    ],
+  });
+  const [ordersData, setOrdersData] = useState([{ symbol: "", orderType: "" }]);
+  var buyCount = 10;
+  var sellCount = 10;
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/api/forum/`, {
+      .get(`/api/forum/`, {
         responseType: "json",
-        params: { analyticsID: "1" },
+        params: { symbol: props.symbol },
       })
-      .then(function(response) {
+      .then(function (response) {
         setCommentData(response.data.comments);
-        console.log(response.data.comments);
+        // console.log(response.data.comments);
+      });
+    axios
+      .get(`/api/order/`, {
+        responseType: "json",
+        params: { symbol: props.symbol },
+      })
+      .then(function (response) {
+        setOrdersData(response.data.orders);
+        // console.log(response.data.orders);
+        calculateChartResult();
       });
   }, [loading]);
 
+  function calculateChartResult() {
+    for (var i = 0; i < ordersData.length; i++) {
+      let obj = ordersData[i];
+      if (obj.symbol === props.symbol) {
+        if (obj.orderType === "Buy") {
+          buyCount += 1;
+        } else {
+          sellCount += 1;
+        }
+      }
+    }
+    setChartData({
+      labels: ["Bought", "Sold"],
+      datasets: [
+        {
+          data: [buyCount, sellCount],
+          backgroundColor: ["#4CAF50", "#f55723"],
+        },
+      ],
+    });
+  }
   function postComment() {
     axios
-      .post(`http://localhost:3100/api/forum/`, {
-        analyticsID: "1",
+      .post(`/api/forum/`, {
+        userID: user_ID,
+        symbol: props.symbol,
         comment: commentSet,
       })
       .then((res) => {
         // notify;
+        setComment("");
         console.log(res.data);
         setLoading(Math.random().toString());
       });
@@ -85,7 +131,7 @@ function ForumComp() {
       </Grid>
       <Grid container component={Paper} style={chatSection}>
         <Grid item md={3} xs={12} style={borderRight500} padding={4}>
-          <PieChartComponent />
+          <PieChartComponent chartData={chartData} />
         </Grid>
         <Grid item md={9} xs={12}>
           <Grid padding={2}>
@@ -98,7 +144,8 @@ function ForumComp() {
                   creation_date={formatDate(myVariable.creation_date)}
                   comment={myVariable.comment}
                   commentID={myVariable.commentID}
-                  analyticsID={myVariable.analyticsID}
+                  symbol={myVariable.symbol}
+                  userID={myVariable.userID}
                   rerender={setLoading}
                 />
               );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -16,33 +16,16 @@ import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
-interface StockSymbol {
-  symbol: String;
-  currency: String;
-  price: Number;
-  previousClose: Number;
-  open: Number;
-  high: Number;
-  low: Number;
-}
-
-const stockData: StockSymbol = {
-  symbol: "APPL",
-  currency: "USD",
-  price: 261.74,
-  previousClose: 259.45,
-  open: 261.07,
-  high: 263.31,
-  low: 260.68,
-};
+import axios from "axios";
 
 function StockCard(props: any) {
   const navigate = useNavigate();
   document.body.style.overflow = "scroll";
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
+  const [sellModalInActive, setSellModalInActive] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   const openBuyTradeModal = (event: any) => {
     setOpenBuyModal(true);
@@ -54,25 +37,53 @@ function StockCard(props: any) {
 
   const handleStarClick = () => {
     setIsActive((current) => !current);
+    if (props.fav) {
+      props.delFav(props.stock);
+      setIsFadingOut(false);
+      return;
+    }
 
-    if (!isActive) {
-      props.fun();
+    if (!props.stock.isActive) {
+      props.fun(props.stock);
+    } else {
+      props.delFav(props.stock);
     }
   };
 
+  //Author: Udit Gandhi
+  useEffect(() => {
+    axios
+      .get(`/api/order/stockcount`, {
+        responseType: "json",
+        params: {
+          userId: localStorage.getItem("userID"),
+          symbol: props.stock.symbol,
+        },
+      })
+      .then(function(response) {
+        if (response.data.count === 0) {
+          setSellModalInActive(true);
+        } else {
+          setSellModalInActive(false);
+        }
+      });
+  }, [props.stock.symbol]);
+
   return (
+    //Author: Udit Gandhi
     <>
       <BuyTradeModal
         openModal={openBuyModal}
         setOpenModal={setOpenBuyModal}
-        stockData={stockData}
+        stockData={props.stock}
       />
       <SellTradeModal
         openModal={openSellModal}
         setOpenModal={setOpenSellModal}
-        stockData={stockData}
+        stockData={props.stock}
       />
       <Card
+        // className={isFadingOut ? "stock-fadeout" : ""}
         sx={{ maxWidth: 300 }}
         style={{
           backgroundColor: "#b9b4b45c",
@@ -120,6 +131,7 @@ function StockCard(props: any) {
           <CardActions disableSpacing>
             <div style={{ display: "flex" }}>
               <Button
+                className="shimmer"
                 size="small"
                 onClick={openBuyTradeModal}
                 style={{
@@ -134,7 +146,8 @@ function StockCard(props: any) {
               </Button>
 
               <Button
-                className="btn"
+                disabled={sellModalInActive}
+                className="btn shimmer"
                 size="small"
                 onClick={openSellTradeModal}
                 style={{
@@ -148,11 +161,21 @@ function StockCard(props: any) {
               </Button>
 
               <Tooltip title="Click to add to/remove it from favorite" arrow>
-                <IconButton aria-label="favorite" onClick={handleStarClick}>
+                <IconButton
+                  aria-label="favorite"
+                  onClick={
+                    // fadeOut(setTimeout(() => handleStarClick(), 300))
+                    handleStarClick
+                  }
+                >
                   <StarIcon
                     style={{
                       padding: "1px",
-                      color: isActive ? "orange" : "black",
+                      color: props.fav
+                        ? "orange "
+                        : props.stock.isActive
+                        ? "orange"
+                        : "black",
                     }}
                   />
                 </IconButton>
@@ -161,7 +184,11 @@ function StockCard(props: any) {
               <Tooltip title="Go to Analytics" arrow>
                 <IconButton
                   aria-label="graph"
-                  onClick={() => navigate("/analytics")}
+                  onClick={() =>
+                    navigate("/analytics", {
+                      state: { stock: props.stock, width: 150, height: 450 },
+                    })
+                  }
                 >
                   <AnalyticsIcon
                     style={{

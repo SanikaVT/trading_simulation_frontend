@@ -1,3 +1,8 @@
+/**
+ * Author: Sanika Tamhankar
+ * BannerID: B00909848
+ * Email: sn295037@dal.ca
+ */
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
@@ -11,9 +16,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { TextField } from "@mui/material";
 import { Autocomplete } from "@mui/material";
 import axios from "axios";
-const options = ["High", "Medium", "Low"];
+const options = ["High", "Low"];
 
 function UserInfoComp() {
+  const userID = localStorage.getItem("userID");
   const [openAddrDialog, setAddrDOpen] = React.useState(false);
 
   const handleClickAddrOpen = () => {
@@ -46,11 +52,11 @@ function UserInfoComp() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/api/users`, {
+      .get(`/api/users`, {
         responseType: "json",
-        params: { userID: "1" },
+        params: { userID: userID },
       })
-      .then(function(response) {
+      .then(function (response) {
         setAddress(response.data.prof.address);
         setAddress2(response.data.prof.address);
         setAccount(response.data.prof.account);
@@ -63,8 +69,8 @@ function UserInfoComp() {
 
   function postUserData() {
     axios
-      .post(`http://localhost:3100/api/users`, {
-        userID: "1",
+      .post(`/api/users`, {
+        userID: userID,
         address: address2,
         account: account2,
         risk_appetite: risk_appetite2,
