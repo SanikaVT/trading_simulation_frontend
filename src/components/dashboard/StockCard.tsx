@@ -1,16 +1,4 @@
-/**
- * Author: Dharmik Hiteshkumar Soni
- * BannerID: B00867641
- * Email: dh657288@dal.ca
- */
-
-/**
- * This component represents each stock present on the dashboard
- * There are multiple components present on this card and I have used material UI to render some of the events
- * Tooltip is like for user guidence when user hover on some components they will be shown suggestion what this component is for.
- */
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -28,36 +16,14 @@ import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
-
-/**
- * inteface defined below is for strict type checking because we have used typescript
- */
-interface StockSymbol {
-  symbol: String;
-  currency: String;
-  price: Number;
-  previousClose: Number;
-  open: Number;
-  high: Number;
-  low: Number;
-}
-
-const stockData: StockSymbol = {
-  symbol: "CBDU",
-  currency: "$",
-  price: 262.74,
-  previousClose: 259.45,
-  open: 261.07,
-  high: 263.31,
-  low: 260.68,
-};
+import axios from "axios";
 
 function StockCard(props: any) {
   const navigate = useNavigate();
   document.body.style.overflow = "scroll";
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSellModal, setOpenSellModal] = useState(false);
+  const [sellModalInActive, setSellModalInActive] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
@@ -84,7 +50,27 @@ function StockCard(props: any) {
     }
   };
 
+  //Author: Udit Gandhi
+  useEffect(() => {
+    axios
+      .get(`/api/order/stockcount`, {
+        responseType: "json",
+        params: {
+          userId: localStorage.getItem("userID"),
+          symbol: props.stock.symbol,
+        },
+      })
+      .then(function(response) {
+        if (response.data.count === 0) {
+          setSellModalInActive(true);
+        } else {
+          setSellModalInActive(false);
+        }
+      });
+  }, [props.stock.symbol]);
+
   return (
+    //Author: Udit Gandhi
     <>
       <BuyTradeModal
         openModal={openBuyModal}
@@ -160,6 +146,7 @@ function StockCard(props: any) {
               </Button>
 
               <Button
+                disabled={sellModalInActive}
                 className="btn shimmer"
                 size="small"
                 onClick={openSellTradeModal}
