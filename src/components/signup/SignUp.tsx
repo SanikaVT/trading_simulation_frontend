@@ -1,4 +1,4 @@
-// @author Dharmay Dineshchandra Sureja 
+// @author Dharmay Dineshchandra Sureja
 // Banner id (B00904061)
 // email : dh276903@dal.ca
 // this component is responsible to register user
@@ -17,7 +17,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
+import { Stack } from "@mui/material";
 export default function SignUp() {
   const [open, setOpen] = React.useState(false);
   const initialValues = {
@@ -53,7 +54,10 @@ export default function SignUp() {
     setFormError(validate(formValue));
     if (errori === 0) {
       //encrypt password and save values to local storage
-      const hashedPassword = bcrypt.hashSync(formValue.password, '$2a$10$ZpUkUuWbmNB6uwSNyxNSmu')
+      const hashedPassword = bcrypt.hashSync(
+        formValue.password,
+        "$2a$10$ZpUkUuWbmNB6uwSNyxNSmu"
+      );
       localStorage.setItem("email", formValue.email);
       localStorage.setItem("fname", formValue.fname);
       localStorage.setItem("lname", formValue.lname);
@@ -138,185 +142,204 @@ export default function SignUp() {
 
   const card_1 = {
     backgroundColor: "white",
-    borderRadius: "10px",
-    borderWidth: 1,
-    margin: "10px",
+    border: "none",
     padding: "10px",
   };
   const handleClose = () => {
     setOpen(false);
   };
   return (
-    <Container component="main" maxWidth="xs">
-      <Card variant="outlined" style={card_1}>
-        <Box
-          sx={{
-            marginTop: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <h2>Welcome to DTrade</h2>
-          <Typography fontSize={25}>Sign Up</Typography>
-          <br />
-
-          <Box>
-            <form onSubmit={handleSubmit}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="First Name"
-                    name="fname"
-                    required
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                    value={formValue.fname}
-                    error={formError.fname}
-                    // sx={{ marginBottom:1, marginTop:1}}
-                  />
-                  <FormHelperText>{formError.fname}</FormHelperText>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="Last Name"
-                    name="lname"
-                    required
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                    value={formValue.lname}
-                    error={formError.lname}
-                    // sx={{ marginBottom:1, marginTop:1}}
-                  />
-                  <FormHelperText>{formError.lname}</FormHelperText>
-                </Grid>
-              </Grid>
-
-              <TextField
-                fullWidth
-                label="Email Address"
-                name="email"
-                required
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-                value={formValue.email}
-                error={formError.email}
-                type="email"
-                sx={{ marginBottom: 1, marginTop: 1 }}
-              />
-              <FormHelperText>{formError.email}</FormHelperText>
-              <TextField
-                fullWidth
-                label="Password"
-                name="password"
-                type={"password"}
-                required
-                sx={{ marginBottom: 1 }}
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-                value={formValue.password}
-                error={formError.password}
-              />
-              <FormHelperText>{formError.password}</FormHelperText>
-
-              <TextField
-                fullWidth
-                label="Confirm Password"
-                name="confpassword"
-                type={"password"}
-                required
-                sx={{ marginTop: 1, marginBottom: 1 }}
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-                value={formValue.confpassword}
-                error={formError.confpassword}
-              />
-              <FormHelperText>{formError.confpassword}</FormHelperText>
-
-              <TextField
-                fullWidth
-                required
-                label="Phone Number"
-                name="phoneno"
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-                value={formValue.phoneno}
-                error={formError.phoneno}
-                sx={{ marginTop: 1, marginBottom: 1 }}
-              />
-              <FormHelperText>{formError.phoneno}</FormHelperText>
-              <TextField
-                fullWidth
-                required
-                label="Address"
-                multiline
-                name={"address"}
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-                value={formValue.address}
-                sx={{ marginTop: 1, marginBottom: 1 }}
-              />
-
-              <TextField
-                fullWidth
-                required
-                label="Account number"
-                multiline
-                name={"account"}
-                type="number"
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-                value={formValue.account}
-                error={formError.account}
-                sx={{ marginTop: 1, marginBottom: 1 }}
-              />
-              <FormHelperText>{formError.account}</FormHelperText>
-
-              <Button
-                sx={{ marginTop: 1 }}
-                fullWidth
-                variant="contained"
-                type={"submit"}
-              >
-                Next
-              </Button>
-            </form>
-          </Box>
-        </Box>
-      </Card>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+    <Grid container alignItems="stretch">
+      <Grid className="left-pane" item md={7} xs={12}>
+        <Stack>
+          <img
+            src={"./home-logo.webp"}
+            style={{ height: "100vh" }}
+            alt="trader"
+          />
+        </Stack>
+      </Grid>
+      <Grid
+        className="right-pane"
+        item
+        md={5}
+        xs={12}
+        style={{ padding: "5rem" }}
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Do you confirm all details?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            By Clicking Submit you will be redirected to Risk Appetite
-            questionnaire.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={gotpage} autoFocus>
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Stack>
+          <Container component="main" maxWidth="xs">
+            <Card variant="outlined" style={card_1}>
+              <Box
+                sx={{
+                  marginTop: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <h2>Welcome to DTrade</h2>
+                <Typography fontSize={25} style={{color:'bolder'}}>Sign Up</Typography>
+                <br />
 
-      <Card variant="outlined" style={card_1}>
-        <Button
-          fullWidth
-          variant="outlined"
-          type={"submit"}
-          onClick={gotosignin}
-        >
-          Sign-in
-        </Button>
-      </Card>
-    </Container>
+                <Box>
+                  <form onSubmit={handleSubmit}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          label="First Name"
+                          name="fname"
+                          required
+                          onChange={handleChange}
+                          onSubmit={handleSubmit}
+                          value={formValue.fname}
+                          error={formError.fname}
+                          // sx={{ marginBottom:1, marginTop:1}}
+                        />
+                        <FormHelperText>{formError.fname}</FormHelperText>
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          label="Last Name"
+                          name="lname"
+                          required
+                          onChange={handleChange}
+                          onSubmit={handleSubmit}
+                          value={formValue.lname}
+                          error={formError.lname}
+                          // sx={{ marginBottom:1, marginTop:1}}
+                        />
+                        <FormHelperText>{formError.lname}</FormHelperText>
+                      </Grid>
+                    </Grid>
+
+                    <TextField
+                      fullWidth
+                      label="Email Address"
+                      name="email"
+                      required
+                      onChange={handleChange}
+                      onSubmit={handleSubmit}
+                      value={formValue.email}
+                      error={formError.email}
+                      type="email"
+                      sx={{ marginBottom: 1, marginTop: 1 }}
+                    />
+                    <FormHelperText>{formError.email}</FormHelperText>
+                    <TextField
+                      fullWidth
+                      label="Password"
+                      name="password"
+                      type={"password"}
+                      required
+                      sx={{ marginBottom: 1 }}
+                      onChange={handleChange}
+                      onSubmit={handleSubmit}
+                      value={formValue.password}
+                      error={formError.password}
+                    />
+                    <FormHelperText>{formError.password}</FormHelperText>
+
+                    <TextField
+                      fullWidth
+                      label="Confirm Password"
+                      name="confpassword"
+                      type={"password"}
+                      required
+                      sx={{ marginTop: 1, marginBottom: 1 }}
+                      onChange={handleChange}
+                      onSubmit={handleSubmit}
+                      value={formValue.confpassword}
+                      error={formError.confpassword}
+                    />
+                    <FormHelperText>{formError.confpassword}</FormHelperText>
+
+                    <TextField
+                      fullWidth
+                      required
+                      label="Phone Number"
+                      name="phoneno"
+                      onChange={handleChange}
+                      onSubmit={handleSubmit}
+                      value={formValue.phoneno}
+                      error={formError.phoneno}
+                      sx={{ marginTop: 1, marginBottom: 1 }}
+                    />
+                    <FormHelperText>{formError.phoneno}</FormHelperText>
+                    <TextField
+                      fullWidth
+                      required
+                      label="Address"
+                      multiline
+                      name={"address"}
+                      onChange={handleChange}
+                      onSubmit={handleSubmit}
+                      value={formValue.address}
+                      sx={{ marginTop: 1, marginBottom: 1 }}
+                    />
+
+                    <TextField
+                      fullWidth
+                      required
+                      label="Account number"
+                      multiline
+                      name={"account"}
+                      type="number"
+                      onChange={handleChange}
+                      onSubmit={handleSubmit}
+                      value={formValue.account}
+                      error={formError.account}
+                      sx={{ marginTop: 1, marginBottom: 1 }}
+                    />
+                    <FormHelperText>{formError.account}</FormHelperText>
+
+                    <Button
+                      sx={{ marginTop: 1 }}
+                      fullWidth
+                      variant="contained"
+                      type={"submit"}
+                    >
+                      Next
+                    </Button>
+                  </form>
+                </Box>
+              </Box>
+            </Card>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Do you confirm all details?"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  By Clicking Submit you will be redirected to Risk Appetite
+                  questionnaire.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={gotpage} autoFocus>
+                  Submit
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+            <Card variant="outlined" style={card_1}>
+              <Button
+                fullWidth
+                variant="outlined"
+                type={"submit"}
+                onClick={gotosignin}
+              >
+                Sign-in
+              </Button>
+            </Card>
+          </Container>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 }

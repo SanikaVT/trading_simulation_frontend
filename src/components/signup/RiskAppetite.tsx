@@ -1,12 +1,14 @@
-// @author Dharmay Dineshchandra Sureja 
+// @author Dharmay Dineshchandra Sureja
 // Banner id (B00904061)
 // email : dh276903@dal.ca
 // this component is responsible to ask riskappetite questions.
 import * as React from "react";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { Stack } from "@mui/material";
 import { FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { RadioGroup, Radio } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -42,8 +44,7 @@ export default function RiskAppetite() {
     if (calculaterisk1 < 2) {
       // @ts-ignore
       setCalculateRisk("Low");
-    } 
-     else {
+    } else {
       // @ts-ignore
       setCalculateRisk("High");
     }
@@ -62,7 +63,7 @@ export default function RiskAppetite() {
       account: localStorage.getItem("account"),
       risk_appetite: calculaterisk,
     };
-// api call to store user information and signup
+    // api call to store user information and signup
     console.log(form_data);
     axios
       .post("/api/register", form_data)
@@ -76,7 +77,7 @@ export default function RiskAppetite() {
           alert("Email Already exists!");
         }
       })
-      .catch(function (error) {
+      .catch(function(error) {
         alert("Email already exists!");
         console.log(error);
         console.log("Exception occured");
@@ -91,137 +92,168 @@ export default function RiskAppetite() {
 
   const card_1 = {
     backgroundColor: "white",
-    borderRadius: "10px",
-    borderWidth: 1,
-    margin: "10px",
+    border: "none",
     padding: "10px",
   };
   return (
-    <Container component="main" maxWidth="xs">
-      <Card variant="outlined" style={card_1}>
-        <Box
-          sx={{
-            marginTop: 2,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography fontSize={25}>Risk Appetite</Typography>
-          <br />
-
-          <Box>
-            <FormControl onSubmit={handleSubmit}>
-              <FormLabel id="demo-radio-buttons-group-label">
-                Determining an appropriate investment strategy involves
-                balancing potential risk against expected returns. When making
-                investment decisions, do you give more weight to potential
-                losses or potential gains?
-              </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="1"
-                name="question1"
-                onChange={handleChange}
-                value={formValue.question1}
-              >
-                <FormControlLabel
-                  value="1"
-                  control={<Radio />}
-                  label="Potential gains only"
-                />
-                <FormControlLabel
-                  value="3"
-                  control={<Radio />}
-                  label="Potential losses only"
-                />
-              </RadioGroup>
-              <br />
-              <FormLabel id="demo-radio-buttons-group-label">
-                How would you characterize your willingness to accept investment
-                risk in order to achieve your investment objectives?
-              </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="1"
-                name="question2"
-                onChange={handleChange}
-                value={formValue.question2}
-              >
-                <FormControlLabel value="1" control={<Radio />} label="Low" />
-                <FormControlLabel
-                  value="2"
-                  control={<Radio />}
-                  label="Average"
-                />
-                <FormControlLabel value="3" control={<Radio />} label="High" />
-              </RadioGroup>
-              <br />
-              <FormLabel id="demo-radio-buttons-group-label">
-                How easily do you adapt to unexpected negative financial change?
-              </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="3"
-                name="question3"
-                onChange={handleChange}
-                value={formValue.question3}
-              >
-                <FormControlLabel
-                  value="3"
-                  control={<Radio />}
-                  label="I adapt easily"
-                />
-                <FormControlLabel
-                  value="2"
-                  control={<Radio />}
-                  label="Neither easily nor uneasily"
-                />
-                <FormControlLabel
-                  value="1"
-                  control={<Radio />}
-                  label="I do not adapt easily"
-                />
-              </RadioGroup>
-
-              <Button
-                fullWidth
-                variant="contained"
-                type={"submit"}
-                onClick={handleSubmit}
-              >
-                Submit
-              </Button>
-            </FormControl>
-
-            {/*</form>*/}
-          </Box>
-        </Box>
-      </Card>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+    <Grid container alignItems="stretch">
+      <Grid
+        className="left-pane"
+        item
+        md={8}
+        xs={12}
+        
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Do you confirm all details?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            By Clicking Submit Your account will be created.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={gotpage} autoFocus>
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Container>
+        <Stack>
+          <img src={"./home-logo.webp"} style={{height:'100vh'}} alt="trader" />
+        </Stack>
+      </Grid>
+      <Grid
+        className="right-pane"
+        item
+        md={4}
+        xs={12}
+        style={{ padding: "5rem" }}
+      >
+        <Stack>
+          <Container component="main" maxWidth="xs">
+            <Card variant="outlined" style={card_1}>
+              <Box
+                sx={{
+                  marginTop: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Typography fontSize={25}>Risk Appetite</Typography>
+                <br />
+
+                <Box>
+                  <FormControl onSubmit={handleSubmit}>
+                    <FormLabel id="demo-radio-buttons-group-label">
+                      Determining an appropriate investment strategy involves
+                      balancing potential risk against expected returns. When
+                      making investment decisions, do you give more weight to
+                      potential losses or potential gains?
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      defaultValue="1"
+                      name="question1"
+                      onChange={handleChange}
+                      value={formValue.question1}
+                    >
+                      <FormControlLabel
+                        value="1"
+                        control={<Radio />}
+                        label="Potential gains only"
+                      />
+                      <FormControlLabel
+                        value="3"
+                        control={<Radio />}
+                        label="Potential losses only"
+                      />
+                    </RadioGroup>
+                    <br />
+                    <FormLabel id="demo-radio-buttons-group-label">
+                      How would you characterize your willingness to accept
+                      investment risk in order to achieve your investment
+                      objectives?
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      defaultValue="1"
+                      name="question2"
+                      onChange={handleChange}
+                      value={formValue.question2}
+                    >
+                      <FormControlLabel
+                        value="1"
+                        control={<Radio />}
+                        label="Low"
+                      />
+                      <FormControlLabel
+                        value="2"
+                        control={<Radio />}
+                        label="Average"
+                      />
+                      <FormControlLabel
+                        value="3"
+                        control={<Radio />}
+                        label="High"
+                      />
+                    </RadioGroup>
+                    <br />
+                    <FormLabel id="demo-radio-buttons-group-label">
+                      How easily do you adapt to unexpected negative financial
+                      change?
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      defaultValue="3"
+                      name="question3"
+                      onChange={handleChange}
+                      value={formValue.question3}
+                    >
+                      <FormControlLabel
+                        value="3"
+                        control={<Radio />}
+                        label="I adapt easily"
+                      />
+                      <FormControlLabel
+                        value="2"
+                        control={<Radio />}
+                        label="Neither easily nor uneasily"
+                      />
+                      <FormControlLabel
+                        value="1"
+                        control={<Radio />}
+                        label="I do not adapt easily"
+                      />
+                    </RadioGroup>
+
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      type={"submit"}
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </Button>
+                  </FormControl>
+
+                  {/*</form>*/}
+                </Box>
+              </Box>
+            </Card>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Do you confirm all details?"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  By Clicking Submit Your account will be created.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={gotpage} autoFocus>
+                  Submit
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Container>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 }

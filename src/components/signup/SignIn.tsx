@@ -1,4 +1,4 @@
-// @author Dharmay Dineshchandra Sureja 
+// @author Dharmay Dineshchandra Sureja
 // Banner id (B00904061)
 // email : dh276903@dal.ca
 // this component is responsible to signin user
@@ -11,12 +11,46 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Divider } from "@mui/material";
+import { Divider, Stack } from "@mui/material";
 import Card from "@mui/material/Card";
 import FormHelperText from "@mui/material/FormHelperText";
+import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import axios from "axios";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
+import { ClassNames } from "@emotion/react";
+
+const useStyles = makeStyles({
+  root: {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "black",
+    },
+    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "black",
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "black",
+    },
+    "& .MuiOutlinedInput-input": {
+      color: "black",
+    },
+    "&:hover .MuiOutlinedInput-input": {
+      color: "black",
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
+      color: "black",
+    },
+    "& .MuiInputLabel-outlined": {
+      color: "black",
+    },
+    "&:hover .MuiInputLabel-outlined": {
+      color: "black",
+    },
+    "& .MuiInputLabel-outlined.Mui-focused": {
+      color: "black",
+    },
+  },
+});
 
 export default function SignIn() {
   // const Centeral ={
@@ -31,10 +65,8 @@ export default function SignIn() {
   };
   const card_1 = {
     backgroundColor: "white",
-    borderRadius: "10px",
-    borderWidth: 1,
-    margin: "10px",
-    padding: "10px",
+    color: "black",
+    border: "none",
   };
 
   const initialValues = { email: "", password: "" };
@@ -55,13 +87,16 @@ export default function SignIn() {
     setFormError(validate(formValue));
     if (errori === 0) {
       console.log("done");
-      const hashedPassword = bcrypt.hashSync(formValue.password, '$2a$10$ZpUkUuWbmNB6uwSNyxNSmu');
-      console.log("hased pwd is ",hashedPassword);
+      const hashedPassword = bcrypt.hashSync(
+        formValue.password,
+        "$2a$10$ZpUkUuWbmNB6uwSNyxNSmu"
+      );
+      console.log("hased pwd is ", hashedPassword);
       const form_data = {
         email: formValue.email,
         password: hashedPassword,
       };
-      
+
       // api call to check login credentials
       axios
         .post("/api/register/login", form_data)
@@ -79,7 +114,7 @@ export default function SignIn() {
             alert("Email or password is wrong!");
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           alert("Email or password is wrong!");
           console.log("Exception occured");
         });
@@ -91,7 +126,7 @@ export default function SignIn() {
     }
   };
 
-//validate user form input
+  //validate user form input
   const validate = (values: { password: any; email: any }) => {
     const emailreg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const errors = {
@@ -117,72 +152,106 @@ export default function SignIn() {
     return errors;
   };
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <Card variant="outlined" style={card_1}>
-        <Box
-          sx={{
-            marginTop: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <h2>Welcome to DTrade</h2>
-          <Avatar sx={{ m: 1, bgcolor: "darkorange" }}></Avatar>
-          <Typography fontSize={25}>Sign in</Typography>
-          <br />
+  const classes = useStyles();
 
-          <Box sx={{ width: 1 }}>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                fullWidth
-                label="Email Address"
-                type="email"
-                name="email"
-                onChange={handleChange}
-                value={formValue.email}
-                error={formError.email}
-                required
-              />
-              <br></br>
-              <br></br>
-              <TextField
-                fullWidth
-                name="password"
-                id="password"
-                label="Password"
-                type="password"
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-                value={formValue.password}
-                error={formError.password}
-                required
-              />
-              <FormHelperText>{formError.password}</FormHelperText>
-              {/*<br></br>*/}
-              <br></br>
-              <Button type="submit" fullWidth variant="contained">
-                Sign In
-              </Button>
-            </form>
-            <Grid container alignItems="center" justifyContent="center">
-              <Grid item>
-                <Link variant="body2" href={"/forgotpasswordotp"}>
-                  Forgot password?
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-          <Divider orientation={"horizontal"} flexItem style={Color} />
-          <Box>
-            <br></br>
-            <Button variant="contained" color="success" href={"/signup"}>
-              Sign Up{" "}
-            </Button>
-          </Box>
-        </Box>
-      </Card>
-    </Container>
+  return (
+    <Grid container alignItems="stretch">
+      <Grid className="left-pane" item md={7} xs={12}>
+        <Stack>
+          <img
+            src={"./home-logo.webp"}
+            style={{ height: "100vh" }}
+            alt="trader"
+          />
+        </Stack>
+      </Grid>
+      <Grid
+        className="right-pane"
+        item
+        md={5}
+        xs={12}
+        style={{ padding: "5rem" }}
+      >
+        <Stack>
+          <Container component="main" maxWidth="lg">
+            <Card variant="outlined" style={card_1}>
+              <Box
+                sx={{
+                  marginTop: 4,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <h2>Welcome to DTrade</h2>
+                <Avatar sx={{ m: 1, bgcolor: "darkorange" }}></Avatar>
+                <Typography fontSize={25}>Sign in</Typography>
+                <br />
+
+                <Box sx={{ width: 1 }}>
+                  <form onSubmit={handleSubmit}>
+                    <TextField
+                      fullWidth
+                      className={classes.root}
+                      label="Email Address"
+                      type="email"
+                      name="email"
+                      onChange={handleChange}
+                      value={formValue.email}
+                      error={formError.email}
+                      required
+                    />
+                    <br></br>
+                    <br></br>
+                    <TextField
+                      fullWidth
+                      className={classes.root}
+                      name="password"
+                      id="password"
+                      label="Password"
+                      type="password"
+                      onChange={handleChange}
+                      onSubmit={handleSubmit}
+                      value={formValue.password}
+                      error={formError.password}
+                      required
+                    />
+                    <FormHelperText>{formError.password}</FormHelperText>
+                    {/*<br></br>*/}
+                    <br></br>
+                    <Button type="submit" fullWidth variant="contained">
+                      Sign In
+                    </Button>
+                  </form>
+                  <Grid
+                    container
+                    alignItems="center"
+                    justifyContent="center"
+                    style={{ marginTop: "1rem" }}
+                  >
+                    <Grid item>
+                      <Link
+                        variant="body1"
+                        href={"/forgotpasswordotp"}
+                        style={{ color: "black" }}
+                      >
+                        Forgot password?
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </Box>
+                <Divider orientation={"horizontal"} flexItem style={Color} />
+                <Box>
+                  <br></br>
+                  <Button variant="contained" color="success" href={"/signup"}>
+                    Sign Up{" "}
+                  </Button>
+                </Box>
+              </Box>
+            </Card>
+          </Container>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 }
