@@ -156,8 +156,8 @@ export default function SignIn() {
 
   return (
     <Grid container alignItems="stretch">
-      <Grid className="left-pane" item md={7} xs={12}>
-        <Stack>
+      <Grid className="hidden-xs" md={7} item sx={{ display: { xs: 'none', sm:'block', md:'block'} }}   >
+        <Stack> 
           <img
             src={"./home-logo.webp"}
             style={{ height: "100vh" }}
@@ -166,11 +166,11 @@ export default function SignIn() {
         </Stack>
       </Grid>
       <Grid
-        className="right-pane"
+       sm={12}
         item
         md={5}
         xs={12}
-        style={{ padding: "5rem" }}
+        sx = {{p: {xs: '0rem', md:'5rem', sm:'5rem', lm:'5rem'}}}
       >
         <Stack>
           <Container component="main" maxWidth="lg">

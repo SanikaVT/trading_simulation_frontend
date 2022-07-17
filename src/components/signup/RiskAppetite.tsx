@@ -101,8 +101,8 @@ export default function RiskAppetite() {
         className="left-pane"
         item
         md={8}
-        xs={12}
         
+        sx={{ display: { xs: 'none', sm:'block', md:'block'} }}
       >
         <Stack>
           <img src={"./home-logo.webp"} style={{height:'100vh'}} alt="trader" />
@@ -113,7 +113,7 @@ export default function RiskAppetite() {
         item
         md={4}
         xs={12}
-        style={{ padding: "5rem" }}
+        style={{ padding: "0rem" }}
       >
         <Stack>
           <Container component="main" maxWidth="xs">

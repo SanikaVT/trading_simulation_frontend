@@ -150,7 +150,7 @@ export default function SignUp() {
   };
   return (
     <Grid container alignItems="stretch">
-      <Grid className="left-pane" item md={7} xs={12}>
+      <Grid className="left-pane" item md={7} sx={{ display: { xs: 'none', sm:'block', md:'block'} }}>
         <Stack>
           <img
             src={"./home-logo.webp"}
@@ -164,7 +164,7 @@ export default function SignUp() {
         item
         md={5}
         xs={12}
-        style={{ padding: "5rem" }}
+        style={{ padding: "0rem" }}
       >
         <Stack>
           <Container component="main" maxWidth="xs">
@@ -193,6 +193,7 @@ export default function SignUp() {
                           onSubmit={handleSubmit}
                           value={formValue.fname}
                           error={formError.fname}
+                          fullWidth
                           // sx={{ marginBottom:1, marginTop:1}}
                         />
                         <FormHelperText>{formError.fname}</FormHelperText>
@@ -206,6 +207,7 @@ export default function SignUp() {
                           onSubmit={handleSubmit}
                           value={formValue.lname}
                           error={formError.lname}
+                          fullWidth
                           // sx={{ marginBottom:1, marginTop:1}}
                         />
                         <FormHelperText>{formError.lname}</FormHelperText>
