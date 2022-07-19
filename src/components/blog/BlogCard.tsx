@@ -24,10 +24,10 @@ export default function BlogCard(props: any) {
 
 
   return (
-    <Grid item xs={6} md={3} style={{display: 'flex'}} >
-      <Card sx={{  height:150, width:250, maxWidth: 200, maxHeight: 150,}} style={card_border}>
+    <Grid item xs={12} md={3} style={{display: 'flex'}} >
+      <Card sx={{  height:300, width:300, maxWidth: 300, maxHeight: 500}} style={card_border}>
         <ButtonBase onClick={() => openblog(props.blogsID)}>
-          <CardActionArea>
+          {/* <CardActionArea> */}
 
             <CardContent>
 
@@ -38,7 +38,7 @@ export default function BlogCard(props: any) {
                 {props.description}
               </Typography>
             </CardContent>
-          </CardActionArea>
+          {/* </CardActionArea> */}
         </ButtonBase>
       </Card>
     </Grid>

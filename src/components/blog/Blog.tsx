@@ -70,7 +70,7 @@ export default function Blog () {
                     alignItems: "center",
                 }}
             >
-    <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }} alignItems={"center"} >
+    <Grid container spacing={2}  >
 
         {blogsData?.map((blog: { title: any; description: any; content: any; blogsID: any; userID: any; }) => {
             return (
@@ -86,7 +86,9 @@ export default function Blog () {
         })}
 
     </Grid>
-            </Box></Card></Container>
+            </Box>
+            </Card>
+            </Container>
 </Box>
     );
              }
