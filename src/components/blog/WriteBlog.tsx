@@ -12,16 +12,56 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import * as React from "react";
+import {useState} from "react";
+import axios from "axios";
 
 export default function WriteBlog () {
     const [open, setOpen] = React.useState(false);
+
+    const initialValues = {
+        title: "",
+        description: "",
+        content: "",
+    };
+    const [formValue, setFormValue] = useState(initialValues);
+
+    const handleChange = (e: { target: { name: any; value: any } }) => {
+        const { name, value } = e.target;
+        setFormValue({ ...formValue, [name]: value });
+    };
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
             setOpen(true);
             console.log("done")
     };
     const gotpage = () => {
-        window.location.href = "/blog";
+        const form_data = {
+            userID: localStorage.getItem("userID"),
+            title: formValue.title,
+            description: formValue.description,
+            content: formValue.content,
+
+        };
+        // api call to store user information and signup
+        console.log(form_data);
+        axios
+            .put("/api/blogs", form_data)
+            .then((response) => {
+                console.log(response);
+                if (response.status === 201) {
+                    console.log(response.data.status);
+                    // alert("Blog added successfully");
+                    window.location.href = "/blog";
+                } else {
+                    alert("Can not add blog!");
+                }
+            })
+            .catch(function(error) {
+                alert("Can not add blog!");
+                console.log(error);
+                console.log("Exception occured");
+            });
+        // window.location.href = "/blog";
     }
     const handleClose = () => {
         setOpen(false);
@@ -67,6 +107,9 @@ export default function WriteBlog () {
                                 label="Blog Title"
                                 name='title'
                                 required
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.title}
                                 sx={{ marginTop:1, marginBottom:2}}
                             />
 
@@ -76,6 +119,9 @@ export default function WriteBlog () {
                                 label="Short Description"
                                 name={"description"}
                                 multiline
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.description}
                                 sx={{ marginTop:1, marginBottom:2}}
                             />
                               <TextField
@@ -83,43 +129,46 @@ export default function WriteBlog () {
                                 required
                                 label="Content"
                                 name={"content"}
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                value={formValue.content}
                                 rows={4}
                                 multiline
                                 sx={{ marginTop:1, marginBottom:2}}
                             />
 
-                        <Container maxWidth="sm">
-                            <Card  variant="outlined" style={card_1} >
-                                <Grid container spacing={2}  >
-                                    <Grid item xs={12} md={5} >
-                                      <Grid container alignItems="center"
-                                            justifyContent="center">
-                                          <Grid item>
-                                        <Typography variant="h5" align={"center"}>
-                                        Upload Image
-                                    </Typography>
-                                          </Grid>
-                                        <Grid >
-                                            <PhotoCamera sx={{mt:1}} />
-                                        </Grid></Grid>
-                                    </Grid>
+                        {/*<Container maxWidth="sm">*/}
+                        {/*    <Card  variant="outlined" style={card_1} >*/}
+                        {/*        <Grid container spacing={2}  >*/}
+                        {/*            <Grid item xs={12} md={5} >*/}
+                        {/*              <Grid container alignItems="center"*/}
+                        {/*                    justifyContent="center">*/}
+                        {/*                  <Grid item>*/}
+                        {/*                <Typography variant="h5" align={"center"}>*/}
+                        {/*                Upload Image*/}
+                        {/*            </Typography>*/}
+                        {/*                  </Grid>*/}
+                        {/*                <Grid >*/}
+                        {/*                    <PhotoCamera sx={{mt:1}} />*/}
+                        {/*                </Grid></Grid>*/}
+                        {/*            </Grid>*/}
 
-                                    <Grid item xs={12} md={6} >
+                        {/*            <Grid item xs={12} md={6} >*/}
 
-                                        <Box
-                                            display="flex"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            marginTop={1}
-                                            marginLeft={1}
-                                        >
-                                            <input accept="image/*" id="icon-button-file" type="file"  required/>
-                                        </Box>
+                        {/*                <Box*/}
+                        {/*                    display="flex"*/}
+                        {/*                    justifyContent="center"*/}
+                        {/*                    alignItems="center"*/}
+                        {/*                    marginTop={1}*/}
+                        {/*                    marginLeft={1}*/}
+                        {/*                >*/}
+                        {/*                    /!*<input accept="image/*" id="icon-button-file" type="file"  required/>*!/*/}
+                        {/*                </Box>*/}
 
-                                    </Grid>
-                                </Grid>
-                            </Card>
-                        </Container>
+                        {/*            </Grid>*/}
+                        {/*        </Grid>*/}
+                        {/*    </Card>*/}
+                        {/*</Container>*/}
 
                             <Button
                                 fullWidth

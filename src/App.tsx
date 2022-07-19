@@ -189,7 +189,7 @@ function App() {
           ></Route>
 
           <Route
-            path="/blogdetails"
+            path="/blogdetails/:id"
             element={
               <Wrapper>
                 <AppHeader>
@@ -198,7 +198,7 @@ function App() {
                 <AppBody>
                   <BlogDetails />
                 </AppBody>
-                <FooterComp />
+
               </Wrapper>
             }
           ></Route>
@@ -213,13 +213,13 @@ function App() {
                 <AppBody>
                   <WriteBlog />
                 </AppBody>
-                <FooterComp />
+
               </Wrapper>
             }
           ></Route>
 
           <Route
-            path="/editblog"
+            path="/editblog/:id"
             element={
               <Wrapper>
                 <AppHeader>
@@ -228,7 +228,7 @@ function App() {
                 <AppBody>
                   <EditBlog />
                 </AppBody>
-                <FooterComp />
+
               </Wrapper>
             }
           ></Route>
@@ -243,7 +243,7 @@ function App() {
                 <AppBody>
                   <Blog />
                 </AppBody>
-                <FooterComp />
+
               </Wrapper>
             }
           />

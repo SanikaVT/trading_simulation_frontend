@@ -6,9 +6,11 @@ import Card from "@mui/material/Card";
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 
-export default function BlogCard() {
-  function openblog() {
-    window.location.href = "/blogdetails";
+export default function BlogCard(props: any) {
+
+
+  function openblog(id: string) {
+    window.location.href = `/blogdetails/${id}`;
     console.log("hello ji");
   }
 
@@ -16,29 +18,24 @@ export default function BlogCard() {
     backgroundColor: "white",
     borderRadius: "10px",
     borderWidth: 1,
+  height:"100%",
+    display: 'flex',
   };
 
+
   return (
-    <Grid item xs={6} md={3}>
-      <Card sx={{ maxWidth: 345 }} style={card_border}>
-        <ButtonBase onClick={openblog}>
+    <Grid item xs={6} md={3} style={{display: 'flex'}} >
+      <Card sx={{  height:150, width:250, maxWidth: 200, maxHeight: 150,}} style={card_border}>
+        <ButtonBase onClick={() => openblog(props.blogsID)}>
           <CardActionArea>
-            <CardMedia
-              component="img"
-              height="50%"
-              //image reference https://www.flaticon.com/free-icon/stock-market_3843966
-              image={require("./stock.png")}
-              alt="Stock Exchange"
-            />
+
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Stock Market Blog
+
+              <Typography gutterBottom variant="h5" component="div" align={"center"}>
+                 {props.title}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                A stock market, equity market, or share market is the
-                aggregation of buyers and sellers of stocks, which represent
-                ownership claims on businesses; these may include securities
-                listed on a public stock
+                {props.description}
               </Typography>
             </CardContent>
           </CardActionArea>

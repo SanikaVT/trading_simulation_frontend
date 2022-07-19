@@ -12,16 +12,95 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import * as React from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {useParams} from "react-router-dom";
 
 export default function EditBlog () {
+    const { id } = useParams();
+    const form_data = {
+        blogsID:id
+    };
+    // const [title1, setTitle] = useState("");
+    // const [description1, setDescription] = useState("");
+    // const [content1, setContent] = useState("");
+    // const [blogsID, setBlogsID] = useState();
+    // const [userID, setuserID] = useState();
+
+    // const [blogsData, setBlogsData] = useState(initialBlogs);
+    const initialValues = {
+        title: "",
+        description: "",
+        content: "",
+        blogsID:"",
+        userID:""
+    };
+    // console.log(initialValues)
+    const [formValue, setFormValue] = useState(initialValues);
+
+    useEffect(() => {
+        axios
+            .post("/api/blogs/details", form_data)
+            .then((response) => {
+                // setBlogsData(response.data.blogs);
+                // setTitle(response.data.blogs.title)
+                // setDescription(response.data.blogs.description)
+                // setContent(response.data.blogs.content)
+                // setBlogsID(response.data.blogs.blogsID)
+                // setuserID(response.data.blogs.userID)
+                setFormValue(response.data.blogs)
+                // console.log(content)
+                // console.log(initialValues);
+
+            })
+            .catch(function(error) {
+                alert("Can not get blog!");
+                console.log(error);
+                console.log("Exception occured");
+            });
+
+    }, []);
+
     const [open, setOpen] = React.useState(false);
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         setOpen(true);
         console.log("done")
     };
+
+    const handleChange = (e: { target: { name: any; value: any } }) => {
+        const { name, value } = e.target;
+        setFormValue({ ...formValue, [name]: value });
+    };
+
     const gotpage = () => {
-        window.location.href = "/blog";
+        const formdata = {
+            userID: localStorage.getItem("userID"),
+            blogsID: id,
+            title: formValue.title,
+            description: formValue.description,
+            content: formValue.content,
+
+        };
+        axios
+            .post("/api/blogs", formdata)
+            .then((response) => {
+                console.log(response);
+                if (response.status === 201) {
+                    console.log(response.data.status);
+                    // alert("Blog Updated successfully");
+                    window.location.href = "/blog";
+                } else {
+                    alert("Can not update blog!");
+                }
+            })
+            .catch(function(error) {
+                alert("Can not add blog!");
+                console.log(error);
+                console.log("Exception occured");
+            });
+       console.log(formValue)
+        // window.location.href = "/blog";
     }
     const handleClose = () => {
         setOpen(false);
@@ -33,6 +112,7 @@ export default function EditBlog () {
         margin: "10px",
         padding: "10px"
     };
+    // console.log("title value ",title1)
     // @ts-ignore
     // @ts-ignore
     return(
@@ -62,9 +142,15 @@ export default function EditBlog () {
 
                         <TextField
                             fullWidth
+
                             label="Blog Title"
                             name='title'
-                            defaultValue={"Stock Market Blog"}
+                            // defaultValue={title1}
+
+                            // defaultValue={initialValues.description}
+                            // value = {title1}
+                            onChange={handleChange}
+                             value={formValue.title}
                             required
                             sx={{ marginTop:1, marginBottom:2}}
                         />
@@ -74,6 +160,8 @@ export default function EditBlog () {
                             required
                             label="Short Description"
                             name={"description"}
+                            onChange={handleChange}
+                            value={formValue.description}
                             defaultValue={" A stock market, equity market, or share market is the aggregation of buyers and sellers of stocks, which represent ownership claims on businesses; these may include securities listed on a public stock"}
                             multiline
                             sx={{ marginTop:1, marginBottom:2}}
@@ -85,43 +173,45 @@ export default function EditBlog () {
                                 "Stocks can be categorized by the country where the company is domiciled. For example, Nestlé and Novartis are domiciled in Switzerland and traded on the SIX Swiss Exchange, so they may be considered as part of the Swiss stock market, although the stocks may also be traded on exchanges in other countries, for example, as American depositary receipts (ADRs) on U.S. stock markets."}
                             label="Content"
                             name={"content"}
+                            onChange={handleChange}
+                            value={formValue.content}
                             rows={4}
                             multiline
                             sx={{ marginTop:1, marginBottom:2}}
                         />
 
-                        <Container maxWidth="sm">
-                            <Card  variant="outlined" style={card_1} >
-                                <Grid container spacing={2}  >
-                                    <Grid item xs={12} md={5} >
-                                        <Grid container alignItems="center"
-                                              justifyContent="center">
-                                            <Grid item>
-                                                <Typography variant="h5" align={"center"}>
-                                                    Upload Image
-                                                </Typography>
-                                            </Grid>
-                                            <Grid >
-                                                <PhotoCamera sx={{mt:1}} />
-                                            </Grid></Grid>
-                                    </Grid>
+                        {/*<Container maxWidth="sm">*/}
+                        {/*    <Card  variant="outlined" style={card_1} >*/}
+                        {/*        <Grid container spacing={2}  >*/}
+                        {/*            <Grid item xs={12} md={5} >*/}
+                        {/*                <Grid container alignItems="center"*/}
+                        {/*                      justifyContent="center">*/}
+                        {/*                    <Grid item>*/}
+                        {/*                        <Typography variant="h5" align={"center"}>*/}
+                        {/*                            Upload Image*/}
+                        {/*                        </Typography>*/}
+                        {/*                    </Grid>*/}
+                        {/*                    <Grid >*/}
+                        {/*                        <PhotoCamera sx={{mt:1}} />*/}
+                        {/*                    </Grid></Grid>*/}
+                        {/*            </Grid>*/}
 
-                                    <Grid item xs={12} md={6} >
+                        {/*            <Grid item xs={12} md={6} >*/}
 
-                                        <Box
-                                            display="flex"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            marginTop={1}
-                                            marginLeft={1}
-                                        >
-                                            <input accept="image/*" id="icon-button-file" type="file"  required/>
-                                        </Box>
+                        {/*                <Box*/}
+                        {/*                    display="flex"*/}
+                        {/*                    justifyContent="center"*/}
+                        {/*                    alignItems="center"*/}
+                        {/*                    marginTop={1}*/}
+                        {/*                    marginLeft={1}*/}
+                        {/*                >*/}
+                        {/*                    /!*<input accept="image/*" id="icon-button-file" type="file"  required/>*!/*/}
+                        {/*                </Box>*/}
 
-                                    </Grid>
-                                </Grid>
-                            </Card>
-                        </Container>
+                        {/*            </Grid>*/}
+                        {/*        </Grid>*/}
+                        {/*    </Card>*/}
+                        {/*</Container>*/}
 
                         <Button
                             fullWidth
