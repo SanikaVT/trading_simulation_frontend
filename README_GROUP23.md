@@ -155,11 +155,11 @@ A step by step series of examples that tell you how to get a development env run
 
 ## Acknowledgments
 
-*[MUI](https://mui.com/material-ui/) - Frontend UI components
-*[draw.io](https://app.diagrams.net/) - Wireframe tools
-*[cacco.com]( https://cacoo.com ) - Flow chart
-*[Xtensio.com] (https://xtensio.com/user-persona-template/) - User Personal
-*[Wireframe.Cc](https://wireframe.cc/) - Wireframe
+* [MUI](https://mui.com/material-ui/) - Frontend UI components
+* [draw.io](https://app.diagrams.net/) - Wireframe tools
+* [cacco.com]( https://cacoo.com ) - Flow chart
+* [Xtensio.com] (https://xtensio.com/user-persona-template/) - User Personal
+* [Wireframe.Cc](https://wireframe.cc/) - Wireframe
 
     
 
