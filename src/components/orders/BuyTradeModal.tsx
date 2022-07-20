@@ -48,7 +48,7 @@ function BuyTradeModal(props: any) {
         responseType: "json",
         params: { userID: localStorage.getItem("userID") },
       })
-      .then(function (response) {
+      .then(function(response) {
         console.log(response.data.credits);
         setMarginAvailable(response.data.credits);
         if (props.stockData.price > response.data.credits) {
@@ -59,7 +59,7 @@ function BuyTradeModal(props: any) {
       });
   }, []);
 
-    //Places an order using the backend api and updates in the mongo
+  //Places an order using the backend api and updates in the mongo
   let placeOrder = (event: any) => {
     axios
       .post("/api/order", {
@@ -69,13 +69,14 @@ function BuyTradeModal(props: any) {
         orderType: "Buy",
         userId: localStorage.getItem("userID"),
         currentMargin: marginAvailable,
+        mail: localStorage.getItem("email"),
       })
       .then((res) => {
         navigate("/orderstatus");
       });
   };
 
-    //States related to the quantity of the stocks and errors.
+  //States related to the quantity of the stocks and errors.
   const [quantity, setQuantity] = useState(1);
   const [marginRequired, setMarginRequired] = useState(props.stockData.price);
   const [quantityError, setQuantityError] = useState(false);

@@ -69,8 +69,19 @@ function BuyCreditsModal(props: any) {
   }
   function postUserData() {
     axios
-      .post(`/api/users`, {
+      .post(`http://localhost:3100/api/users`, {
         userID: userID,
+        credits: Number(cred),
+      })
+      .then((res) => {
+        sendMail();
+      });
+  }
+
+  function sendMail() {
+    axios
+      .post(`http://localhost:3100/api/users/sendThisEmail`, {
+        mail: localStorage.getItem("email"),
         credits: Number(cred),
       })
       .then((res) => {});
@@ -78,7 +89,7 @@ function BuyCreditsModal(props: any) {
 
   useEffect(() => {
     axios
-      .get(`/api/users`, {
+      .get(`http://localhost:3100/api/users`, {
         responseType: "json",
         params: { userID: userID },
       })
