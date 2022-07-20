@@ -123,7 +123,7 @@ See the following section for detailed step-by-step instructions on how to insta
 A step by step series of examples that tell you how to get a development env running
 
 ```
-1. [Install node js](https://nodejs.org/en/download/) 
+1. Install node js
 2. npm install
 3. npm start
 ```
