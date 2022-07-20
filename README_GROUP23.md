@@ -116,9 +116,6 @@ Frontend
 
 ```
 
-
-
-
 See the following section for detailed step-by-step instructions on how to install this software / libraries / plug-ins
 
 ### Installing
@@ -154,11 +151,15 @@ A step by step series of examples that tell you how to get a development env run
 * [React](https://reactjs.org/) - The web framework used
 * [Node](https://nodejs.org/en/) - Dependency Management
 * [mongodb](https://www.mongodb.com/) - Nosql database
-**
 
 
 ## Acknowledgments
+[MUI](https://mui.com/material-ui/) - Frontend UI components
+[draw.io](https://app.diagrams.net/) - Wireframe tools
+[cacco.com]( https://cacoo.com ) - Flow chart
+[Xtensio.com] (https://xtensio.com/user-persona-template/) - User Personal
+[Wireframe.Cc](https://wireframe.cc/) - Wireframe
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+
+    
+
