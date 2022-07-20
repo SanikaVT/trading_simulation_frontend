@@ -1,7 +1,5 @@
 # Dtrade
 
-## Description
-
 A stock trade simulation program. With this applciaton the user can gain knowledge and practice trading stock on Dtrade before starting an investment with real money. It allows the user to buy and sell stocks on credit rather than money on real prices. This application will give a chance to learn how stocks work and the risks involved in investment. The purpose of the application is to serve the users who are new to stock investment and looking for a platform to gain some experience without the risk of losing any real money. The application gives a chance to the user to start investment and practice trading with real-time stock prices and makes sure that the users know what they are doing before they start investing. 
 
 * *Date Created*: 2022/05/01
@@ -24,9 +22,9 @@ A stock trade simulation program. With this applciaton the user can gain knowled
 
 ## Getting Started
 
-Get frontend source code to local
-git clone https://git.cs.dal.ca/qsun/csci5709-group23.git
-get backend source code to local
+Get frontend source code to local <br />
+git clone https://git.cs.dal.ca/qsun/csci5709-group23.git<br />
+get backend source code to local<br />
 git clone https://git.cs.dal.ca/ugandhi/dtradeapi.git
 
 
