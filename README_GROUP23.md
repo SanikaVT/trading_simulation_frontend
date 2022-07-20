@@ -125,11 +125,39 @@ A step by step series of examples that tell you how to get a development env run
 ```
 1. Install node js
 2. npm install
-3. npm start
+3. Verify installation by running node -v and npm -v on the terminal.
+4. npm start
 ```
+## Available Scripts
 
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.
+Open [http://localhost:3100] to view it in your browser.
+
+The page will reload when you make changes.
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+###Code Integration
+Buying and selling a stock is dependedent on the user profile module. If a user has credits then only he can buy stocks. Also, when the user buys a stock, credits gets deducted from the user. If the user credits are not enough, he/she wont be able to buy a stock. When the user sells a stock, the amount at that time for that stock gets credited to the user account.
 
 ### Deployment
+We have hosted our application on the Heroku Platform. We have first build our react application using the npm run build command. Then on the backend express server we have served the link to our static application that we have built using the npm run build command. Once we have successfully tested our application locally we have finally hosted the application on Heroku platform.
 
 ```
 1. Create a heroku account and create a empty applciaton
@@ -143,23 +171,50 @@ A step by step series of examples that tell you how to get a development env run
     $ git commit -am "make it better"
     $ git push heroku master
 ```
+## Sources used
+
+- Compression - https://www.npmjs.com/package/compression
+- Concurrently - https://www.npmjs.com/package/concurrently
+- Cors - https://www.npmjs.com/package/cors
+- DotEnv - https://www.npmjs.com/package/dotenv
+- Envalid - https://www.npmjs.com/package/envalid
+- Express - https://www.npmjs.com/package/express
+- Helmet - https://www.npmjs.com/package/helmet
+- Joi - https://www.npmjs.com/package/joi
+- Module-alias - https://www.npmjs.com/package/module-alias
+- MongoDB - https://www.npmjs.com/package/mongodb
+- Mongoose - https://www.npmjs.com/package/mongoose
+- Mongoose-unique-validator - https://www.npmjs.com/package/mongoose-unique-validator
+- Morgan - https://www.npmjs.com/package/morgan
+- Nodemon - https://www.npmjs.com/search?q=nodemon
+- Random-number -https://www.npmjs.com/package/random-number
 
 
 ## Built With
 
-
-* [React](https://reactjs.org/) - The web framework used
-* [Node](https://nodejs.org/en/) - Dependency Management
-* [mongodb](https://www.mongodb.com/) - Nosql database
+* [React] (https://reactjs.org/) - Frontend framework
+* [Heroku] (https://dashboard.heroku.com/login) - Cloud platform to deploy application
+* [Express] (https://expressjs.com/) - Web framework for Nodejs
+* [Postman] (https://www.postman.com/) - API testing software
+* [MongoCompass] - Tool used to check the collections and data on the database
+* [MongoDB] (https://www.mongodb.com/) - NoSQL Database for data storage
+* [NPM] (https://www.npmjs.com/) - Nodejs package manager
+* [Nodejs] (https://nodejs.org/en/) - Backend Javascript Runtime
+* [VSCode] (https://code.visualstudio.com/) - IDE used for development
+* [Gitlab] (https://git.cs.dal.ca/) - Repository and version control system
+* [MicrosoftEdge] (https://www.google.com/intl/en_ca/chrome/) - Browser of choice for testing frontend changes
 
 
 ## Acknowledgments
 
 * [MUI](https://mui.com/material-ui/) - Frontend UI components
-* [Draw.io](https://app.diagrams.net/) - Wireframe tools
 * [Cacco.com]( https://cacoo.com ) - Flow chart
 * [ Xtensio.com ](https://xtensio.com/user-persona-template/) - User Personal
+* [Draw.io](https://app.diagrams.net/) - Wireframe tools
 * [Wireframe.Cc](https://wireframe.cc/) - Wireframe
-
+* [Balsamiq Wireframes]( https://balsamiq.com/wireframes/?gclid=Cj0KCQjw1tGUBhDXARIsAIJx01lmbtHc9AJC4JTWw46YYzyqkKjO6rhmUBz9xHxAZ7dzOHVfhoNZdB4aAkHBEALw_wcB.) - Wireframe
+* [Stock screener]( https://www.nasdaq.com/market-activity/stocks/screener) - UI reference
+* [Stock analytics](https://dribbble.com/search/stock-analytics) - UI reference 
+* [proto.io] (https://proto.io) - Prototype tool
     
 
