@@ -124,8 +124,8 @@ A step by step series of examples that tell you how to get a development env run
 
 ```
 1. Install node js
-2. npm install
-3. Verify installation by running node -v and npm -v on the terminal.
+2. Verify installation by running node -v and npm -v on the terminal.
+3. npm install
 4. npm start
 ```
 ## Available Scripts
