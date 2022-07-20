@@ -132,10 +132,7 @@ export default function SignUp() {
         return errors;
 
     }
-    const gotosignin =()=>{
-
-        window.location.href="/";
-    }
+   
 
     const card_1 = {
         backgroundColor: "white",
@@ -322,17 +319,6 @@ export default function SignUp() {
                     </Button>
                 </DialogActions>
             </Dialog>
-
-            <Card variant="outlined" style={card_1}>
-                <Button
-                    fullWidth
-                    variant="outlined"
-                    type={"submit"}
-                    onClick={gotosignin}
-                >
-                    Sign-in
-                </Button>
-            </Card>
         </Container>
 
     );

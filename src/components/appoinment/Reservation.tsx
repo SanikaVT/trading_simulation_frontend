@@ -71,14 +71,14 @@ export default function Reservation() {
     if (localStorage.getItem("userID")) {
         return (
             <> <Box sx={{ flexGrow: 1 }}>
-                <Grid spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 6 }}  >
-                    <Grid item xs={2} sm={2} md={4}>
+                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}  >
+                    <Grid item xs={2} sm={2} md={4} sx = {{gap: 1}} >
                         <Autocomplete
                             onChange={(event, value) => value ? setAdvisorName(value) : null}
                             disablePortal
                             id="advisor"
                             options={advisor}
-                            sx={{ width: 300 }}
+                            sx={{ width: 300 ,gap: 2 }}
                             renderInput={(params) => <TextField {...params} label="Advisor" />}
                         />
                     </Grid>
