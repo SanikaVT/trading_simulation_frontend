@@ -67,7 +67,7 @@ export default function BlogDetails() {
             .catch(function(error) {
                 alert("Can not get blog!");
                 console.log(error);
-                console.log("Exception occured");
+           
             });
 
         axios
@@ -90,12 +90,12 @@ export default function BlogDetails() {
             .catch(function(error) {
                 alert("Can not get blog!");
                 console.log(error);
-                console.log("Exception occured");
+               
             });
 
 
     }, []);
-console.log("ccomments data ",commentsData);
+
     var buttonDisabled = true;
     if (userID === localStorage.getItem("userID")) {
         buttonDisabled = false;
@@ -133,7 +133,7 @@ console.log("ccomments data ",commentsData);
             .catch(function(error) {
                 alert("Can not delete blog!");
                 console.log(error);
-                console.log("Exception occured");
+               
             });
 
 
@@ -165,7 +165,7 @@ console.log("ccomments data ",commentsData);
             .catch(function(error) {
                 alert("Can not add comment!");
                 console.log(error);
-                console.log("Exception occured");
+            
             });
     }
 
@@ -180,7 +180,7 @@ console.log("ccomments data ",commentsData);
             .catch(function(error) {
                 alert("Can not like blog!");
                 console.log(error);
-                console.log("Exception occured");
+            
             });
         // setlikeOpen(true);
     }

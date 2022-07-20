@@ -11,7 +11,7 @@ export default function BlogCard(props: any) {
 
   function openblog(id: string) {
     window.location.href = `/blogdetails/${id}`;
-    console.log("hello ji");
+  
   }
 
   const card_border = {

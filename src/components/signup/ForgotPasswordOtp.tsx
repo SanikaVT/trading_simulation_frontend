@@ -34,7 +34,7 @@ export default function ForgotPasswordOtp() {
   const sendotp = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    console.log("done");
+
 
     const form_data = {
       email: formValue.email,
@@ -43,18 +43,16 @@ export default function ForgotPasswordOtp() {
     axios
       .post("/api/register/otp", form_data)
       .then((response) => {
-        console.log(response.data.otp);
+  
         setCheckOtp(response.data.otp);
         if (response.status === 200) {
-          console.log(response.data.status);
-          // window.location.href = "/dashboard";
+        
         } else {
           alert("Email does not exist Please register!");
         }
       })
       .catch(function (error) {
-        //alert("Email or password is wrong!");
-        console.log("Exception occured");
+    
       });
     alert("Please check your email for code");
     //window.location.href = "/dashboard";
@@ -63,12 +61,11 @@ export default function ForgotPasswordOtp() {
   const gotpage = (e: { preventDefault: () => void }) => {
     // @ts-ignore
     if (checkotp.toString() === formValue.otp.toString()) {
-      console.log("OTP success");
+    
       localStorage.setItem("forgotemail", formValue.email);
       window.location.href = "/forgotpassword";
     } else {
-      console.log("sent otp is ", checkotp);
-      console.log("inputotp is ", formValue.otp);
+     
       alert("Please check Code and Request again if you have not received!");
     }
     // window.location.href = "/forgotpassword";

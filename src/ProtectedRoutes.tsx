@@ -9,13 +9,13 @@ const useAuth = () => {
     const loggedcheck = localStorage.getItem("userID");
     if(loggedcheck){
          user = { loggedIn: true };
-        console.log("loggedcheck is detected");
+        
     }
     else{
         user = { loggedIn: false };
-        console.log("login data nmot found dear");
+       
     }
-    console.log("looged user is hereeee",loggedcheck);
+   
     return user && user.loggedIn;
 };
 // check authentication condition and navigate accordingly

@@ -4,7 +4,6 @@
  * Email: dh657288@dal.ca
  */
 
-
 /**
  * This component is responsible to render recommended and favorite stocks of the current user
  * This component will fetch the data from backend from the backend file
@@ -63,7 +62,6 @@ function Home() {
         stock: stock.symbol,
       })
       .then(function(response) {
-        console.log("btn click response", response.data);
         setFavoriteStocks(response.data);
       })
       .catch(function(error) {
@@ -92,14 +90,15 @@ function Home() {
   };
 
   useEffect(() => {
-    console.log(localStorage.getItem("userIDs"));
-    axios.post("/api/dashboard/favorite",{
-      userId: localStorage.getItem("userID"),
-    }).then((res) => {
-      const data = res.data.favorites;
-      console.log("favorites are", res.data.favorites);
-      setFavoriteStocks(data);
-    });
+    axios
+      .post("/api/dashboard/favorite", {
+        userId: localStorage.getItem("userID"),
+      })
+      .then((res) => {
+        const data = res.data.favorites;
+
+        setFavoriteStocks(data);
+      });
   }, []);
 
   useEffect(() => {
@@ -122,7 +121,6 @@ function Home() {
             };
           }
         });
-        console.log("data on dashboard", updatedStock);
 
         setStocksData(updatedStock);
         setConstStocksData(updatedStock);

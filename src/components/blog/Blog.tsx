@@ -33,7 +33,7 @@ export default function Blog () {
             })
             .then(function(response) {
                 setBlogsData(response.data.blogs);
-                // console.log(response.data.comments);
+            
             });
     }, []);
 
@@ -41,7 +41,7 @@ export default function Blog () {
 
 
     function  write () {
-        console.log("write blog");
+    
         window.location.href="/writeblog";
     }
 

@@ -31,7 +31,7 @@ function UserCreditsComp() {
       })
       .then(function (response) {
         setCredits(response.data.prof.credits);
-        console.log(response.data.prof);
+      
       });
   }
 

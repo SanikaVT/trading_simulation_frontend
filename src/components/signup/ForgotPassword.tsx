@@ -1,4 +1,4 @@
-// @author Dharmay Dineshchandra Sureja 
+// @author Dharmay Dineshchandra Sureja
 // Banner id (B00904061)
 // email : dh276903@dal.ca
 // This componenet is responsible to reset user's password
@@ -20,7 +20,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 
 export default function ForgotPassword() {
   const [open, setOpen] = React.useState(false);
@@ -46,9 +46,7 @@ export default function ForgotPassword() {
     setFormError(validate(formValue));
     if (errori === 0) {
       setOpen(true);
-      console.log("done");
     } else {
-      console.log("error");
       console.log(formError);
     }
   };
@@ -78,28 +76,26 @@ export default function ForgotPassword() {
     setOpen(false);
   };
   const gotpage = () => {
-    const hashedPassword = bcrypt.hashSync(formValue.password, '$2a$10$ZpUkUuWbmNB6uwSNyxNSmu');
+    const hashedPassword = bcrypt.hashSync(
+      formValue.password,
+      "$2a$10$ZpUkUuWbmNB6uwSNyxNSmu"
+    );
     const form_data = {
       email: formValue.email,
       password: hashedPassword,
     };
-    console.log(formValue);
-    //api call to reset password
     axios
       .post("/api/register/forgotpassword", form_data)
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
-          console.log(response.data.status);
           alert("Your password has been successfully changed");
           window.location.href = "/signin";
         } else {
           alert("Please try again");
         }
       })
-      .catch(function (error) {
+      .catch(function(error) {
         alert("Something went Wrong!");
-        console.log("Exception occured");
       });
     // window.location.href = "/signin";
   };

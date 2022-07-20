@@ -31,16 +31,12 @@ export default function RiskAppetite() {
   };
 
   const handleSubmit = () => {
-    // window.location.href = "/signin";
-
-    console.log(formValue);
-    // calculate risk appetite
     const que1 = parseInt(formValue.question1);
     const que2 = parseInt(formValue.question2);
     const que3 = parseInt(formValue.question3);
-    console.log(que1 + que2 + que3);
+
     const calculaterisk1 = (que1 + que2 + que3) / 3;
-    console.log(calculaterisk1);
+
     if (calculaterisk1 < 2) {
       // @ts-ignore
       setCalculateRisk("Low");
@@ -49,7 +45,6 @@ export default function RiskAppetite() {
       setCalculateRisk("High");
     }
 
-    console.log(calculaterisk);
     setOpen(true);
   };
   const gotpage = () => {
@@ -63,14 +58,11 @@ export default function RiskAppetite() {
       account: localStorage.getItem("account"),
       risk_appetite: calculaterisk,
     };
-    // api call to store user information and signup
-    console.log(form_data);
+
     axios
       .post("/api/register", form_data)
       .then((response) => {
-        console.log(response);
         if (response.status === 201) {
-          console.log(response.data.status);
           alert("successfully registered");
           window.location.href = "/signin";
         } else {
@@ -80,7 +72,6 @@ export default function RiskAppetite() {
       .catch(function(error) {
         alert("Email already exists!");
         console.log(error);
-        console.log("Exception occured");
       });
 
     // window.location.href = "/signin";
@@ -101,11 +92,14 @@ export default function RiskAppetite() {
         className="left-pane"
         item
         md={8}
-        
-        sx={{ display: { xs: 'none', sm:'block', md:'block'} }}
+        sx={{ display: { xs: "none", sm: "block", md: "block" } }}
       >
         <Stack>
-          <img src={"./home-logo.webp"} style={{height:'100vh'}} alt="trader" />
+          <img
+            src={"./home-logo.webp"}
+            style={{ height: "100vh" }}
+            alt="trader"
+          />
         </Stack>
       </Grid>
       <Grid

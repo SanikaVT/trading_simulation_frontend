@@ -78,7 +78,6 @@ function NewsCard(props: any) {
           news_content: news_content,
         })
         .then((res) => {
-          console.log(res.data);
           setOpen(false);
           props.rerender(res.data);
         });
@@ -93,7 +92,6 @@ function NewsCard(props: any) {
         newsID: newsID,
       })
       .then((res) => {
-        console.log(res.data);
         setOpenDelete(false);
         props.rerender(res.data);
       });

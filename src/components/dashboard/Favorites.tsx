@@ -4,8 +4,6 @@
  * Email: dh657288@dal.ca
  */
 
-
-
 /**
  * This component is responsible to render favorite stocks of the current user
  * This component will fetch the data from backend from the backend file
@@ -17,8 +15,6 @@ import StockCard from "./StockCard";
 import { StockSymbol } from "../../types/StockSymbol";
 import NoFavorite from "./NoFavorites";
 function Favorites(props: any) {
-  console.log(props);
-
   return (
     <div style={{ padding: "2rem" }}>
       <h3 style={{ color: "white" }}>Favorite Stocks</h3>
@@ -55,12 +51,11 @@ function Favorites(props: any) {
           },
         }}
       >
-        
-       {/* Here the splide component is responsible for auto sliding */}
-         
+        {/* Here the splide component is responsible for auto sliding */}
+
         {props.stocksData.length > 0 ? (
-          props.stocksData.map((stock: StockSymbol) => (
-            <SplideSlide>
+          props.stocksDatma.map((stock: StockSymbol) => (
+            <SplideSlide key={Math.random()}>
               <StockCard
                 stock={stock}
                 fun={props.fun}

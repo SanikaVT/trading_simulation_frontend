@@ -38,7 +38,6 @@ function LineChart(props) {
     setOpenSellModal(true);
   };
   var symbol = stock.symbol;
-  console.log(symbol);
   useEffect(() => {
     //Getting initial data
     axios
@@ -262,7 +261,7 @@ function LineChart(props) {
     }
     makegraph1();
     function makegraph2() {
-      console.log(data);
+    
       var margin = { top: 20, right: 20, bottom: 50, left: 100 },
         width = 800 - margin.left - margin.right,
         height = 550 - margin.top - margin.bottom,
@@ -489,7 +488,7 @@ function LineChart(props) {
       .attr("y", 430)
       .attr("id", "rect1")
       .attr("cursor", "pointer");
-    console.log(data);
+  
     rect1.on("click", function() {
       d3.selectAll("#graph2").remove();
       if (d3.selectAll("#rect2").attr("fill") === "rgb(9, 141, 77)") {

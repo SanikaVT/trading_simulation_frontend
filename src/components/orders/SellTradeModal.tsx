@@ -48,8 +48,7 @@ function SellTradeModal(props: any) {
         responseType: "json",
         params: { userID: localStorage.getItem("userID") },
       })
-      .then(function (response) {
-        console.log(response.data.credits);
+      .then(function(response) {
         setMarginAvailable(response.data.credits);
       });
   }, []);
@@ -64,7 +63,7 @@ function SellTradeModal(props: any) {
           symbol: props.stockData.symbol,
         },
       })
-      .then(function (response) {
+      .then(function(response) {
         if (response.data.count === 0) {
         } else {
           setAvailableQuantity(response.data.count);

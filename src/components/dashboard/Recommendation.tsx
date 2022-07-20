@@ -1,10 +1,8 @@
-
 /**
  * Author: Dharmik Hiteshkumar Soni
  * BannerID: B00867641
  * Email: dh657288@dal.ca
  */
-
 
 /**
  * This component is responsible to render recommended stocks of the current user
@@ -58,7 +56,7 @@ function Recommendation(props: any) {
       >
         {props.stocksData.length > 0 ? (
           props.stocksData.map((stock: StockSymbol) => (
-            <SplideSlide>
+            <SplideSlide key={Math.random()}>
               <StockCard
                 stock={stock}
                 fun={props.fun}

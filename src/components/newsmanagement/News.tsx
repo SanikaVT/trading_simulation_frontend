@@ -57,7 +57,6 @@ function NewsComp() {
       })
       .then(function(response) {
         setNewsData(response.data.news);
-        // console.log(response.data.comments);
       });
   }, [loading]);
 
@@ -70,7 +69,6 @@ function NewsComp() {
         news_content: news_content,
       })
       .then((res) => {
-        console.log(res.data);
         setLoading(Math.random().toString());
       });
   }

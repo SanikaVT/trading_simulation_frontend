@@ -86,12 +86,11 @@ export default function SignIn() {
     // @ts-ignore
     setFormError(validate(formValue));
     if (errori === 0) {
-      console.log("done");
       const hashedPassword = bcrypt.hashSync(
         formValue.password,
         "$2a$10$ZpUkUuWbmNB6uwSNyxNSmu"
       );
-      console.log("hased pwd is ", hashedPassword);
+
       const form_data = {
         email: formValue.email,
         password: hashedPassword,
@@ -101,11 +100,7 @@ export default function SignIn() {
       axios
         .post("/api/register/login", form_data)
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
-            console.log(response.data.status);
-            // console.log(response.data);
-            // console.log("Response data is hre",response.data.userID);
             localStorage.setItem("userID", response.data.userID);
             localStorage.setItem("email", response.data.email);
             // alert(localStorage.getItem("email"));
@@ -116,12 +111,10 @@ export default function SignIn() {
         })
         .catch(function(error) {
           alert("Email or password is wrong!");
-          console.log("Exception occured");
         });
 
       //window.location.href = "/dashboard";
     } else {
-      console.log("error");
       console.log(formError);
     }
   };
@@ -156,8 +149,13 @@ export default function SignIn() {
 
   return (
     <Grid container alignItems="stretch">
-      <Grid className="hidden-xs" md={7} item sx={{ display: { xs: 'none', sm:'block', md:'block'} }}   >
-        <Stack> 
+      <Grid
+        className="hidden-xs"
+        md={7}
+        item
+        sx={{ display: { xs: "none", sm: "block", md: "block" } }}
+      >
+        <Stack>
           <img
             src={"./home-logo.webp"}
             style={{ height: "100vh" }}
@@ -166,11 +164,11 @@ export default function SignIn() {
         </Stack>
       </Grid>
       <Grid
-       sm={12}
+        sm={12}
         item
         md={5}
         xs={12}
-        sx = {{p: {xs: '0rem', md:'5rem', sm:'5rem', lm:'5rem'}}}
+        sx={{ p: { xs: "0rem", md: "5rem", sm: "5rem", lm: "5rem" } }}
       >
         <Stack>
           <Container component="main" maxWidth="lg">

@@ -56,7 +56,7 @@ function BuyCreditsModal(props: any) {
     }
   };
   function changeCredits() {
-    console.log(isError);
+
     if (!isError) {
       if (credits2 !== 0) {
         cred = credits + credits2;
@@ -128,7 +128,7 @@ function BuyCreditsModal(props: any) {
                     onKeyDown={acceptNumbers}
                     onChange={(event: any) => {
                       let cred = Number(event.target.value);
-                      console.log(event.target.value);
+                  
                       if ((cred + "").length >= 2) {
                         setCreditsError(false);
                         isError = false;

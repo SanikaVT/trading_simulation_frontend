@@ -53,7 +53,7 @@ function ForumComp(props:any) {
       })
       .then(function (response) {
         setCommentData(response.data.comments);
-        // console.log(response.data.comments);
+  
       });
     axios
       .get(`/api/order/`, {
@@ -62,7 +62,7 @@ function ForumComp(props:any) {
       })
       .then(function (response) {
         setOrdersData(response.data.orders);
-        // console.log(response.data.orders);
+
         calculateChartResult();
       });
   }, [loading]);
@@ -98,7 +98,6 @@ function ForumComp(props:any) {
       .then((res) => {
         // notify;
         setComment("");
-        console.log(res.data);
         setLoading(Math.random().toString());
       });
   }

@@ -52,11 +52,11 @@ export default function SignUp() {
         if(errori===0)
         {
             setOpen(true);
-            console.log("done")
+      
 
         }
         else{
-            console.log("error");
+       
             console.log(formError);
         }
        
@@ -66,11 +66,11 @@ export default function SignUp() {
     // redirector the advisor page when sure click next button
     const gotpage = () => {
         const data = { address: formValue.address, email: formValue.email, firstName: formValue.fname, lastName: formValue.lname, age: formValue.age,phoneNumber: formValue.phoneno,title: formValue.title }
-        console.log(data)
+      
         axios.post('/api/advisor', data).then((result) => {
-            console.log("success")
+           
         }).catch((err) => {
-            console.log('error')
+            
             console.log(err);
         })
         
@@ -90,7 +90,7 @@ export default function SignUp() {
         const namereg = /[^A-Za-z]/;
         const emailreg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
         const phonereg = /^[0-9]+$/;
-        console.log("hello"+values.email);
+    
 
         if (values.password.length < 8) {
             // @ts-ignore

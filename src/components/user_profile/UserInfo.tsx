@@ -63,7 +63,7 @@ function UserInfoComp() {
         setAccount2(response.data.prof.account);
         setRiskAppetite(response.data.prof.risk_appetite);
         setRiskAppetite2(response.data.prof.risk_appetite);
-        console.log(response.data.prof);
+       
       });
   }, []);
 
@@ -76,7 +76,7 @@ function UserInfoComp() {
         risk_appetite: risk_appetite2,
       })
       .then((res) => {
-        console.log(res.data);
+      
       });
   }
 
@@ -103,7 +103,7 @@ function UserInfoComp() {
   const [risk_appetite, setRiskAppetite] = useState(options[0]);
   const [risk_appetite2, setRiskAppetite2] = useState("");
   function changeRiskAppetite() {
-    console.log(risk_appetite2);
+
     if (risk_appetite2.trim().length !== 0) {
       setRiskAppetite(risk_appetite2);
     }

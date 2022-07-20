@@ -66,9 +66,7 @@ export default function SignUp() {
       localStorage.setItem("account", formValue.account);
       localStorage.setItem("password", hashedPassword);
       setOpen(true);
-      console.log("done");
     } else {
-      console.log("error");
       console.log(formError);
     }
   };
@@ -97,7 +95,6 @@ export default function SignUp() {
     const namereg = /[^A-Za-z]/;
     const emailreg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const phonereg = /^[0-9]+$/;
-    console.log("hello" + values.email);
 
     if (values.password.length < 8) {
       // @ts-ignore
@@ -150,7 +147,12 @@ export default function SignUp() {
   };
   return (
     <Grid container alignItems="stretch">
-      <Grid className="left-pane" item md={7} sx={{ display: { xs: 'none', sm:'block', md:'block'} }}>
+      <Grid
+        className="left-pane"
+        item
+        md={7}
+        sx={{ display: { xs: "none", sm: "block", md: "block" } }}
+      >
         <Stack>
           <img
             src={"./home-logo.webp"}
@@ -178,7 +180,9 @@ export default function SignUp() {
                 }}
               >
                 <h2>Welcome to DTrade</h2>
-                <Typography fontSize={25} style={{color:'bolder'}}>Sign Up</Typography>
+                <Typography fontSize={25} style={{ color: "bolder" }}>
+                  Sign Up
+                </Typography>
                 <br />
 
                 <Box>

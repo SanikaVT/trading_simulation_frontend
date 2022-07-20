@@ -67,7 +67,7 @@ function CommentCard(props: any) {
           comment: comment,
         })
         .then((res) => {
-          console.log(res.data);
+          
           setOpen(false);
           props.rerender(res.data);
         });
@@ -82,9 +82,7 @@ function CommentCard(props: any) {
         commentID: commentID,
       })
       .then((res) => {
-        console.log(symbol);
-        console.log(commentID);
-        console.log(res.data);
+  
         setOpenDelete(false);
         props.rerender(res.data);
         // window.location.reload();

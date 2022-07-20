@@ -35,28 +35,22 @@ export default function EditBlog () {
         blogsID:"",
         userID:""
     };
-    // console.log(initialValues)
+   
     const [formValue, setFormValue] = useState(initialValues);
 
     useEffect(() => {
         axios
             .post("/api/blogs/details", form_data)
             .then((response) => {
-                // setBlogsData(response.data.blogs);
-                // setTitle(response.data.blogs.title)
-                // setDescription(response.data.blogs.description)
-                // setContent(response.data.blogs.content)
-                // setBlogsID(response.data.blogs.blogsID)
-                // setuserID(response.data.blogs.userID)
+                
                 setFormValue(response.data.blogs)
-                // console.log(content)
-                // console.log(initialValues);
+               
 
             })
             .catch(function(error) {
                 alert("Can not get blog!");
                 console.log(error);
-                console.log("Exception occured");
+               
             });
 
     }, []);
@@ -65,7 +59,7 @@ export default function EditBlog () {
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         setOpen(true);
-        console.log("done")
+    
     };
 
     const handleChange = (e: { target: { name: any; value: any } }) => {
@@ -85,10 +79,9 @@ export default function EditBlog () {
         axios
             .post("/api/blogs", formdata)
             .then((response) => {
-                console.log(response);
+            
                 if (response.status === 201) {
-                    console.log(response.data.status);
-                    // alert("Blog Updated successfully");
+                
                     window.location.href = "/blog";
                 } else {
                     alert("Can not update blog!");
@@ -97,10 +90,9 @@ export default function EditBlog () {
             .catch(function(error) {
                 alert("Can not add blog!");
                 console.log(error);
-                console.log("Exception occured");
+            
             });
-       console.log(formValue)
-        // window.location.href = "/blog";
+
     }
     const handleClose = () => {
         setOpen(false);
@@ -112,9 +104,7 @@ export default function EditBlog () {
         margin: "10px",
         padding: "10px"
     };
-    // console.log("title value ",title1)
-    // @ts-ignore
-    // @ts-ignore
+
     return(
 
 

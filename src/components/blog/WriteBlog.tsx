@@ -32,7 +32,7 @@ export default function WriteBlog () {
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
             setOpen(true);
-            console.log("done")
+        
     };
     const gotpage = () => {
         const form_data = {
@@ -42,15 +42,13 @@ export default function WriteBlog () {
             content: formValue.content,
 
         };
-        // api call to store user information and signup
-        console.log(form_data);
+    
         axios
             .put("/api/blogs", form_data)
             .then((response) => {
-                console.log(response);
+            
                 if (response.status === 201) {
-                    console.log(response.data.status);
-                    // alert("Blog added successfully");
+                
                     window.location.href = "/blog";
                 } else {
                     alert("Can not add blog!");
@@ -59,7 +57,7 @@ export default function WriteBlog () {
             .catch(function(error) {
                 alert("Can not add blog!");
                 console.log(error);
-                console.log("Exception occured");
+            
             });
         // window.location.href = "/blog";
     }
