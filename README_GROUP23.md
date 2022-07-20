@@ -215,6 +215,17 @@ We have hosted our application on the Heroku Platform. We have first build our r
 * [Balsamiq Wireframes]( https://balsamiq.com/wireframes/?gclid=Cj0KCQjw1tGUBhDXARIsAIJx01lmbtHc9AJC4JTWw46YYzyqkKjO6rhmUBz9xHxAZ7dzOHVfhoNZdB4aAkHBEALw_wcB.) - Wireframe
 * [Stock screener]( https://www.nasdaq.com/market-activity/stocks/screener) - UI reference
 * [Stock analytics](https://dribbble.com/search/stock-analytics) - UI reference 
-* [proto.io] (https://proto.io) - Prototype tool
+
+## References
+
+- [1] “How to pass multiple state through link in ReactJS,” Stack Overflow. [Online]. Available: https://stackoverflow.com/questions/47484406/how-to-pass-multiple-state-through-link-in-reactjs. [Accessed: 08-Jun-2022].
+
+- [2] S. Hall, “Implementing a search bar feature in React - Sam hall,” Medium, 25-Mar-2021. [Online]. Available: https://samhalll.medium.com/implementing-a-search-bar-feature-in-react-10739d594f79. [Accessed: 08-Jun-2022].
+
+- [3] G. Singhal, “How to router redirect after Login,” Pluralsight.com. [Online]. Available: https://www.pluralsight.com/guides/how-to-router-redirect-after-login. [Accessed: 09-Jun-2022].
+
+- [4] “Data grid,” Mui.com. [Online]. Available: https://mui.com/x/react-data-grid/. [Accessed: 09-Jun-2022].
+
+- [5] “How to display image in a @mui/x-data-grid table?,” Stack Overflow. [Online]. Available: https://stackoverflow.com/questions/70449488/how-to-display-image-in-a-mui-x-data-grid-table. [Accessed: 10-Jun-2022].
     
 
