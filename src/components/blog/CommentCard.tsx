@@ -23,7 +23,7 @@ export default function CommentCard(props: any) {
     axios
       .post("/api/comments/delete", form_data)
       .then((response) => {
-        // window.location.href = "/blog";
+        
         setOpen(false);
         window.location.reload();
       })
@@ -38,10 +38,10 @@ export default function CommentCard(props: any) {
   };
   const card_border = {
     backgroundColor: "white",
-    // borderRadius: "10px",
+    
     borderWidth: 1,
     paddingBottom: 2,
-    // alignLeft:20,
+    
   };
   var buttonDisabled = true;
   if (props.userID === localStorage.getItem("userID")) {
