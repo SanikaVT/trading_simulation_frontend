@@ -1,3 +1,8 @@
+// @author Dharmay Dineshchandra Sureja
+// Banner id (B00904061)
+// email : dh276903@dal.ca
+// This component is responsible for showing whole blog in after selecting blog in blogs dashboard
+
 import Snackbar from '@mui/material/Snackbar';
 import Typography from "@mui/material/Typography";
 import * as React from "react";
