@@ -1,3 +1,7 @@
+// @author Dharmay Dineshchandra Sureja
+// Banner id (B00904061)
+// email : dh276903@dal.ca
+// This component is responsible for showing blogs in card format in blogs dashboard
 import { ButtonBase, CardActionArea } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
