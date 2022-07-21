@@ -6,7 +6,7 @@ A stock trade simulation program. With this applciaton the user can gain knowled
 * *Last Modification Date*: 2022/07/20
 * *Backend Git URL*: https://git.cs.dal.ca/ugandhi/dtradeapi
 * *Frontend Git URL*: https://git.cs.dal.ca/qsun/csci5709-group23
-* *Deploy URL*: https://webassignment3group23.herokuapp.com/
+* *Deploy URL*: https://app-dtrade.herokuapp.com/
 
 ## Authors
 
