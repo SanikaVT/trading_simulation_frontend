@@ -12,7 +12,7 @@ function Splash() {
       >
         <img
           className="splash"
-          src="https://img.freepik.com/free-vector/dollar_53876-25498.jpg?w=2000"
+          src="../dollar.webp"
         />
       </div>
     </>

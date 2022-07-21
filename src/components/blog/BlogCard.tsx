@@ -24,8 +24,12 @@ export default function BlogCard(props: any) {
 
   return (
     <Grid item xs={12} md={3} style={{ display: "flex" }}>
-      <Card style={card_border} elevation={5}>
-        <ButtonBase onClick={() => openblog(props.blogsID)}>
+      <Card
+        style={card_border}
+        elevation={5}
+        onClick={() => openblog(props.blogsID)}
+      >
+        <ButtonBase>
           {/* <CardActionArea> */}
 
           <CardContent>
@@ -34,7 +38,7 @@ export default function BlogCard(props: any) {
               variant="h5"
               component="div"
               align={"center"}
-              style={{color:'black',fontWeight:'bolder'}}
+              style={{ color: "black", fontWeight: "bolder" }}
             >
               {props.title}
             </Typography>
