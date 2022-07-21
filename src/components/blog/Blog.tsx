@@ -1,7 +1,7 @@
 // @author Dharmay Dineshchandra Sureja
 // Banner id (B00904061)
 // email : dh276903@dal.ca
-// This component is responsible to show blog cards on blogs page
+// This component is responsible to show blog dashboard on blogs page
 import * as React from "react";
 import BlogCard from "./BlogCard";
 import Grid from "@mui/material/Grid";
