@@ -1,3 +1,7 @@
+// @author Dharmay Dineshchandra Sureja
+// Banner id (B00904061)
+// email : dh276903@dal.ca
+// This componenet is responsoible to show form to submit and publish blogs
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
@@ -10,7 +14,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+
 import * as React from "react";
 import {useState} from "react";
 import axios from "axios";
@@ -59,7 +63,7 @@ export default function WriteBlog () {
                 console.log(error);
             
             });
-        // window.location.href = "/blog";
+        
     }
     const handleClose = () => {
         setOpen(false);
@@ -135,39 +139,7 @@ export default function WriteBlog () {
                                 sx={{ marginTop:1, marginBottom:2}}
                             />
 
-                        {/*<Container maxWidth="sm">*/}
-                        {/*    <Card  variant="outlined" style={card_1} >*/}
-                        {/*        <Grid container spacing={2}  >*/}
-                        {/*            <Grid item xs={12} md={5} >*/}
-                        {/*              <Grid container alignItems="center"*/}
-                        {/*                    justifyContent="center">*/}
-                        {/*                  <Grid item>*/}
-                        {/*                <Typography variant="h5" align={"center"}>*/}
-                        {/*                Upload Image*/}
-                        {/*            </Typography>*/}
-                        {/*                  </Grid>*/}
-                        {/*                <Grid >*/}
-                        {/*                    <PhotoCamera sx={{mt:1}} />*/}
-                        {/*                </Grid></Grid>*/}
-                        {/*            </Grid>*/}
-
-                        {/*            <Grid item xs={12} md={6} >*/}
-
-                        {/*                <Box*/}
-                        {/*                    display="flex"*/}
-                        {/*                    justifyContent="center"*/}
-                        {/*                    alignItems="center"*/}
-                        {/*                    marginTop={1}*/}
-                        {/*                    marginLeft={1}*/}
-                        {/*                >*/}
-                        {/*                    /!*<input accept="image/*" id="icon-button-file" type="file"  required/>*!/*/}
-                        {/*                </Box>*/}
-
-                        {/*            </Grid>*/}
-                        {/*        </Grid>*/}
-                        {/*    </Card>*/}
-                        {/*</Container>*/}
-
+                       
                             <Button
                                 fullWidth
                                 variant="contained"
