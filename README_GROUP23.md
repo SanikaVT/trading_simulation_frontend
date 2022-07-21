@@ -227,5 +227,10 @@ We have hosted our application on the Heroku Platform. We have first build our r
 - [4] “Data grid,” Mui.com. [Online]. Available: https://mui.com/x/react-data-grid/. [Accessed: 09-Jun-2022].
 
 - [5] “How to display image in a @mui/x-data-grid table?,” Stack Overflow. [Online]. Available: https://stackoverflow.com/questions/70449488/how-to-display-image-in-a-mui-x-data-grid-table. [Accessed: 10-Jun-2022].
-    
 
+- [6] Programming with Mosh, “How to build a REST API with Node js & Express,” 08-Mar-2018. [Online]. Available: https://www.youtube.com/watch?v=pKd0Rpw7O48. [Accessed: 10-Jul-2022].
+
+- [7] “Express basic routing,” Expressjs.com. [Online]. Available: https://expressjs.com/en/starter/basic-routing.html. [Accessed: 10-Jul-2022].
+
+- [8] D. Landup, “Building a REST API with Node and express,” Stack Abuse, 14-Oct-2019. [Online]. Available: https://stackabuse.com/building-a-rest-api-with-node-and-express/. [Accessed: 11-Jul-2022].
+    
