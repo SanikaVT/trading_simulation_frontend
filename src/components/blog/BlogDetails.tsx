@@ -118,10 +118,10 @@ export default function BlogDetails() {
     }
     const card_border = {
         backgroundColor: "white",
-        // borderRadius: "10px",
+        
         borderWidth: 1,
         paddingBottom: 2,
-        // alignLeft:20,
+        
     };
 
     const editblog = () => {
@@ -187,7 +187,7 @@ export default function BlogDetails() {
                 console.log(error);
             
             });
-        // setlikeOpen(true);
+        
     }
     const likeblogclose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
@@ -285,7 +285,7 @@ export default function BlogDetails() {
                             commentID = {comments2.commentID}
                             comment = {comments2.comment}
                             first_name = {comments2.first_name}
-                            // rerender={setLoading}
+                            
                         />
                     );
                 })}
