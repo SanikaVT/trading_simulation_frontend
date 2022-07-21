@@ -96,6 +96,7 @@ function SellTradeModal(props: any) {
   const [quantityLeftError, setQuantityLeftError] = useState(false);
   const [marginAvailable, setMarginAvailable] = useState(0);
   const navigate = useNavigate();
+
   return (
     <>
       <Modal

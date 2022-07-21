@@ -7,37 +7,41 @@ import * as React from "react";
 import Grid from "@mui/material/Grid";
 
 export default function BlogCard(props: any) {
-
-
   function openblog(id: string) {
     window.location.href = `/blogdetails/${id}`;
-  
   }
 
   const card_border = {
     backgroundColor: "white",
     borderRadius: "10px",
-    borderWidth: 1,
-  height:"100%",
-    display: 'flex',
+    border: "2px solid #2E8BC0",
+    height: "15rem",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
 
-
   return (
-    <Grid item xs={12} md={3} style={{display: 'flex'}} >
-      <Card sx={{  height:300, width:300, maxWidth: 300, maxHeight: 500}} style={card_border}>
+    <Grid item xs={12} md={3} style={{ display: "flex" }}>
+      <Card style={card_border} elevation={5}>
         <ButtonBase onClick={() => openblog(props.blogsID)}>
           {/* <CardActionArea> */}
 
-            <CardContent>
-
-              <Typography gutterBottom variant="h5" component="div" align={"center"}>
-                 {props.title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {props.description}
-              </Typography>
-            </CardContent>
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              align={"center"}
+              style={{color:'black',fontWeight:'bolder'}}
+            >
+              {props.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {props.description}
+            </Typography>
+          </CardContent>
           {/* </CardActionArea> */}
         </ButtonBase>
       </Card>

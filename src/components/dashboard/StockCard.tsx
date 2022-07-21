@@ -61,7 +61,7 @@ function StockCard(props: any) {
         },
       })
       .then(function(response) {
-        if (response.data.count === 0) {
+        if (response.data.count <= 0) {
           setSellModalInActive(true);
         } else {
           setSellModalInActive(false);

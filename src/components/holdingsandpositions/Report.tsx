@@ -40,6 +40,7 @@ function Report() {
     <div>
       <br />
       <Grid
+        style={{marginBottom:'1rem'}}
         container
         direction="row"
         alignItems="center"

@@ -111,6 +111,7 @@ function NewsComp() {
             {newsData.map((myVariable) => {
               return (
                 <NewsCard
+                key={Math.random()}
                   news_topic={myVariable.news_topic}
                   news_content={myVariable.news_content}
                   newsID={myVariable.newsID}

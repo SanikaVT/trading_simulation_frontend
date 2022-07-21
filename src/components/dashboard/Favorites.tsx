@@ -51,10 +51,8 @@ function Favorites(props: any) {
           },
         }}
       >
-        {/* Here the splide component is responsible for auto sliding */}
-
         {props.stocksData.length > 0 ? (
-          props.stocksDatma.map((stock: StockSymbol) => (
+          props.stocksData.map((stock: StockSymbol) => (
             <SplideSlide key={Math.random()}>
               <StockCard
                 stock={stock}

@@ -53,11 +53,6 @@ const useStyles = makeStyles({
 });
 
 export default function SignIn() {
-  // const Centeral ={
-  //     justifyContent: 'center',
-  //     paddingLeft:'125px'
-  // };
-
   const Color = {
     color: "black",
     borderWidth: 1,

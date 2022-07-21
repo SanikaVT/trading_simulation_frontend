@@ -45,7 +45,7 @@ export default function ResponsiveDatePickers() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Stack spacing={3}>
-        <Card className="margin">
+        <Card className="margin" style={{ padding: "2rem" }}>
           <Grid
             container
             direction="row"
