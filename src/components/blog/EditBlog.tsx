@@ -1,3 +1,7 @@
+// @author Dharmay Dineshchandra Sureja
+// Banner id (B00904061)
+// email : dh276903@dal.ca
+// This component is responsible to edit blog and populate form to make changes to existing blog
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
@@ -10,7 +14,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+
 import * as React from "react";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -21,13 +25,7 @@ export default function EditBlog () {
     const form_data = {
         blogsID:id
     };
-    // const [title1, setTitle] = useState("");
-    // const [description1, setDescription] = useState("");
-    // const [content1, setContent] = useState("");
-    // const [blogsID, setBlogsID] = useState();
-    // const [userID, setuserID] = useState();
-
-    // const [blogsData, setBlogsData] = useState(initialBlogs);
+    
     const initialValues = {
         title: "",
         description: "",
@@ -135,10 +133,7 @@ export default function EditBlog () {
 
                             label="Blog Title"
                             name='title'
-                            // defaultValue={title1}
-
-                            // defaultValue={initialValues.description}
-                            // value = {title1}
+                            
                             onChange={handleChange}
                              value={formValue.title}
                             required
@@ -170,39 +165,7 @@ export default function EditBlog () {
                             sx={{ marginTop:1, marginBottom:2}}
                         />
 
-                        {/*<Container maxWidth="sm">*/}
-                        {/*    <Card  variant="outlined" style={card_1} >*/}
-                        {/*        <Grid container spacing={2}  >*/}
-                        {/*            <Grid item xs={12} md={5} >*/}
-                        {/*                <Grid container alignItems="center"*/}
-                        {/*                      justifyContent="center">*/}
-                        {/*                    <Grid item>*/}
-                        {/*                        <Typography variant="h5" align={"center"}>*/}
-                        {/*                            Upload Image*/}
-                        {/*                        </Typography>*/}
-                        {/*                    </Grid>*/}
-                        {/*                    <Grid >*/}
-                        {/*                        <PhotoCamera sx={{mt:1}} />*/}
-                        {/*                    </Grid></Grid>*/}
-                        {/*            </Grid>*/}
-
-                        {/*            <Grid item xs={12} md={6} >*/}
-
-                        {/*                <Box*/}
-                        {/*                    display="flex"*/}
-                        {/*                    justifyContent="center"*/}
-                        {/*                    alignItems="center"*/}
-                        {/*                    marginTop={1}*/}
-                        {/*                    marginLeft={1}*/}
-                        {/*                >*/}
-                        {/*                    /!*<input accept="image/*" id="icon-button-file" type="file"  required/>*!/*/}
-                        {/*                </Box>*/}
-
-                        {/*            </Grid>*/}
-                        {/*        </Grid>*/}
-                        {/*    </Card>*/}
-                        {/*</Container>*/}
-
+                       
                         <Button
                             fullWidth
                             variant="contained"
