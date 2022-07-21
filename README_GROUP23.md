@@ -6,7 +6,7 @@ A stock trade simulation program. With this applciaton the user can gain knowled
 * *Last Modification Date*: 2022/07/20
 * *Backend Git URL*: https://git.cs.dal.ca/ugandhi/dtradeapi
 * *Frontend Git URL*: https://git.cs.dal.ca/qsun/csci5709-group23
-* *Deploy URL*: https://webassignment3group23.herokuapp.com/
+* *Deploy URL*: https://app-dtrade.herokuapp.com/
 
 ## Authors
 
@@ -124,12 +124,40 @@ A step by step series of examples that tell you how to get a development env run
 
 ```
 1. Install node js
-2. npm install
-3. npm start
+2. Verify installation by running node -v and npm -v on the terminal.
+3. npm install
+4. npm start
 ```
+## Available Scripts
 
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.
+Open [http://localhost:3100] to view it in your browser.
+
+The page will reload when you make changes.
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+###Code Integration
+Buying and selling a stock is dependedent on the user profile module. If a user has credits then only he can buy stocks. Also, when the user buys a stock, credits gets deducted from the user. If the user credits are not enough, he/she wont be able to buy a stock. When the user sells a stock, the amount at that time for that stock gets credited to the user account.
 
 ### Deployment
+We have hosted our application on the Heroku Platform. We have first build our react application using the npm run build command. Then on the backend express server we have served the link to our static application that we have built using the npm run build command. Once we have successfully tested our application locally we have finally hosted the application on Heroku platform.
 
 ```
 1. Create a heroku account and create a empty applciaton
@@ -143,23 +171,66 @@ A step by step series of examples that tell you how to get a development env run
     $ git commit -am "make it better"
     $ git push heroku master
 ```
+## Sources used
+
+- Compression - https://www.npmjs.com/package/compression
+- Concurrently - https://www.npmjs.com/package/concurrently
+- Cors - https://www.npmjs.com/package/cors
+- DotEnv - https://www.npmjs.com/package/dotenv
+- Envalid - https://www.npmjs.com/package/envalid
+- Express - https://www.npmjs.com/package/express
+- Helmet - https://www.npmjs.com/package/helmet
+- Joi - https://www.npmjs.com/package/joi
+- Module-alias - https://www.npmjs.com/package/module-alias
+- MongoDB - https://www.npmjs.com/package/mongodb
+- Mongoose - https://www.npmjs.com/package/mongoose
+- Mongoose-unique-validator - https://www.npmjs.com/package/mongoose-unique-validator
+- Morgan - https://www.npmjs.com/package/morgan
+- Nodemon - https://www.npmjs.com/search?q=nodemon
+- Random-number -https://www.npmjs.com/package/random-number
 
 
 ## Built With
 
-
-* [React](https://reactjs.org/) - The web framework used
-* [Node](https://nodejs.org/en/) - Dependency Management
-* [mongodb](https://www.mongodb.com/) - Nosql database
+* [React] (https://reactjs.org/) - Frontend framework
+* [Heroku] (https://dashboard.heroku.com/login) - Cloud platform to deploy application
+* [Express] (https://expressjs.com/) - Web framework for Nodejs
+* [Postman] (https://www.postman.com/) - API testing software
+* [MongoCompass] - Tool used to check the collections and data on the database
+* [MongoDB] (https://www.mongodb.com/) - NoSQL Database for data storage
+* [NPM] (https://www.npmjs.com/) - Nodejs package manager
+* [Nodejs] (https://nodejs.org/en/) - Backend Javascript Runtime
+* [VSCode] (https://code.visualstudio.com/) - IDE used for development
+* [Gitlab] (https://git.cs.dal.ca/) - Repository and version control system
+* [MicrosoftEdge] (https://www.google.com/intl/en_ca/chrome/) - Browser of choice for testing frontend changes
 
 
 ## Acknowledgments
 
 * [MUI](https://mui.com/material-ui/) - Frontend UI components
-* [Draw.io](https://app.diagrams.net/) - Wireframe tools
 * [Cacco.com]( https://cacoo.com ) - Flow chart
 * [ Xtensio.com ](https://xtensio.com/user-persona-template/) - User Personal
+* [Draw.io](https://app.diagrams.net/) - Wireframe tools
 * [Wireframe.Cc](https://wireframe.cc/) - Wireframe
+* [Balsamiq Wireframes]( https://balsamiq.com/wireframes/?gclid=Cj0KCQjw1tGUBhDXARIsAIJx01lmbtHc9AJC4JTWw46YYzyqkKjO6rhmUBz9xHxAZ7dzOHVfhoNZdB4aAkHBEALw_wcB.) - Wireframe
+* [Stock screener]( https://www.nasdaq.com/market-activity/stocks/screener) - UI reference
+* [Stock analytics](https://dribbble.com/search/stock-analytics) - UI reference 
 
+## References
+
+- [1] “How to pass multiple state through link in ReactJS,” Stack Overflow. [Online]. Available: https://stackoverflow.com/questions/47484406/how-to-pass-multiple-state-through-link-in-reactjs. [Accessed: 08-Jun-2022].
+
+- [2] S. Hall, “Implementing a search bar feature in React - Sam hall,” Medium, 25-Mar-2021. [Online]. Available: https://samhalll.medium.com/implementing-a-search-bar-feature-in-react-10739d594f79. [Accessed: 08-Jun-2022].
+
+- [3] G. Singhal, “How to router redirect after Login,” Pluralsight.com. [Online]. Available: https://www.pluralsight.com/guides/how-to-router-redirect-after-login. [Accessed: 09-Jun-2022].
+
+- [4] “Data grid,” Mui.com. [Online]. Available: https://mui.com/x/react-data-grid/. [Accessed: 09-Jun-2022].
+
+- [5] “How to display image in a @mui/x-data-grid table?,” Stack Overflow. [Online]. Available: https://stackoverflow.com/questions/70449488/how-to-display-image-in-a-mui-x-data-grid-table. [Accessed: 10-Jun-2022].
+
+- [6] Programming with Mosh, “How to build a REST API with Node js & Express,” 08-Mar-2018. [Online]. Available: https://www.youtube.com/watch?v=pKd0Rpw7O48. [Accessed: 10-Jul-2022].
+
+- [7] “Express basic routing,” Expressjs.com. [Online]. Available: https://expressjs.com/en/starter/basic-routing.html. [Accessed: 10-Jul-2022].
+
+- [8] D. Landup, “Building a REST API with Node and express,” Stack Abuse, 14-Oct-2019. [Online]. Available: https://stackabuse.com/building-a-rest-api-with-node-and-express/. [Accessed: 11-Jul-2022].
     
-
